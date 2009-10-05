@@ -5,19 +5,41 @@
     %title= "#{controller.class.to_s}: #{controller.action_name}"
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
     %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
-    = stylesheet_link_tag "application", :media => "screen"
+    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
+    /[if lt IE 8]
+      = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+
     = javascript_include_tag :defaults
-  %body
-    #wrapper
-      #content
-        %h1 Jrbh-worklog
+  %body#four-col.bp
+    .container
+      #header
+        %center
+          %h1 JRBH
+        %hr
         #flash
           - unless flash.empty?
             = content_tag :div, flash[:notice],  :class => "notice"  if flash[:notice]
             = content_tag :div, flash[:warning], :class => "warning" if flash[:warning]
             = content_tag :div, flash[:error],   :class => "error"   if flash[:error]
+            %hr
           :javascript
             #{visual_effect :highlight, "flash"}
+      #sidebar
+        %ul
+          %li= link_to 'Worklog v3.0', root_path # worklog_path
+          %li= link_to 'Other tool', root_path # some_path
+          %li= link_to 'Another tool', root_path # some_path
 
+        %hr
         
+        %ul
+          %li= link_to 'Administrator panel', root_path # admin_path
+
+      #content
         = yield
+
+      %hr
+      #footer
+        %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1 Y6LX
+        

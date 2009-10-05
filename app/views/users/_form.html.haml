@@ -1,20 +1,17 @@
 - form_for(user) do |f|
   = f.error_messages
   %p
-    = f.label :login
+    = f.label 'Username'
     %br
     = f.text_field :login
   %p
-    = f.label :alias
+    = f.label 'Acronym (i.e. JH)'
     %br
     = f.text_field :alias
   %p
-    = f.label :password
-    %br
-    = f.text_field :password
-  %p
-    = f.label :password_confirmation
-    %br
-    = f.text_field :password_confirmation
+    = f.label 'Has admin rights'
+    = f.check_box :admin
   %p
     = f.submit "Submit"
+    // TODO:see if we can add a validation that the username exists in LDAP
+    

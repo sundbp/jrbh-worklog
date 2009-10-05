@@ -1,15 +1,18 @@
-%h2= "User \"#{@user.to_param}\""
+%h2= "User \"#{@user.login}\""
 - content_tag_for :div, @user do
   %ul
     %li
       %strong Username:
-      =h @user.username
+      =h @user.login
     %li
       %strong Alias:
       =h @user.alias
-/    %li
-/      %strong Password:
-/      =h @user.password
+    %li
+      %strong Admin rights:
+      -if @user.admin
+        'Yes'
+      -else
+        'No'
 %ul
   %li= link_to 'Edit', edit_user_path(@user)
   %li= link_to 'Back', users_path

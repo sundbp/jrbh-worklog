@@ -9,16 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005101347) do
+ActiveRecord::Schema.define(:version => 20091005201944) do
 
   create_table "users", :force => true do |t|
     t.string   "login"
     t.string   "alias"
-    t.string   "crypted_password"
-    t.string   "password_salt"
-    t.string   "persistance_token"
+    t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "login_count"
+    t.datetime "last_request_at"
+    t.datetime "last_login_at"
+    t.datetime "current_login_at"
+    t.string   "last_login_ip"
+    t.string   "current_login_ip"
+    t.boolean  "admin"
   end
 
 end

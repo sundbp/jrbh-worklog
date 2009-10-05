@@ -6,9 +6,12 @@
     %li
       %strong Alias:
       =h user.alias
-/    %li
-/      %strong Password:
-/      =h user.password
+    %li
+      %strong Admin rights:
+      -if user.admin
+        'Yes'
+      -else
+        'No'
 
     = link_to 'Show', user
     = link_to 'Edit', edit_user_path(user)

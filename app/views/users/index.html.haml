@@ -1,8 +1,8 @@
-%h2 Listing users
+%h2 Currently registered users
 - if !@users.empty?
   .users
     = render :partial => "user", :collection => @users
   = will_paginate(@users)
 - else
   %p There are no users to show yet.
-= link_to 'New user', new_user_path
+= link_to 'Add user', new_user_path
