@@ -1,0 +1,15 @@
+%h2= "User \"#{@user.to_param}\""
+- content_tag_for :div, @user do
+  %ul
+    %li
+      %strong Username:
+      =h @user.username
+    %li
+      %strong Alias:
+      =h @user.alias
+/    %li
+/      %strong Password:
+/      =h @user.password
+%ul
+  %li= link_to 'Edit', edit_user_path(@user)
+  %li= link_to 'Back', users_path
