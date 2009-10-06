@@ -1,3 +1,4 @@
+// styling for a general blueprint page
 // This import applies a global reset to any page that imports this stylesheet.
 @import blueprint/reset.sass
 // To configure blueprint, edit the partials/base.sass file.
@@ -9,39 +10,19 @@
 
 @import compass/utilities.sass
 
-// To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
-// +blueprint
-
-//Recommended Blueprint configuration with scoping and semantic layout:
-+blueprint-typography("body.bp")
-+blueprint-scaffolding("body.bp")
-
-body.bp
+=bp_general()
+  +blueprint-typography
+  +blueprint-scaffolding
   +blueprint-utilities
   +blueprint-debug
   +blueprint-interaction
   +blueprint-form
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
-  // turn on and off debug grid
-  //+showgrid
-  
-//form.bp
-//  +blueprint-form
 
-body#four-col
   .container
     +container
-  #header, #footer
+
+  #header, #footer, #main
     +column(!blueprint_grid_columns)
-  #sidebar
-    !sidebar_columns = floor(!blueprint_grid_columns / 5 )
-    +column(!sidebar_columns)
-    +colborder
-  #content
-    !content_columns = ceil( 4 * !blueprint_grid_columns / 5 ) - 1
-    // true means it's the last column in the row
-    +column(!content_columns, true)
 
   #header, #footer, #sidebar
     a
@@ -57,3 +38,30 @@ body#four-col
       width: 209px
       height: 70px
       margin-top: 0.5em
+
+
+//html
+//  +showgrid   // show grid for debugging alignment
+
+body.bp-general
+  +bp_general
+
+body.bp-general-with-sidebar
+  +bp_general
+
+  #sidebar
+    !sidebar_columns = floor(!blueprint_grid_columns / 5 )
+    +column(!sidebar_columns)
+    +colborder
+    a
+      +hover-link
+    ul
+      +no-bullets
+
+  #content
+    !content_columns = ceil( 4 * !blueprint_grid_columns / 5 ) - 1
+    // true means it's the last column in the row
+    +column(!content_columns, true)
+    
+//body#users
+//  special things for the users page..
