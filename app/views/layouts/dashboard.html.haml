@@ -10,16 +10,11 @@
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
 
-    = javascript_include_tag :defaults
-  %body.bp-general-with-sidebar
+  %body#dashboard.bp-general
     .container
       #header
-        #logo
+        %center
           %h1 JRBH
-        #title
-          %center
-            %h2 XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
         %hr
         #flash
           - unless flash.empty?
@@ -31,14 +26,12 @@
             #{visual_effect :highlight, "flash"}
 
       #main
-        #sidebar
-          = render :partial => 'sidebar'
-        #content
-          = yield
+        = yield
 
       #footer
         %hr
         #copyright
           %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
         #produced-with
-          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}"
+          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."
+      

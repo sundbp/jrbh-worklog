@@ -18,8 +18,7 @@
           %h1 JRBH
         #title
           %center
-            %h2 XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
+            %h2 Administration Panel
         %hr
         #flash
           - unless flash.empty?
@@ -32,7 +31,29 @@
 
       #main
         #sidebar
-          = render :partial => 'sidebar'
+          #sidebar-header
+            =link_to 'Dashboard', :controller => :dashboard
+          #user-info
+            - unless current_user.blank?
+              %ul
+                %li= "Logged in user: #{link_to current_user.alias, :controller => :users, :action => :show, :id => current_user.id}"
+                %li= "|"
+                %li= link_to 'Logout', :controller => :logout
+          #sidebar-content
+            %h3 Admin Panel
+            %p.heading Users
+            %ul
+              %li= link_to 'Edit/Delete users', :controller => :users
+              %li= link_to 'Add user', :controller => :users, :action => :new
+            %p.heading Companies
+            %ul
+              %li= link_to 'Edit/Delete companies', :controller => :users
+              %li= link_to 'Add company', :controller => :users, :action => :new
+            %p.heading Worklog Tasks
+            %ul
+              %li= link_to 'Edit/Delete tasks', :controller => :users
+              %li= link_to 'Add task', :controller => :users, :action => :new
+
         #content
           = yield
 
@@ -41,4 +62,4 @@
         #copyright
           %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
         #produced-with
-          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}"
+          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."

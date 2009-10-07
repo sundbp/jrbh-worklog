@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-
   before_filter :find_user
-
+  before_filter :require_user
+  
+  layout "admin_panel"
+  
   USERS_PER_PAGE = 20
 
   def create

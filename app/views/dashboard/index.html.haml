@@ -1,6 +1,37 @@
-- if @current_user
-  %h2= "You are logged in as " + current_user.login
-- else
-  %p You are nog logged in. Please log in using the link below:
-  =link_to 'Login', login_path
-  
+%center
+  %h2= "Dashboard for user: " + current_user.login
+
+#worklog
+  %p.heading Worlog v3.0
+  %ul
+    %li= link_to 'Log time', :controller => :users
+    %li= link_to 'Weekly view', :controller => :users, :action => :new
+    %li= link_to 'Monthly view', :controller => :users, :action => :new
+
+#other-app
+  %p.heading Other application
+  %ul
+    %li= link_to 'Function 1', root_path
+    %li= link_to 'Function 2', root_path
+    %li= link_to 'Function 3', root_path
+
+-# Admin panel if we have an admin logged in
+-if current_user.admin
+  %hr
+  %center
+    %h3 Administrator Panel
+  #users
+    %p.heading Users
+    %ul
+      %li= link_to 'Edit/Delete users', :controller => :users
+      %li= link_to 'Add user', :controller => :users, :action => :new
+  #companies
+    %p.heading Companies
+    %ul
+      %li= link_to 'Edit/Delete companies', :controller => :companies
+      %li= link_to 'Add company', :controller => :companies, :action => :new
+  #worklog-tasks
+    %p.heading Worklog Tasks
+    %ul
+      %li= link_to 'Edit/Delete tasks', :controller => :worklog_tasks
+      %li= link_to 'Add task', :controller => :worklog_tasks, :action => :new

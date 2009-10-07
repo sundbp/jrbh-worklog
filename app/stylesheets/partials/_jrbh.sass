@@ -1,0 +1,88 @@
+// This import applies a global reset to any page that imports this stylesheet.
+@import blueprint/reset.sass
+// To configure blueprint, edit the partials/base.sass file.
+@import partials/base.sass
+// Import all the default blueprint modules so that we can access their mixins.
+@import blueprint
+// Import the non-default scaffolding module.
+@import blueprint/modules/scaffolding.sass
+
+@import compass/utilities.sass
+
+// styling for a general blueprint page
+=bp_general()
+  +blueprint-typography
+  +blueprint-scaffolding
+  +blueprint-utilities
+  +blueprint-debug
+  +blueprint-interaction
+  +blueprint-form
+
+  .container
+    +container
+
+  #header, #footer, #main
+    +column(!blueprint_grid_columns)
+
+  #header, #footer
+    a
+      +hover-link
+
+  #header
+    h1
+      +replace-text("jrbh-logo-white-small.png")
+      width: 209px
+      height: 70px
+      margin-top: 0.2em
+    #logo
+      +column(5)
+    #title
+      margin-top: 2.5em
+      +column(19, true)
+
+    h2
+      margin-bottom: 0.2em
+
+    h1
+      margin-bottom: 0.2em
+      
+  #footer
+    #copyright
+      float: left
+    #produced-with
+      float: right
+
+=bp_general_with_sidebar()
+  +bp_general
+
+  #main
+    #sidebar
+      !sidebar_columns = 5
+      +column(!sidebar_columns)
+      +border
+      #sidebar-header
+        a
+          +hover-link
+          font-size: 2em
+          color: #000
+      #user-info
+        font-size: 14px
+        a
+          +hover-link
+        ul
+          margin: 0px
+          +horizontal-list
+        +append-bottom
+        
+      #sidebar-content
+        a
+          +hover-link
+        ul
+          +pretty-bullets("blue_arrow.gif", 5px, 7px )
+
+
+    #content
+      !content_columns = 18
+      // true means it's the last column in the row
+      +prepend(1)
+      +column(!content_columns, true)
