@@ -29,7 +29,7 @@
          self._renderCalendar();
          self._loadCalEvents();
          self._resizeCalendar();
-         self._scrollToHour(self.options.date.getHours());
+         self._scrollToHour(8); /* self.options.date.getHours()); */
 
          $(window).unbind("resize.weekcalendar");
          $(window).bind("resize.weekcalendar", function() {
@@ -950,8 +950,8 @@
       _refreshEventDetails : function(calEvent, $calEvent) {
          var self = this;
          var options = this.options;
-         $calEvent.find(".wc-time").text(self._formatDate(calEvent.start, options.timeFormat) + options.timeSeparator + self._formatDate(calEvent.end, options.timeFormat));
-         $calEvent.find(".wc-title").text(calEvent.title);
+         $calEvent.find(".wc-time").text(calEvent.title);
+         $calEvent.find(".wc-title").text(self._formatDate(calEvent.start, options.timeFormat) + options.timeSeparator + self._formatDate(calEvent.end, options.timeFormat));
          $calEvent.data("calEvent", calEvent);
       }
       ,

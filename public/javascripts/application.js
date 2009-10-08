@@ -10,13 +10,14 @@ $(document).ready(function() {
       firstDayOfWeek : 6,
       businessHours :{start: 8, end: 19, limitDisplay: false },
       daysToShow : 7,
-      timeFormat : "g:i",
+      timeFormat : "G:i",
+      use24Hour : true,
       dateFormat : "j M Y",
       height : function($calendar) {
          return $(window).height() - $('#header').outerHeight() - $('#footer').outerHeight() - 1;
       },
       eventRender : function(calEvent, $event) {
-         if (calEvent.end.getTime() < new Date().getTime()) {
+         if (calEvent.end.getTime() > new Date().getTime()) {
             $event.css("backgroundColor", "#aaa");
             $event.find(".wc-time").css({
                "backgroundColor" : "#999",

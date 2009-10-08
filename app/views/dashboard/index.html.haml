@@ -1,5 +1,6 @@
 %center
-  %h2= "Dashboard for user: " + current_user.login
+  %h2= "Dashboard for user: " + current_user.alias + "(" + current_user.login + ")"
+  %h4= link_to 'Logout', logout_path
 
 #worklog
   %p.heading Worlog v3.0

@@ -1,3 +1,5 @@
+#login-pad-left
+  %hr
 #login-box
   %h1 Login
   - form_for @user_session, :url => user_session_path do |f|
@@ -15,4 +17,5 @@
       = f.label :remember_me
     %p
       = f.submit 'Login'
-  
+#login-pad-right
+  %hr  

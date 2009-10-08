@@ -6,9 +6,17 @@
 body.bp-general
   +bp_general
 
+  #login-pad-left
+    +column(9)
+    hr
+      +colspacer
   #login-box
-    +prepend(9)
-
+    +column(6)
+  #login-pad-right
+    +column(9, true)
+    hr
+      +colspacer
+      
 body.bp-general-with-sidebar
   +bp_general_with_sidebar()
   #sidebar
@@ -17,6 +25,10 @@ body.bp-general-with-sidebar
       margin-bottom: 0.3em
   
 body#dashboard
+  h2
+    margin-bottom: 0.1em
+  h4
+    margin-bottom: 0.2em
 
   .heading
     font-size: 1.2em
@@ -57,6 +69,17 @@ body#worklog
   +standard-mixins()
   +standard-footer()
 
+  #calendar
+    +jquery-weekcalendar-reset
+    +jquery-weekcalendar-styles
+    .wc-header
+      margin-bottom: 0px
+      td
+        background: url(/images/header-bg.png) repeat-x
+    //.wc-grid-timeslot-header
+    //padding-top: 0px
+    //padding-bottom: 0px
+
   #header
     h1
       +replace-text("jrbh-logo-white-small.png")
@@ -81,7 +104,7 @@ body#worklog
       #dashboard-info
         a
           +hover-link
-          color: #000
+          //color: #000
         margin-top: 2.0em
         font-size: 1.2em
         float: left
@@ -96,11 +119,6 @@ body#worklog
           +horizontal-list
         +append-bottom
 
-  #calendar
-    .wc-header
-      margin-bottom: 0px
-      td
-        background: url(/images/header-bg.png) repeat-x
 
   #event_edit_container
     display: none
