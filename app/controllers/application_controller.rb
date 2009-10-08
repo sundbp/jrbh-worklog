@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
 
   helper_method :current_user_session, :current_user
-  helper_method :require_user, :require_no_user
+  helper_method :require_user, :require_no_user, :require_admin_user
   
   private
     def current_user_session
@@ -36,6 +36,15 @@ class ApplicationController < ActionController::Base
           store_location
           flash[:notice] = "You must be logged out to access this page"
           redirect_back_or_default root_url
+          return false
+        end
+      end
+
+      def require_admin_user
+        if require_user and current_user.admin?
+          store_location
+          flash[:notice] = "You must be logged in as an admin user to access this page"
+          redirect_to root_url
           return false
         end
       end

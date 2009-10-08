@@ -9,7 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005201944) do
+ActiveRecord::Schema.define(:version => 20091008102335) do
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login"
@@ -24,6 +30,13 @@ ActiveRecord::Schema.define(:version => 20091005201944) do
     t.string   "last_login_ip"
     t.string   "current_login_ip"
     t.boolean  "admin"
+  end
+
+  create_table "worklog_tasks", :force => true do |t|
+    t.string   "name"
+    t.integer  "company_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

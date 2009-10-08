@@ -1,0 +1,9 @@
+- content_tag_for :div, company do
+  %ul
+    %li
+      %strong Name:
+      =h company.name
+
+    = link_to 'Show', company
+    = link_to 'Edit', edit_company_path(company)
+    = link_to 'Destroy', company, :confirm => 'Are you sure?', :method => :delete

@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :worklog_tasks
+
+  map.resources :companies
+
   map.root :controller => 'dashboard'
   map.resources :users
   map.resource :user_session

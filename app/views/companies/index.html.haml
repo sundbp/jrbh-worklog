@@ -1,0 +1,7 @@
+%h2 Companies available in the database
+- if !@companies.empty?
+  .companies
+    = render :partial => "company", :collection => @companies
+  = will_paginate(@companies)
+- else
+  %p There are no companies to show yet.

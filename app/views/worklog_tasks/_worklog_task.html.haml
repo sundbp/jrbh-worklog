@@ -1,0 +1,11 @@
+- content_tag_for :div, worklog_task do
+  %ul
+    %li
+      %strong Name:
+      =h worklog_task.name
+    %li
+      %strong Company:
+      =h worklog_task.company.name
+    = link_to 'Show', worklog_task
+    = link_to 'Edit', edit_worklog_task_path(worklog_task)
+    = link_to 'Destroy', worklog_task, :confirm => 'Are you sure?', :method => :delete

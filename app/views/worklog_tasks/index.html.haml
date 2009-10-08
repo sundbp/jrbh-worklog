@@ -1,0 +1,7 @@
+%h2 Worklog tasks available in the database
+- if !@worklog_tasks.empty?
+  .worklog_tasks
+    = render :partial => "worklog_task", :collection => @worklog_tasks
+  = will_paginate(@worklog_tasks)
+- else
+  %p There are no worklog tasks to show yet.

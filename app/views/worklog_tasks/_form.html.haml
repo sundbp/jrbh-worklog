@@ -1,0 +1,12 @@
+- form_for(worklog_task) do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  %p
+    = f.label :company_id
+    %br
+    = f.select :company_id, available_companies
+  %p
+    = f.submit "Submit"

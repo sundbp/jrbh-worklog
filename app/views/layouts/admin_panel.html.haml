@@ -47,12 +47,12 @@
               %li= link_to 'Add user', :controller => :users, :action => :new
             %p.heading Companies
             %ul
-              %li= link_to 'Edit/Delete companies', :controller => :users
-              %li= link_to 'Add company', :controller => :users, :action => :new
+              %li= link_to 'Edit/Delete companies', :controller => :companies
+              %li= link_to 'Add company', :controller => :companies, :action => :new
             %p.heading Worklog Tasks
             %ul
-              %li= link_to 'Edit/Delete tasks', :controller => :users
-              %li= link_to 'Add task', :controller => :users, :action => :new
+              %li= link_to 'Edit/Delete tasks', :controller => :worklog_tasks
+              %li= link_to 'Add task', :controller => :worklog_tasks, :action => :new
 
         #content
           = yield

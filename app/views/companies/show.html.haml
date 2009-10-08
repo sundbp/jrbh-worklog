@@ -1,0 +1,9 @@
+%h2= "Company \"#{@company.name}\""
+- content_tag_for :div, @company do
+  %ul
+    %li
+      %strong Name:
+      =h @company.name
+%ul
+  %li= link_to 'Edit', edit_company_path(@company)
+  %li= link_to 'Back', companies_path
