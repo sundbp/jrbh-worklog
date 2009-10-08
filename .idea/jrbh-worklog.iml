@@ -12,6 +12,12 @@
   <component name="GemRequirementsHolder">
     <requirement>
       <requirement>
+        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/database.yml" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
@@ -28,12 +34,6 @@
         <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/database.yml" />
     </requirement>
     <requirement>
       <requirement>

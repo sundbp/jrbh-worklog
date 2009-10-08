@@ -9,20 +9,32 @@
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css'
     = stylesheet_link_tag 'jquery.weekcalendar.css', :media => 'screen, projection'
 
-    = javascript_include_tag :defaults
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'
     = javascript_include_tag 'jquery.weekcalendar.js'
-    
-  %body.bp-general-with-sidebar
+    = javascript_include_tag 'application.js'
+    = javascript_include_tag 'jrails.js'
+           
+  %body#worklog
     .container
       #header
         #logo
           %h1 JRBH
-        #title
+        #text-header
           %center
             %h2= controller.class.to_s.capitalize.match(/(.*)controller/)[1]
-
+        #links
+          #dashboard-info
+            =link_to 'Back to Dashboard', :controller => :dashboard
+          #user-info
+            - unless current_user.blank?
+              %ul
+                %li= "Logged in user: #{link_to current_user.alias, :controller => :users, :action => :show, :id => current_user.id}"
+                %li= "|"
+                %li= link_to 'Logout', :controller => :logout
         %hr
         #flash
           - unless flash.empty?
@@ -34,14 +46,11 @@
             #{visual_effect :highlight, "flash"}
 
       #main
-        #sidebar
-          = render :partial => 'sidebar'
         #content
           = yield
 
       #footer
-        %hr
         #copyright
-          %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
+          &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
         #produced-with
-          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."
+          = "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."

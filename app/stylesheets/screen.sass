@@ -53,5 +53,84 @@ body#dashboard
     +prepend(!admin_column_pad)
     +column(!admin_column_width, true)
 
+body#worklog
+  +standard-mixins()
+  +standard-footer()
+
+  #header
+    h1
+      +replace-text("jrbh-logo-white-small.png")
+      width: 190px
+      height: 64px
+      padding-top: 0.35em
+      margin-bottom: 0px
+    hr
+      margin-top: 0px
+      margin-bottom: 0em
+    h2
+      margin-bottom: 0px
+      
+    #logo
+      +column(5)
+
+    #text-header
+      margin-top: 1.7em
+      +column(10)
+    #links
+      +column(9, true)
+      #dashboard-info
+        a
+          +hover-link
+          color: #000
+        margin-top: 2.0em
+        font-size: 1.2em
+        float: left
+      #user-info
+        margin-top: 3.0em
+        float: right
+        font-size: 14px
+        a
+          +hover-link
+        ul
+          margin: 0px
+          +horizontal-list
+        +append-bottom
+
+  #calendar
+    .wc-header
+      margin-bottom: 0px
+      td
+        background: url(/images/header-bg.png) repeat-x
+
+  #event_edit_container
+    display: none
 
 
+  label
+    display: block
+    margin-top: 1em
+    margin-bottom: 0.5em
+
+  form ul
+    padding: 0.3em
+
+  select, input[type='text'], textarea
+    width: 250px
+    padding: 3px
+
+  input[type='text']
+    width: 245px
+
+  ul.formatted, ol.formatted
+    display: block
+    margin: 1em 0.5em
+
+  ul.formatted li, ol.formatted li
+    margin: 5px 30px
+    display: auto
+
+  ul.formatted li
+    list-style-type: disc
+
+  ol.formatted li
+    list-style-type: decimal

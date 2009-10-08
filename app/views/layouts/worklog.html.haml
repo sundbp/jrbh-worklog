@@ -2,22 +2,31 @@
 !!!
 %html{ :'xml:lang' => "en", :lang => "en" }
   %head
-    %title JRBH - Administration Panel
+    %title= "JRBH - #{controller.class.to_s}"
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
     %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
     = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
-    = javascript_include_tag :defaults
-  %body.bp-general-with-sidebar
+    = stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css'
+    = stylesheet_link_tag 'jquery.weekcalendar.css', :media => 'screen, projection'
+
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'
+    = javascript_include_tag 'jquery.weekcalendar.js'
+    = javascript_include_tag 'application.js'
+    = javascript_include_tag 'jrails.js'
+           
+  %body#worklog.bp-general-with-sidebar
     .container
       #header
         #logo
           %h1 JRBH
         #title
           %center
-            %h2 Administration Panel
+            %h2= controller.class.to_s.capitalize.match(/(.*)controller/)[1]
+
         %hr
         #flash
           - unless flash.empty?
@@ -30,29 +39,7 @@
 
       #main
         #sidebar
-          #sidebar-header
-            =link_to 'Dashboard', :controller => :dashboard
-          #user-info
-            - unless current_user.blank?
-              %ul
-                %li= "Logged in user: #{link_to current_user.alias, :controller => :users, :action => :show, :id => current_user.id}"
-                %li= "|"
-                %li= link_to 'Logout', :controller => :logout
-          #sidebar-content
-            %h3 Admin Panel
-            %p.heading Users
-            %ul
-              %li= link_to 'Edit/Delete users', :controller => :users
-              %li= link_to 'Add user', :controller => :users, :action => :new
-            %p.heading Companies
-            %ul
-              %li= link_to 'Edit/Delete companies', :controller => :companies
-              %li= link_to 'Add company', :controller => :companies, :action => :new
-            %p.heading Worklog Tasks
-            %ul
-              %li= link_to 'Edit/Delete tasks', :controller => :worklog_tasks
-              %li= link_to 'Add task', :controller => :worklog_tasks, :action => :new
-
+          = render :partial => 'sidebar'
         #content
           = yield
 

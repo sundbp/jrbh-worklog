@@ -1,2 +1,31 @@
-<h1>Worklog#edit</h1>
-<p>Find me in app/views/worklog/edit.html.erb</p>
+/%center
+/  %h3 Edit Worklog data
+#calendar
+#event_edit_container
+  %form
+    %input{ :type => "hidden" }
+    %ul
+      %li
+        %span
+          Date:
+        %span.date_holder
+      %li
+        %label{ :for => "start" }
+          Start Time:
+        %select{ :name => "start" }
+          %option{ :value => "" }
+            Select Start Time
+      %li
+        %label{ :for => "end" }
+          End Time:
+        %select{ :name => "end" }
+          %option{ :value => "" }
+            Select End Time
+      %li
+        %label{ :for => "title" }
+          Title:
+        %input{ :name => "title", :type => "text" }
+      %li
+        %label{ :for => "body" }
+          Body:
+        %textarea{ :name => "body" }
