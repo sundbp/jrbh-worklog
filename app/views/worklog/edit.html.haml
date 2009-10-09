@@ -6,6 +6,14 @@
     %input{ :type => "hidden" }
     %ul
       %li
+        %label{ :for => "title" }
+          Task:
+        %select{ :name => "title" }
+          %option IDIS
+          %option UNIVERSAL
+          %option Recruiting
+        /%input{ :name => "title", :type => "text" }
+      %li
         %span
           Date:
         %span.date_holder
@@ -21,11 +29,7 @@
         %select{ :name => "end" }
           %option{ :value => "" }
             Select End Time
-      %li
-        %label{ :for => "title" }
-          Title:
-        %input{ :name => "title", :type => "text" }
-      %li
-        %label{ :for => "body" }
-          Body:
-        %textarea{ :name => "body" }
+/      %li
+/        %label{ :for => "body" }
+/          Body:
+/        %textarea{ :name => "body" }

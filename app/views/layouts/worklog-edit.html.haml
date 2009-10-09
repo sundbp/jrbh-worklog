@@ -2,7 +2,7 @@
 !!!
 %html{ :'xml:lang' => "en", :lang => "en" }
   %head
-    %title= "JRBH - #{controller.class.to_s}"
+    %title JRBH - Worklog v3.0
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
     %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
     = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
@@ -27,7 +27,7 @@
           %h1 JRBH
         #text-header
           %center
-            %h2 Edit your Worklog
+            %h2 Edit worklog
         #links
           #dashboard-info
             =link_to 'Back to Dashboard', :controller => :dashboard
