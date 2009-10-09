@@ -1,0 +1,17 @@
+- content_tag_for :div, work_period do
+  %ul
+    %li
+      %strong Start:
+      =h work_period.start
+    %li
+      %strong End:
+      =h work_period.end
+    %li
+      %strong User:
+      =h work_period.user.alias
+    %li
+      %strong Worklog task:
+      =h work_period.worklog_task.name
+    = link_to 'Show', work_period
+    = link_to 'Edit', edit_work_period_path(work_period)
+    = link_to 'Destroy', work_period, :confirm => 'Are you sure?', :method => :delete

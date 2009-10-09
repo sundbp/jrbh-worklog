@@ -1,0 +1,6 @@
+%h2 Editing work_period
+= render :partial => "form", :locals => {:work_period => @work_period}
+%ul
+  %li= link_to 'Show', @work_period
+  %li= link_to 'Back', work_periods_path
+  %li= link_to 'Destroy', @work_period, :confirm => 'Are you sure?', :method => :delete  

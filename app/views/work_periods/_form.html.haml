@@ -1,0 +1,20 @@
+- form_for(work_period) do |f|
+  = f.error_messages
+  %p
+    = f.label :start
+    %br
+    = f.datetime_select :start
+  %p
+    = f.label :end
+    %br
+    = f.datetime_select :end
+  %p
+    = f.label :user_id
+    %br
+    = f.select :user_id, available_users
+  %p
+    = f.label :worklog_task_id
+    %br
+    = f.select :worklog_task_id, available_worklog_tasks
+  %p
+    = f.submit "Submit"

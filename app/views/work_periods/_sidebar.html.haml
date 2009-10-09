@@ -1,0 +1,15 @@
+#sidebar-header
+  =link_to 'Dashboard', :controller => :dashboard
+#user-info
+  - unless current_user.blank?
+    %ul
+      %li= "Logged in user: #{link_to current_user.alias, :controller => :users, :action => :show, :id => current_user.id}"
+      %li= "|"
+      %li= link_to 'Logout', :controller => :logout
+#sidebar-content
+  %h3 Worklog v3.0
+  %ul
+    %li= link_to 'Edit my worklog', :controller => :worklog, :action => :edit
+  %p.heading Analysis
+  %ul
+    %li= link_to 'some funky stuff', :controller => :worklog, :action => :analysis

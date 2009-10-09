@@ -1,0 +1,8 @@
+%h2 Listing work_periods
+- if !@work_periods.empty?
+  .work_periods
+    = render :partial => "work_period", :collection => @work_periods
+  = will_paginate(@work_periods)
+- else
+  %p There are no work_periods to show yet.
+= link_to 'New work_period', new_work_period_path

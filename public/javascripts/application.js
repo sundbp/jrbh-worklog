@@ -122,68 +122,26 @@ $(document).ready(function() {
             $(window).resize().resize(); //fixes a bug in modal overlay size ??
         },
         eventMouseover : function(calEvent, $event) {
+            // TODO: show tooltip with comment field
         },
         eventMouseout : function(calEvent, $event) {
+            // TODO: remove tooltip with comment field
         },
         noEvents : function() {
-
         },
         data : function(start, end, callback) {
-           callback(getEventData());
+            $.getJSON("/work_periods/", {
+                start: start.getTime(),
+                end : end.getTime()
+            }, function(result) {
+                callback({ events : result });
+            });
         }
     });
 
     function resetForm($dialogContent) {
         $dialogContent.find("input").val("");
         $dialogContent.find("textarea").val("");
-    }
-
-    function getEventData() {
-        var year = new Date().getFullYear();
-        var month = new Date().getMonth();
-        var day = new Date().getDate();
-
-        return {
-            events : [
-                {
-                    "id":1,
-                    "start": new Date(year, month, day - 4, 12),
-                    "end": new Date(year, month, day - 4, 13, 30),
-                    "title":"IDIS"
-                },
-                {
-                    "id":2,
-                    "start": new Date(year, month, day, 14),
-                     "end": new Date(year, month, day, 14, 45),
-                    "title":"UNIVERSAL"
-                },
-                {
-                    "id":3,
-                    "start": new Date(year, month, day + 1, 17),
-                    "end": new Date(year, month, day + 1, 17, 45),
-                    "title":"IDIS"
-                },
-                {
-                    "id":4,
-                    "start": new Date(year, month, day - 1, 8),
-                    "end": new Date(year, month, day - 1, 9, 30),
-                    "title":"IDIS"
-                },
-                {
-                    "id":5,
-                    "start": new Date(year, month, day - 2, 14),
-                    "end": new Date(year, month, day - 2, 15),
-                    "title":"Recruiting"
-                },
-                {
-                    "id":6,
-                    "start": new Date(year, month, day, 10),
-                    "end": new Date(year, month, day, 11),
-                    "title" : "Recruiting",
-                    readOnly : true
-                }
-            ]
-        };
     }
 
     /*

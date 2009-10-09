@@ -1,13 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  start: 2009-10-08 12:11:34
-  end: 2009-10-08 12:11:34
+  start: 2009-10-09 16:10:11
+  end: 2009-10-09 16:10:11
   user_id: 1
   worklog_task_id: 1
 
 two:
-  start: 2009-10-08 12:11:34
-  end: 2009-10-08 12:11:34
+  start: 2009-10-09 16:10:11
+  end: 2009-10-09 16:10:11
   user_id: 1
   worklog_task_id: 1
