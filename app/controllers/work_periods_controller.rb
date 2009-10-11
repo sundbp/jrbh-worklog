@@ -1,6 +1,9 @@
 class WorkPeriodsController < ApplicationController
-
   before_filter :find_work_period
+  # TODO: activate this filter once the workperiods testing is done
+  # before_filter :require_user
+
+  # TODO:add before filter for create and update to verify either json style or rails style parameter are complete
 
   helper_method :available_users, :available_users_exists?
   helper_method :available_worklog_tasks, :available_worklog_tasks_exists?
@@ -8,29 +11,44 @@ class WorkPeriodsController < ApplicationController
   WORK_PERIODS_PER_PAGE = 20
 
   def create
-    @work_period = WorkPeriod.new(params[:work_period])
+    if params[:work_period].blank?
+      @work_period = WorkPeriod.new
+      @work_period.user_id = params[:user_id]
+      @work_period.worklog_task_id = params[:worklog_task_id]
+      @work_period.start = params[:start]
+      @work_period.end = params[:end]
+    else
+      @work_period = WorkPeriod.new(params[:work_period])
+    end
+
     respond_to do |format|
       if @work_period.save
         flash[:notice] = 'WorkPeriod was successfully created.'
         format.html { redirect_to @work_period }
         format.xml  { render :xml => @work_period, :status => :created, :location => @work_period }
+        format.json { render :layout => "none", :json => custom_json(@work_period), :status => :created }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @work_period.errors, :status => :unprocessable_entity }
+        format.json  { render :layout => "none", :json => @work_period.errors.to_json, :status => :unprocessable_entity }
       end
     end
   end
 
   def destroy
+    deleted_info = Hash[:status => "success", :id => @work_period.id ]
+    deleted_id = @work_period.id
     respond_to do |format|
       if @work_period.destroy
         flash[:notice] = 'WorkPeriod was successfully destroyed.'        
         format.html { redirect_to work_periods_path }
         format.xml  { head :ok }
+        format.json { render :layout => "none", :json => deleted_info.to_json }
       else
         flash[:error] = 'WorkPeriod could not be destroyed.'
         format.html { redirect_to @work_period }
         format.xml  { head :unprocessable_entity }
+        format.json { head :unprocessable_entity }
       end
     end
   end
@@ -63,23 +81,55 @@ class WorkPeriodsController < ApplicationController
   end
 
   def update
+    updated_ok = if params[:work_period].blank?
+      @work_period.user_id = params[:user_id]
+      @work_period.worklog_task_id = params[:worklog_task_id]
+      @work_period.start = params[:start]
+      @work_period.end = params[:end]
+      @work_period.save
+    else
+      @work_period.update_attributes(params[:work_period])
+    end
     respond_to do |format|
-      if @work_period.update_attributes(params[:work_period])
+      if updated_ok
         flash[:notice] = 'WorkPeriod was successfully updated.'
         format.html { redirect_to @work_period }
         format.xml  { head :ok }
+        format.json { render :layout => "none", :json => custom_json(@work_period), :status => :created }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @work_period.errors, :status => :unprocessable_entity }
+        format.json  { render :layout => "none", :json => @work_period.errors.to_json, :status => :unprocessable_entity }
       end
     end
   end
 
   private
 
-  def custom_json(periods)
-    result = periods.collect do |p|
-      Hash[:id => p.id, :start => p.start, :end => p.end, :title => p.worklog_task.name]
+  def custom_json(data)
+    if data.respond_to?('collect' )
+      result = data.collect do |p|
+        next if p.blank?
+        Hash[:title => p.worklog_task.name,
+             :id => p.id,
+             :start => p.start,
+             :end => p.end,
+             :user_id => p.user_id,
+             :worklog_task_id => p.worklog_task_id,
+             :current_user => current_user.login,
+        ]
+      end
+    else
+      # single period conversion
+      p = data
+      result = Hash[:title => p.worklog_task.name,
+                    :id => p.id,
+                    :start => p.start,
+                    :end => p.end,
+                    :user_id => p.user_id,
+                    :worklog_task_id => p.worklog_task_id,
+                    :current_user => current_user.login,
+      ]
     end
     result.to_json
   end

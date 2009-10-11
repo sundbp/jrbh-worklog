@@ -20,7 +20,6 @@
       <requirement>
         <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
-      <source manual="true" />
       <source from="config/environment.rb" />
     </requirement>
     <requirement>

@@ -1168,7 +1168,7 @@
        */
       _cleanDate : function(d) {
          if (typeof d == 'string') {
-            return $.weekCalendar.parseISO8601(d, true) || Date.parse(d) || new Date(parseInt(d));
+            return $.weekCalendar.parseISO8601(d, false) || Date.parse(d) || new Date(parseInt(d));
          }
          if (typeof d == 'number') {
             return new Date(d);

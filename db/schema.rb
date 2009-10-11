@@ -9,17 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091008111134) do
+ActiveRecord::Schema.define(:version => 20091011140425) do
 
   create_table "companies", :force => true do |t|
-    t.string   "name"
+    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login"
-    t.string   "alias"
+    t.string   "login",             :null => false
+    t.string   "alias",             :null => false
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -29,21 +29,21 @@ ActiveRecord::Schema.define(:version => 20091008111134) do
     t.datetime "current_login_at"
     t.string   "last_login_ip"
     t.string   "current_login_ip"
-    t.boolean  "admin"
+    t.boolean  "admin",             :null => false
   end
 
   create_table "work_periods", :force => true do |t|
-    t.datetime "start"
-    t.datetime "end"
-    t.integer  "user_id"
-    t.integer  "worklog_task_id"
+    t.datetime "start",           :null => false
+    t.datetime "end",             :null => false
+    t.integer  "user_id",         :null => false
+    t.integer  "worklog_task_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "worklog_tasks", :force => true do |t|
-    t.string   "name"
-    t.integer  "company_id"
+    t.string   "name",       :null => false
+    t.integer  "company_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

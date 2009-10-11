@@ -1,4 +1,6 @@
 @import partials/jrbh.sass
+@import partials/jquery-weekcalendar.sass
+//@import partials/meyerreset.sass
 
 //html
 //  +showgrid
@@ -108,7 +110,6 @@ body#worklog
         +append-bottom
 
   #calendar
-    +jquery-weekcalendar-reset
     +jquery-weekcalendar-styles
     .wc-header
       margin-bottom: 0px
@@ -116,7 +117,11 @@ body#worklog
         background: url(/images/header-bg.png) repeat-x
 
   #event_edit_container
-    +jquery-weekcalendar-reset
-    +jquery-weekcalendar-styles
-    +jquery-weekcalendar-other
     display: none
+    p
+      margin-bottom: 0.8em
+    label
+      float: left
+      width: 70px
+    div
+      margin-bottom: 0.8em

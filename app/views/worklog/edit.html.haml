@@ -1,35 +1,16 @@
-/%center
-/  %h3 Edit Worklog data
 #calendar
 #event_edit_container
-  %form
-    %input{ :type => "hidden" }
-    %ul
-      %li
-        %label{ :for => "title" }
-          Task:
-        %select{ :name => "title" }
-          %option IDIS
-          %option UNIVERSAL
-          %option Recruiting
-        /%input{ :name => "title", :type => "text" }
-      %li
-        %span
-          Date:
-        %span.date_holder
-      %li
-        %label{ :for => "start" }
-          Start Time:
-        %select{ :name => "start" }
-          %option{ :value => "" }
-            Select Start Time
-      %li
-        %label{ :for => "end" }
-          End Time:
-        %select{ :name => "end" }
-          %option{ :value => "" }
-            Select End Time
-/      %li
-/        %label{ :for => "body" }
-/          Body:
-/        %textarea{ :name => "body" }
+  - field_set_tag do
+    = hidden_field_tag :user_id, current_user.id
+    %p
+      = label_tag :worklog_task_id, "Task"
+      = select "worklog_task", :id, available_worklog_tasks
+    %p
+      =label_tag "Date"
+      %div.date_holder
+    %p
+      = label_tag :start
+      = select_tag :start, []
+    %p
+      = label_tag :end
+      = select_tag :end, []
