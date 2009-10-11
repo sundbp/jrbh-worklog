@@ -6,8 +6,9 @@
       = label_tag :worklog_task_id, "Task"
       = select "worklog_task", :id, available_worklog_tasks
     %p
-      =label_tag "Date"
-      %div.date_holder
+      = label_tag :date
+      = text_field_tag :date, "", :disabled => true, :class => "date-holder"
+      -#%div.date_holder
     %p
       = label_tag :start
       = select_tag :start, []

@@ -43,54 +43,17 @@ $(document).ready(function() {
                     $('#calendar').weekCalendar("removeUnsavedEvents");
                 },
                 buttons: {
-                    save : function() {
-                        calEvent.start = new Date(startField.val());
-                        calEvent.end = new Date(endField.val());
-                        calEvent.user_id = userIdField.val();
-                        calEvent.worklog_task_id = worklogTaskIdField.val();
-
-                        var postData = {
-                            user_id : calEvent.user_id,
-                            worklog_task_id : calEvent.worklog_task_id,
-                            start : calEvent.start,
-                            end : calEvent.end
-                        };
-                        $.ajax({
-                            dataType: "json",
-                            type: "POST",
-                            url: '/work_periods/create',
-                            data: postData,
-                            success: function(result) {
-                                calEvent.id = result.id;
-                                calEvent.title = result.title;
-                                $calendar.weekCalendar("removeUnsavedEvents");
-                                $calendar.weekCalendar("updateEvent", calEvent);
-                                $dialogContent.dialog("close");
-                            },
-                            error: function(req, testStatus, errorThrown) {
-                                alert("Data could not be added properly - get Patrik to investiagte!");
-                                $dialogContent.dialog("close");
-                            }
-                        });
-                    },
-                    cancel : function() {
-                        $dialogContent.dialog("close");
-                    }
+                    save : function() { handleSave(calEvent, "create"); },
+                    cancel : function() { $dialogContent.dialog("close"); }
                 }
             }).show();
 
-            worklogTaskIdField.bind('keypress', handleEnterPress );
-            startField.bind('keypress', handleEnterPress );
-            endField.bind('keypress', handleEnterPress );
+            worklogTaskIdField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "create"); } );
+            startField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "create"); } );
+            endField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "create"); } );
 
-            $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+            $dialogContent.find("input[class='date-holder']").val($calendar.weekCalendar("formatDate", calEvent.start));
             setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
-        },
-        eventDrop : function(calEvent, $event) {
-            resizeOrDropUpdate(calEvent);
-        },
-        eventResize : function(calEvent, $event) {
-            resizeOrDropUpdate(calEvent);
         },
         eventClick : function(calEvent, $event) {
             var $dialogContent = $("#event_edit_container");
@@ -109,36 +72,7 @@ $(document).ready(function() {
                     $('#calendar').weekCalendar("removeUnsavedEvents");
                 },
                 buttons: {
-                    save : function() {
-                        calEvent.start = new Date(startField.val());
-                        calEvent.end = new Date(endField.val());
-                        calEvent.user_id = userIdField.val();
-                        calEvent.worklog_task_id = worklogTaskIdField.val();
-
-                        var postData = {
-                            id : calEvent.id,
-                            user_id : calEvent.user_id,
-                            worklog_task_id : calEvent.worklog_task_id,
-                            start : calEvent.start,
-                            end : calEvent.end
-                        };
-                        $.ajax({
-                            dataType: "json",
-                            type: "POST",
-                            url: '/work_periods/update',
-                            data: postData,
-                            success: function(result) {
-                                calEvent.title = result.title;
-                                $calendar.weekCalendar("removeUnsavedEvents");
-                                $calendar.weekCalendar("updateEvent", calEvent);
-                                $dialogContent.dialog("close");
-                            },
-                            error: function(req, testStatus, errorThrown) {
-                                alert("Data could not be updated properly - get Patrik to investiagte!");
-                                $dialogContent.dialog("close");
-                            }
-                        });
-                    },
+                    save : function() { handleSave(calEvent, "update"); },
                     "delete" : function() {
                         $.ajax({
                             dataType: "json",
@@ -155,16 +89,20 @@ $(document).ready(function() {
                             }
                         });
                     },
-                    cancel : function() {
-                      $dialogContent.dialog("close");
-                    }
+                    cancel : function() { $dialogContent.dialog("close"); }
                 }
             }).show();
+
+            worklogTaskIdField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "update"); } );
+            startField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "update"); } );
+            endField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "update"); } );
 
             $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
             setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
             $(window).resize().resize(); //fixes a bug in modal overlay size ??
         },
+        eventDrop : function(calEvent, $event) { handleSave(calEvent, "drop"); },
+        eventResize : function(calEvent, $event) { handleSave( calEvent, "resize"); },
         eventMouseover : function(calEvent, $event) {
             // TODO: show tooltip with comment field
         },
@@ -187,34 +125,58 @@ $(document).ready(function() {
         // TODO: in case we want to do something smart
     }
 
-    function handleEnterPress(e) {
+    function handleEnterPress(e, calEvent, caller) {
         if(e.keyCode && e.keyCode == $.ui.keyCode.ENTER ) {
-            alert("hit ENTER");
+            handleSave( calEvent, caller);
             return(true);
         }
     }
 
-    // update on resize and drop
-    function resizeOrDropUpdate(calEvent) {
+    function handleSave(calEvent, caller) {
+        var $calendar = $('#calendar');
+        var $dialogContent = $("#event_edit_container");
+        var startField = $dialogContent.find("select[name='start']");
+        var endField = $dialogContent.find("select[name='end']");
+        var worklogTaskIdField = $dialogContent.find("select[id='worklog_task_id']");
+        var userIdField = $dialogContent.find("input[name='user_id']");
+
+        if(caller == "create" || caller == "update" ) {
+            calEvent.start = new Date(startField.val());
+            calEvent.end = new Date(endField.val());
+            calEvent.user_id = userIdField.val();
+            calEvent.worklog_task_id = worklogTaskIdField.val();
+        }
+
         var postData = {
-            id : calEvent.id,
             user_id : calEvent.user_id,
             worklog_task_id : calEvent.worklog_task_id,
             start : calEvent.start,
             end : calEvent.end
         };
+
+        var url;
+        if(caller == "create") {
+            url = '/work_periods/create';
+        } else {
+            url = '/work_periods/update';
+            postData["id"] = calEvent.id;
+        }
+
         $.ajax({
             dataType: "json",
             type: "POST",
-            url: '/work_periods/update',
+            url: url,
             data: postData,
             success: function(result) {
+                calEvent.id = result.id;
+                calEvent.title = result.title;
                 $calendar.weekCalendar("removeUnsavedEvents");
-                //$calendar.weekCalendar("updateEvent", calEvent);
+                if(caller == "create" || caller == "update" )
+                    $calendar.weekCalendar("updateEvent", calEvent);
                 $dialogContent.dialog("close");
             },
             error: function(req, testStatus, errorThrown) {
-                alert("Data could not be updated properly - get Patrik to investiagte!");
+                alert("Data could not be added properly - get Patrik to investiagte!");
                 $dialogContent.dialog("close");
             }
         });
