@@ -1,6 +1,7 @@
 @import partials/jrbh.sass
 @import partials/jquery-ui.sass
 @import partials/jquery-weekcalendar.sass
+@import partials/farbtastic.sass
 
 //html
 //  +showgrid
@@ -129,4 +130,12 @@ body#worklog
     input
       font-size: 14px
       width: 107px
-      
+
+body#admin-panel
+  #companies
+    +farbtastic
+  #companies-no-display
+    +farbtastic
+    #colorpicker
+      display: none      
+    

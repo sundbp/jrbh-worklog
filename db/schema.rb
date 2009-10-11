@@ -9,12 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091011140425) do
+ActiveRecord::Schema.define(:version => 20091011214440) do
 
   create_table "companies", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color",      :default => "#68a1e5", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -42,10 +43,11 @@ ActiveRecord::Schema.define(:version => 20091011140425) do
   end
 
   create_table "worklog_tasks", :force => true do |t|
-    t.string   "name",       :null => false
-    t.integer  "company_id", :null => false
+    t.string   "name",                              :null => false
+    t.integer  "company_id",                        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color",      :default => "#68a1e5", :null => false
   end
 
 end

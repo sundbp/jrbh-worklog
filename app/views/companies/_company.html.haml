@@ -4,6 +4,11 @@
       %strong Name:
       =h company.name
 
+    %li
+      %strong Color:
+      = text_field_tag :company_color, company.color, :disabled => true
+    #colorpicker
+     
     = link_to 'Show', company
     = link_to 'Edit', edit_company_path(company)
     = link_to 'Destroy', company, :confirm => 'Are you sure?', :method => :delete
