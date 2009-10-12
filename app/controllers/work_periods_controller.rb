@@ -133,7 +133,7 @@ class WorkPeriodsController < ApplicationController
                     :end => p.end,
                     :user_id => p.user_id,
                     :worklog_task_id => p.worklog_task_id,
-                    :current_user => current_user.login,
+                    :color => p.worklog_task.color
       ]
     end
     result.to_json

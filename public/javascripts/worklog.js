@@ -20,8 +20,8 @@ $(document).ready(function() {
         eventRender : function(calEvent, $event) {
             // get color
             if(calEvent.color) {
-                var lighter = lighterColor(calEvent.color, 0.15);
-                var darker = darkerColor(calEvent.color, 0.15);
+                var lighter = lighterColor(calEvent.color, 0.14);
+                var darker = darkerColor(calEvent.color, 0.14);
                 $event.css("backgroundColor", lighter);
                 $event.find(".wc-time").css({
                     "backgroundColor" : calEvent.color,
@@ -100,7 +100,7 @@ $(document).ready(function() {
             startField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "update"); } );
             endField.bind('keypress', function(e) { handleEnterPress(e, calEvent, "update"); } );
 
-            $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+            $dialogContent.find("input[class='date-holder']").val($calendar.weekCalendar("formatDate", calEvent.start));
             setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
             $(window).resize().resize(); //fixes a bug in modal overlay size ??
         },
@@ -173,6 +173,7 @@ $(document).ready(function() {
             success: function(result) {
                 calEvent.id = result.id;
                 calEvent.title = result.title;
+                calEvent.color = result.color;
                 $calendar.weekCalendar("removeUnsavedEvents");
                 if(caller == "create" || caller == "update" )
                     $calendar.weekCalendar("updateEvent", calEvent);
