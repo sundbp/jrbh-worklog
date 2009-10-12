@@ -8,6 +8,7 @@ class CompaniesController < ApplicationController
 
   def create
     @company = Company.new(params[:company])
+    
     respond_to do |format|
       if @company.save
         flash[:notice] = 'Company was successfully created.'

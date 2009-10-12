@@ -6,8 +6,10 @@
 
     %li
       %strong Color:
-      = text_field_tag :company_color, company.color, :disabled => true
-    #colorpicker
+      = text_field_tag color_id(company), company.color, :disabled => true
+
+    = colorpicker_div( :id => colorpicker_id(company), :class => "colorpicker")
+    = farbtastic_create(colorpicker_id(company), color_id(company), false)
      
     = link_to 'Show', company
     = link_to 'Edit', edit_company_path(company)
