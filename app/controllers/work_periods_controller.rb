@@ -54,7 +54,12 @@ class WorkPeriodsController < ApplicationController
   end
 
   def index
-    @work_periods = WorkPeriod.paginate(:page => params[:page], :per_page => WORK_PERIODS_PER_PAGE)
+    if request.xhr?
+      # TODO:add some filtering here. look at Streamlined framework
+      @work_periods = WorkPeriod.find(:all)
+    else
+      @work_periods = WorkPeriod.paginate(:page => params[:page], :per_page => WORK_PERIODS_PER_PAGE)
+    end
     respond_to do |format|
       format.html
       format.xml  { render :xml => @work_periods }
@@ -116,7 +121,7 @@ class WorkPeriodsController < ApplicationController
              :end => p.end,
              :user_id => p.user_id,
              :worklog_task_id => p.worklog_task_id,
-             :current_user => current_user.login,
+             :color => p.worklog_task.color
         ]
       end
     else

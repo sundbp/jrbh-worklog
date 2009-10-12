@@ -6,6 +6,13 @@
     %li
       %strong Company:
       =h worklog_task.company.name
+
+    %li
+      %strong Color:
+      = text_field_tag color_id(worklog_task), worklog_task.color, :disabled => true
+      = colorpicker_div( :id => colorpicker_id(worklog_task), :class => "colorpicker")
+      = farbtastic_create(colorpicker_id(worklog_task), color_id(worklog_task), false)
+
     = link_to 'Show', worklog_task
     = link_to 'Edit', edit_worklog_task_path(worklog_task)
     = link_to 'Destroy', worklog_task, :confirm => 'Are you sure?', :method => :delete

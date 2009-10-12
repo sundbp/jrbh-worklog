@@ -1,6 +1,6 @@
 %h2 Companies available in the database
 - if !@companies.empty?
-  #companies-no-display.companies
+  #companies
     = render :partial => "company", :collection => @companies
   = will_paginate(@companies)
 - else

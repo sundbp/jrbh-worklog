@@ -1,6 +1,7 @@
 %h2 Add new worklog task
-- if available_companies_exists?
-  = render :partial => "form", :locals => {:worklog_task => @worklog_task}
-- else
-  No companies exists so we can't add any worklog tasks yet. Please add companies.
+#worklog-tasks
+  - if available_companies_exists?
+    = render :partial => "form", :locals => {:worklog_task => @worklog_task}
+  - else
+    No companies exists so we can't add any worklog tasks yet. Please add companies.
   

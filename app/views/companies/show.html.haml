@@ -8,8 +8,8 @@
       %li
         %strong Color:
         = text_field_tag :company_color, @company.color, :disabled => true
-    #colorpicker
-    = farbtastic_create('colorpicker', 'company_color', false)
+        #colorpicker
+        = farbtastic_create('colorpicker', 'company_color', false)
 
   %ul
     %li= link_to 'Edit', edit_company_path(@company)

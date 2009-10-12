@@ -1,12 +1,19 @@
 %h2= "Worklog task \"#{@worklog_task.name}\""
-- content_tag_for :div, @worklog_task do
+#worklog-tasks
+  - content_tag_for :div, @worklog_task do
+    %ul
+      %li
+        %strong Name:
+        =h @worklog_task.name
+      %li
+        %strong Company:
+        =h @worklog_task.company.name
+      %li
+        %strong Color:
+        = text_field_tag :worklog_task_color, @worklog_task.color, :disabled => true
+        #colorpicker
+        = farbtastic_create('colorpicker', 'worklog_task_color', false)
+
   %ul
-    %li
-      %strong Name:
-      =h @worklog_task.name
-    %li
-      %strong Company:
-      =h @worklog_task.company.name
-%ul
-  %li= link_to 'Edit', edit_worklog_task_path(@worklog_task)
-  %li= link_to 'Back', worklog_tasks_path
+    %li= link_to 'Edit', edit_worklog_task_path(@worklog_task)
+    %li= link_to 'Back', worklog_tasks_path

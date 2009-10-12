@@ -75,6 +75,11 @@ class WorklogTasksController < ApplicationController
     end
   end
 
+  def company_color
+    company_color = Company.find(params[:company_id]).color
+    render :partial => 'color_field', :locals => {:company_color => company_color}, :layout => false 
+  end
+
   private
 
   def available_companies
