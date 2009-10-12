@@ -1,14 +1,17 @@
 #calendar
+#color-legend
+  = render :partial => 'color_legend',  :locals => {:color_legend_info => color_legend_info}
+  
 #event_edit_container
   - field_set_tag do
     = hidden_field_tag :user_id, current_user.id
     %p
       = label_tag :worklog_task_id, "Task"
-      = select "worklog_task", :id, available_worklog_tasks
+      %select{:name => 'worklog_task[id]', :id => 'worklog_task_id'}
+        = option_groups_from_collection_for_select(task_groups_options, :options, :group_name, :id, :name )
     %p
       = label_tag :date
       = text_field_tag :date, "", :disabled => true, :class => "date-holder"
-      -#%div.date_holder
     %p
       = label_tag :start
       = select_tag :start, []

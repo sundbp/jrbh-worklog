@@ -27,5 +27,4 @@ class WorklogController < ApplicationController
   def available_worklog_tasks_exists?
     return !available_worklog_tasks.blank?
   end
-
 end

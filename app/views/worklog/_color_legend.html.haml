@@ -1,0 +1,14 @@
+#legend-header
+  %center
+    %h3 Color legend
+#legend-content
+  - color_legend_info.each do |company, info|
+    %p
+      %center.legend{:style => "background: #{info[:color]}; color: #fff"}
+        = company
+    - if info.has_key? :odd_tasks
+      - info[:odd_tasks].each do |task, color|
+        %p
+          %center.legend{:style => "background: #{color}; color: #fff"}
+            = company + " - " + task
+
