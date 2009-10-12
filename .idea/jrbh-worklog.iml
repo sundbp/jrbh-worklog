@@ -9,22 +9,10 @@
       </configuration>
     </facet>
   </component>
-  <component name="GemRequirementsHolder">
+  <component name="GemRequirementsHolder" version="2">
     <requirement>
       <requirement>
-        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/database.yml" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="haml" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
@@ -36,15 +24,33 @@
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="rails" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/boot.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="haml" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/database.yml" />
     </requirement>
   </component>
   <component name="NewModuleRootManager">
@@ -70,6 +76,5 @@
     <orderEntry type="library" name="[gem] authlogic (v2.1.2, /Users/patrik/.gem/ruby/1.8/gems/authlogic-2.1.2)" level="application" />
     <orderEntry type="library" name="[gem] ruby-net-ldap (v0.0.4, /opt/local/lib/ruby/gems/1.8/gems/ruby-net-ldap-0.0.4)" level="application" />
   </component>
-  <component name="RModuleSettingsStorage" number="0" />
 </module>
 
