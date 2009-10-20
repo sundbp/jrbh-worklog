@@ -28,6 +28,11 @@ $(document).ready(function() {
                     "border" : "1px solid " + darker
                 });
             }
+            // add tooltip
+            if(calEvent.comment != null && calEvent.comment != "\n" && calEvent.comment != "") {
+                $event.find(".wc-time").qtip({ content: calEvent.comment, style: {name: 'cream'}, solo: true, delay: 250 });
+                $event.find(".wc-title").qtip({ content: calEvent.comment, style: {name: 'cream'}, solo: true, delay: 250 });
+            }
         },
         eventNew : function(calEvent, $event) {
             var $dialogContent = $("#event_edit_container");
@@ -107,10 +112,10 @@ $(document).ready(function() {
         eventDrop : function(calEvent, $event) { handleSave(calEvent, "drop"); },
         eventResize : function(calEvent, $event) { handleSave( calEvent, "resize"); },
         eventMouseover : function(calEvent, $event) {
-            // TODO: show tooltip with comment field
+            $event.qtip("show");
         },
         eventMouseout : function(calEvent, $event) {
-            // TODO: remove tooltip with comment field
+            $event.qtip("hide");
         },
         noEvents : function() {
         },

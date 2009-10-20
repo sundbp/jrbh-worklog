@@ -241,7 +241,8 @@
                return;
             }
 
-            if ($target.hasClass("wc-cal-event")) {
+            // add in wc-time and wc-title to get a chance for a callback to show a tooltip
+            if ($target.hasClass("wc-cal-event") || $target.hasClass("wc-time") || $target.hasClass("wc-title")) {
                options.eventMouseover($target.data("calEvent"), $target, event);
             }
          }).mouseout(function(event) {
@@ -249,7 +250,7 @@
             if (self._isDraggingOrResizing($target)) {
                return;
             }
-            if ($target.hasClass("wc-cal-event")) {
+            if ($target.hasClass("wc-cal-event") || $target.hasClass("wc-time") || $target.hasClass("wc-title")) {
                if ($target.data("sizing")) return;
                options.eventMouseout($target.data("calEvent"), $target, event);
 
@@ -957,6 +958,9 @@
              $calEvent.find(".wc-title").text(calEvent.comment);
          }
          $calEvent.data("calEvent", calEvent);
+         // bind the calEvent also to wc-time and wc-title. used for tooltips
+         $calEvent.find(".wc-time").data("calEvent", calEvent);
+         $calEvent.find(".wc-title").data("calEvent", calEvent);
       }
       ,
 

@@ -88,9 +88,14 @@ class WorkPeriodsController < ApplicationController
     updated_ok = if params[:work_period].blank?
       @work_period.user_id = params[:user_id]
       @work_period.worklog_task_id = params[:worklog_task_id]
-      @work_period.comment = params[:comment]
+
       @work_period.start = params[:start]
       @work_period.end = params[:end]
+      if params[:comment].chomp == "" or params[:comment] == "null"
+        @work_period.comment = nil
+      else
+        @work_period.comment = params[:comment]
+      end
       @work_period.save
     else
       @work_period.update_attributes(params[:work_period])
