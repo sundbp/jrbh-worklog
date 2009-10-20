@@ -17,4 +17,8 @@
     %br
     = f.select :worklog_task_id, available_worklog_tasks
   %p
+    = f.label :comment
+    %br
+    = f.text_area :comment, :size => "45x5"
+  %p
     = f.submit "Submit"

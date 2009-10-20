@@ -49,6 +49,9 @@ class WorklogTasksController < ApplicationController
 
   def new
     @worklog_task = WorklogTask.new
+    c = Company.find(:first)
+    @worklog_task.company_id = c.id
+    @worklog_task.color = c.color
     respond_to do |format|
       format.html
       format.xml  { render :xml => @worklog_task }

@@ -13,6 +13,9 @@
     %li
       %strong Worklog task:
       =h @work_period.worklog_task.name
+    %li
+      %strong Comment:
+      =h @work_period.comment
 %ul
   %li= link_to 'Edit', edit_work_period_path(@work_period)
   %li= link_to 'Back', work_periods_path

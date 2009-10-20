@@ -1,7 +1,6 @@
 class WorkPeriodsController < ApplicationController
   before_filter :find_work_period
-  # TODO: activate this filter once the workperiods testing is done
-  # before_filter :require_user
+  before_filter :require_user
 
   # TODO:add before filter for create and update to verify either json style or rails style parameter are complete
 
@@ -55,7 +54,7 @@ class WorkPeriodsController < ApplicationController
 
   def index
     if request.xhr?
-      # TODO:add some filtering here. look at Streamlined framework
+      # TODO:add some filtering here.
       @work_periods = WorkPeriod.find(:all, :conditions => {:user_id => current_user.id})
     else
       @work_periods = WorkPeriod.paginate(:page => params[:page], :per_page => WORK_PERIODS_PER_PAGE)
@@ -89,6 +88,7 @@ class WorkPeriodsController < ApplicationController
     updated_ok = if params[:work_period].blank?
       @work_period.user_id = params[:user_id]
       @work_period.worklog_task_id = params[:worklog_task_id]
+      @work_period.comment = params[:comment]
       @work_period.start = params[:start]
       @work_period.end = params[:end]
       @work_period.save
@@ -121,7 +121,8 @@ class WorkPeriodsController < ApplicationController
              :end => p.end,
              :user_id => p.user_id,
              :worklog_task_id => p.worklog_task_id,
-             :color => p.worklog_task.color
+             :color => p.worklog_task.color,
+             :comment => p.comment,
         ]
       end
     else
@@ -133,7 +134,8 @@ class WorkPeriodsController < ApplicationController
                     :end => p.end,
                     :user_id => p.user_id,
                     :worklog_task_id => p.worklog_task_id,
-                    :color => p.worklog_task.color
+                    :color => p.worklog_task.color,
+                    :comment => p.comment
       ]
     end
     result.to_json

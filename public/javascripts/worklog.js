@@ -35,7 +35,6 @@ $(document).ready(function() {
             var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
             var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
             var worklogTaskIdField = $dialogContent.find("select[id='worklog_task_id']");
-            var userIdField = $dialogContent.find("input[name='user_id']");
 
             $dialogContent.dialog({
                 modal: true,
@@ -64,7 +63,8 @@ $(document).ready(function() {
             var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
             var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
             var worklogTaskIdField = $dialogContent.find("select[id='worklog_task_id']").val(calEvent.title);
-            var userIdField = $dialogContent.find("input[name='user_id']");
+
+            $dialogContent.find("textarea[id='comment']").val(calEvent.comment);
 
             $dialogContent.dialog({
                 modal: true,
@@ -142,19 +142,22 @@ $(document).ready(function() {
         var endField = $dialogContent.find("select[name='end']");
         var worklogTaskIdField = $dialogContent.find("select[id='worklog_task_id']");
         var userIdField = $dialogContent.find("input[name='user_id']");
+        var commentField = $dialogContent.find("textarea[name='comment']");
 
         if(caller == "create" || caller == "update" ) {
             calEvent.start = new Date(startField.val());
             calEvent.end = new Date(endField.val());
             calEvent.user_id = userIdField.val();
             calEvent.worklog_task_id = worklogTaskIdField.val();
+            calEvent.comment = commentField.val();
         }
 
         var postData = {
             user_id : calEvent.user_id,
             worklog_task_id : calEvent.worklog_task_id,
             start : calEvent.start,
-            end : calEvent.end
+            end : calEvent.end,
+            comment : calEvent.comment
         };
 
         var url;
@@ -174,6 +177,7 @@ $(document).ready(function() {
                 calEvent.id = result.id;
                 calEvent.title = result.title;
                 calEvent.color = result.color;
+                calEvent.comment = result.comment;
                 $calendar.weekCalendar("removeUnsavedEvents");
                 if(caller == "create" || caller == "update" )
                     $calendar.weekCalendar("updateEvent", calEvent);
@@ -238,6 +242,8 @@ $(document).ready(function() {
             $endTimeField.find("option:eq(1)").attr("selected", "selected");
         }
     });
+
+    // support functions for getting slightly darker and lighter color variations
 
     var pad = function(num, totalChars) {
         var pad = '0';

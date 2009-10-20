@@ -951,7 +951,11 @@
          var self = this;
          var options = this.options;
          $calEvent.find(".wc-time").text(calEvent.title);
-         $calEvent.find(".wc-title").text(self._formatDate(calEvent.start, options.timeFormat) + options.timeSeparator + self._formatDate(calEvent.end, options.timeFormat));
+         if(calEvent.comment == null || calEvent.comment.length == 0) {
+             $calEvent.find(".wc-title").text(self._formatDate(calEvent.start, options.timeFormat) + options.timeSeparator + self._formatDate(calEvent.end, options.timeFormat));
+         } else {
+             $calEvent.find(".wc-title").text(calEvent.comment);
+         }
          $calEvent.data("calEvent", calEvent);
       }
       ,

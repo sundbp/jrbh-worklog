@@ -12,6 +12,9 @@
     %li
       %strong Worklog task:
       =h work_period.worklog_task.name
+    %li
+      %strong Comment:
+      =h work_period.comment
     = link_to 'Show', work_period
     = link_to 'Edit', edit_work_period_path(work_period)
     = link_to 'Destroy', work_period, :confirm => 'Are you sure?', :method => :delete

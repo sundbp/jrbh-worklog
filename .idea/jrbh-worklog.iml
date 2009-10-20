@@ -12,31 +12,13 @@
   <component name="GemRequirementsHolder" version="2">
     <requirement>
       <requirement>
-        <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
         <dependency name="rails" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/boot.rb" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
@@ -48,9 +30,27 @@
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/database.yml" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
     </requirement>
   </component>
   <component name="NewModuleRootManager">

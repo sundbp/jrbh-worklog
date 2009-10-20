@@ -16,7 +16,6 @@
       #colorpicker
       = farbtastic_create('colorpicker', 'worklog_task_color', true)
     = observe_field :worklog_task_company_id, :frequency => 0, :update => 'task-color', :url => {:action => 'company_color', :only_path => false}, :with => "'company_id=' + encodeURIComponent(value)"
-    -#= observe_field :worklog_task_company_id, :frequency => 0, :function => "alert('element changed')"
   %p
     = f.submit "Submit"
 
