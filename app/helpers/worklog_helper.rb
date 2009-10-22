@@ -11,7 +11,7 @@ module WorklogHelper
         result[x.company.name][:odd_tasks][x.name] = x.color
       end
     end
-    result
+    result.sort
   end
 
   class WorklogTaskGroup
