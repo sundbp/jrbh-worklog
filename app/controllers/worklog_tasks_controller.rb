@@ -37,7 +37,7 @@ class WorklogTasksController < ApplicationController
   end
 
   def index
-    @worklog_tasks = WorklogTask.paginate(:page => params[:page], :per_page => WORKLOG_TASKS_PER_PAGE)
+    @worklog_tasks = WorklogTask.paginate(:page => params[:page], :per_page => WORKLOG_TASKS_PER_PAGE, :order => 'name ASC')
     respond_to do |format|
       format.html
       format.xml  { render :xml => @worklog_tasks }
