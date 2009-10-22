@@ -12,19 +12,33 @@
   <component name="GemRequirementsHolder" version="2">
     <requirement>
       <requirement>
-        <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" url="&quot;http://gems.github.com&quot;" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="pg" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
+      <source manual="true" />
       <source from="config/database.yml" />
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="haml" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
@@ -36,7 +50,7 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="rack" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
@@ -48,14 +62,19 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="pg" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
-      <source manual="true" />
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
       <source from="config/database.yml" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
@@ -71,13 +90,15 @@
     <orderEntry type="library" name="[gem] sqlite3-ruby (v1.2.5, /Users/patrik/.gem/ruby/1.8/gems/sqlite3-ruby-1.2.5)" level="application" />
     <orderEntry type="library" name="[gem] rake (v0.8.7, /opt/local/lib/ruby/gems/1.8/gems/rake-0.8.7)" level="application" />
     <orderEntry type="library" name="[gem] will_paginate (v2.2.2, /opt/local/lib/ruby/gems/1.8/gems/will_paginate-2.2.2)" level="application" />
-    <orderEntry type="library" name="[gem] haml (v2.2.6, /opt/local/lib/ruby/gems/1.8/gems/haml-2.2.6)" level="application" />
     <orderEntry type="library" name="[gem] mocha (v0.9.8, /opt/local/lib/ruby/gems/1.8/gems/mocha-0.9.8)" level="application" />
     <orderEntry type="library" name="[gem] activeresource (v2.3.4, /opt/local/lib/ruby/gems/1.8/gems/activeresource-2.3.4)" level="application" />
     <orderEntry type="library" name="[gem] rails (v2.3.4, /opt/local/lib/ruby/gems/1.8/gems/rails-2.3.4)" level="application" />
     <orderEntry type="library" name="[gem] authlogic (v2.1.2, /Users/patrik/.gem/ruby/1.8/gems/authlogic-2.1.2)" level="application" />
     <orderEntry type="library" name="[gem] ruby-net-ldap (v0.0.4, /opt/local/lib/ruby/gems/1.8/gems/ruby-net-ldap-0.0.4)" level="application" />
     <orderEntry type="library" name="[gem] pg (v0.8.0, /opt/local/lib/ruby/gems/1.8/gems/pg-0.8.0)" level="application" />
+    <orderEntry type="library" name="[gem] chriseppstein-compass (v0.8.17, /opt/local/lib/ruby/gems/1.8/gems/chriseppstein-compass-0.8.17)" level="application" />
+    <orderEntry type="library" name="[gem] haml (v2.2.6, /opt/local/lib/ruby/gems/1.8/gems/haml-2.2.6)" level="application" />
+    <orderEntry type="library" name="[gem] rack (v1.0.0, /opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0)" level="application" />
   </component>
 </module>
 
