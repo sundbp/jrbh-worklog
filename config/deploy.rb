@@ -3,7 +3,7 @@ set :domain,      "bob"
 set :application, "jrbh-worklog"
 
 set :repository,  "git@github.com:sundbp/#{application}.git"
-set :deploy_to,   "/home/#{user}/www"
+set :deploy_to,   "/home/#{user}/www/#{application}"
 set :use_sudo,    false
 
 set :scm, :git
