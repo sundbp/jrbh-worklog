@@ -124,6 +124,19 @@ $(document).ready(function() {
                 start: start,
                 end : end
             }, function(result) {
+                // update color legend
+                $("#legend-content").find(".legend").each(function() {
+                    var entry = jQuery.trim(this.textContent);
+                    var $match = false;
+                    jQuery.each(result, function() {
+                        if(this.company == entry || (this.company + " - " + this.title) == entry)
+                            $match = true;
+                    });
+                    if($match)
+                        $(this).css({"display" : "block"});
+                    else
+                        $(this).css({"display" : "none"});
+                });
                 callback({ events : result });
             });
         }

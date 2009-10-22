@@ -131,6 +131,7 @@ class WorkPeriodsController < ApplicationController
              :user_id => p.user_id,
              :worklog_task_id => p.worklog_task_id,
              :color => p.worklog_task.color,
+             :company => p.worklog_task.company.name,
              :comment => p.comment,
         ]
       end
@@ -144,6 +145,7 @@ class WorkPeriodsController < ApplicationController
                     :user_id => p.user_id,
                     :worklog_task_id => p.worklog_task_id,
                     :color => p.worklog_task.color,
+                    :company => p.worklog_task.company.name,
                     :comment => p.comment
       ]
     end
