@@ -12,7 +12,6 @@ users.each do |u|
       prev = p
       next
     end
-    p p
     if (prev.worklog_task_id == p.worklog_task_id) and (prev.end == p.start)
       # add period ot the chain
       cumm << prev if cumm == []
@@ -23,13 +22,17 @@ users.each do |u|
       start_t = cumm.first.start
       end_t = cumm.last.end
       comment = ((cumm.select {|x| x.comment != nil and x.comment != ""}).map {|x| x.comment }).join(", ")
-      p comment
+      if comment.size > 255
+        comment = comment[0..254]
+      end
       # create new entry
       WorkPeriod.create(:user_id => u.id,
                         :worklog_task_id => cumm.first.worklog_task_id,
                         :start => start_t,
                         :end => end_t,
                         :comment => comment)
+
+      print "Flattened #{cumm.size} entries into one entry.\n"
 
       # remove old entries
       cumm.each { |x| x.destroy }
@@ -47,13 +50,17 @@ users.each do |u|
     start_t = cumm.first.start
     end_t = cumm.last.end
     comment = ((cumm.select {|x| x.comment != nil and x.comment != ""}).map {|x| x.comment }).join(", ")
-    p comment
+    if comment.size > 255
+      comment = comment[0..254]
+    end
     # create new entry
     WorkPeriod.create(:user_id => u.id,
                       :worklog_task_id => cumm.first.worklog_task_id,
                       :start => start_t,
                       :end => end_t,
                       :comment => comment)
+
+    print "Flattened #{cumm.size} entries into one entry.\n"
 
     # remove old entries
     cumm.each { |x| x.destroy }
