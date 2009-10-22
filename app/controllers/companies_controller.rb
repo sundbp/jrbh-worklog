@@ -36,7 +36,7 @@ class CompaniesController < ApplicationController
   end
 
   def index
-    @companies = Company.paginate(:page => params[:page], :per_page => COMPANIES_PER_PAGE, :order => 'name DESC')
+    @companies = Company.paginate(:page => params[:page], :per_page => COMPANIES_PER_PAGE, :order => 'name ASC')
     respond_to do |format|
       format.html
       format.xml  { render :xml => @companies }
