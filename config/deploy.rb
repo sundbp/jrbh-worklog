@@ -14,6 +14,7 @@ role :app, domain                          # This may be the same as your `Web` 
 role :db,  domain, :primary => true # This is where Rails migrations will run
 
 default_run_options[:pty] = true
+set :ssh_options, {:forward_agent => true}
 
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
