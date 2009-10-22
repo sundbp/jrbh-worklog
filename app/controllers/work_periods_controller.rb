@@ -55,7 +55,11 @@ class WorkPeriodsController < ApplicationController
   def index
     if request.xhr?
       # TODO:add some filtering here.
-      @work_periods = WorkPeriod.find(:all, :conditions => {:user_id => current_user.id})
+      @work_periods = WorkPeriod.find(:all,
+                                      :conditions => ["user_id = ? and start > ? and start < ?",
+                                                      current_user.id,
+                                                      Time.parse(params["start"]),
+                                                      Time.parse(params["end"]) ])
     else
       @work_periods = WorkPeriod.paginate(:page => params[:page], :per_page => WORK_PERIODS_PER_PAGE)
     end
