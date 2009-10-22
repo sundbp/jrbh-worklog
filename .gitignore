@@ -1,6 +1,7 @@
 db/*.sqlite3
-tmp/*
+tmp/**/*
 *.DS_Store*
 .sass-cache
 *.swp
 public/stylesheets/compiled/*.css
+log/*.log
