@@ -16,6 +16,7 @@ class WorkPeriodsController < ApplicationController
       @work_period.worklog_task_id = params[:worklog_task_id]
       @work_period.start = params[:start]
       @work_period.end = params[:end]
+      @work_period.comment = params[:comment]
     else
       @work_period = WorkPeriod.new(params[:work_period])
     end

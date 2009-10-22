@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :work_period
+  has_many :work_periods
 
   acts_as_authentic do |config|
     config.validate_password_field false

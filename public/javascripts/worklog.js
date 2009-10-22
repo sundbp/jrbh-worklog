@@ -143,7 +143,7 @@ $(document).ready(function() {
     });
 
     function resetForm($dialogContent) {
-        // TODO: in case we want to do something smart
+        $dialogContent.find("textarea[name='comment']").val("");
     }
 
     function handleEnterPress(e, calEvent, caller) {
