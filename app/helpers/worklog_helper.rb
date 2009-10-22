@@ -23,6 +23,10 @@ module WorklogHelper
     def <<(option)
       @options << option
     end
+
+    def <=>(other)
+      return @group_name <=> other.group_name
+    end
   end
 
   WorklogTaskGroupOption = Struct.new(:id, :name)
@@ -35,6 +39,6 @@ module WorklogHelper
       result[t.company.name] << WorklogTaskGroupOption.new(t.id, t.name)
     end
 
-    result.values
+    result.values.sort
   end
 end

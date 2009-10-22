@@ -86,7 +86,7 @@ class WorklogTasksController < ApplicationController
   private
 
   def available_companies
-    return Company.find(:all).collect {|c| [ c.name, c.id ] }
+    return Company.find(:all, :order => 'name ASC').map {|c| [ c.name, c.id ] }
   end
 
   def available_companies_exists?
