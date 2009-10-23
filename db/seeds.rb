@@ -6,6 +6,9 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
+# comment this out, put in as a safety feature
+return
+
 # change this path to where your dump is
 data_dump_file = "/Users/patrik/Documents/Worklog/worklog_total.dump"
 task_company_file = "/Users/patrik/Documents/Worklog/worklog_task_company.dump"
@@ -25,6 +28,7 @@ admins = ["JH", "JO"]
 
 # create users
 alias_to_user.each_pair do |key,value|
+  next if User.find_by_alias(key)
   admin = admins.include? key
   User.create(:login => value, :alias => key, :admin => admin)
   print "Created user '#{key}'\n"
@@ -37,12 +41,14 @@ end
 
 #create companies
 task_to_company.values.uniq.sort.each do |c|
+  next if Company.find_by_name(c)
   Company.create(:name => c)
   print "Created company '#{c}'\n"
 end
 
 #create worklog tasks
 task_to_company.each_pair do |task,company|
+  next if WorklogTask.find_by_name(task)
   c = Company.find_by_name(company)
   WorklogTask.create(:name => task, :company_id => c.id)
   print "Created worklog task '#{task}'\n"
