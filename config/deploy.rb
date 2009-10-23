@@ -16,12 +16,16 @@ role :db,  domain, :primary => true # This is where Rails migrations will run
 default_run_options[:pty] = true
 set :ssh_options, {:forward_agent => true}
 
-# If you are using Passenger mod_rails uncomment this:
-# if you're still using the script/reapear helper you will need
-# these http://github.com/rails/irs_process_scripts
-
 namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
+
+after "deploy:symlink", "deploy:update_crontab"
+namespace :deploy do
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db do
+    run "cd #{release_path} && whenever --update-crontab #{application}"
   end
 end
