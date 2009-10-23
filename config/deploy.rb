@@ -1,5 +1,5 @@
 set :user,        "patrik"
-set :domain,      "bob"
+set :domain,      "bob.jrbh.local"
 set :application, "jrbh-worklog"
 
 set :repository,  "git@github.com:sundbp/#{application}.git"
