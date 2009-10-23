@@ -15,4 +15,4 @@
 
     = link_to 'Show', worklog_task
     = link_to 'Edit', edit_worklog_task_path(worklog_task)
-    = link_to 'Destroy', worklog_task, :confirm => 'Are you sure?', :method => :delete
+    = link_to 'Destroy', worklog_task, :confirm => "Are you sure? This worklog task has #{worklog_task.work_periods.size} associated work periods that will also be deleted.", :method => :delete

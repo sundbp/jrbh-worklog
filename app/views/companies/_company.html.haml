@@ -12,4 +12,4 @@
      
     = link_to 'Show', company
     = link_to 'Edit', edit_company_path(company)
-    = link_to 'Destroy', company, :confirm => 'Are you sure?', :method => :delete
+    = link_to 'Destroy', company, :confirm => "Are you sure? This company has #{company.worklog_tasks.size} tasks and #{company.work_periods.size} work periods that will also be deleted.", :method => :delete
