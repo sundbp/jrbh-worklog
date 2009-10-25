@@ -25,12 +25,6 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
         <dependency name="haml" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
@@ -38,19 +32,37 @@
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="rubyforge" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="whenever" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/database.yml" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="chronic" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="rack" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
@@ -62,15 +74,45 @@
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="rack" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="json_pure" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="whenever" version="0" bound="GREATER_OR_EQUAL" url="'http://gemcutter.org/'" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="hoe" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
-      <source from="config/database.yml" />
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="rake" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
     </requirement>
     <requirement>
       <requirement>
@@ -99,6 +141,9 @@
     <orderEntry type="library" name="[gem] chriseppstein-compass (v0.8.17, /opt/local/lib/ruby/gems/1.8/gems/chriseppstein-compass-0.8.17)" level="application" />
     <orderEntry type="library" name="[gem] haml (v2.2.6, /opt/local/lib/ruby/gems/1.8/gems/haml-2.2.6)" level="application" />
     <orderEntry type="library" name="[gem] rack (v1.0.0, /opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0)" level="application" />
+    <orderEntry type="library" name="[gem] hoe (v2.3.3, /opt/local/lib/ruby/gems/1.8/gems/hoe-2.3.3)" level="application" />
+    <orderEntry type="library" name="[gem] json_pure (v1.1.9, /opt/local/lib/ruby/gems/1.8/gems/json_pure-1.1.9)" level="application" />
+    <orderEntry type="library" name="[gem] rubyforge (v2.0.3, /opt/local/lib/ruby/gems/1.8/gems/rubyforge-2.0.3)" level="application" />
   </component>
 </module>
 
