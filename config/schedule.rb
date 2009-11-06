@@ -2,11 +2,6 @@
 
 #set :output, "/home/patrik/www/jrbh-worklog/current/log/cron_log.log"
 
-every 1.day, :at => '1.15pm' do
-  command "cp /home/patrik/Dropbox/backup/jrbh_prod.dump.4 /home/patrik/Dropbox/backup/jrbh_prod.dump.5"
-  command "cp /home/patrik/Dropbox/backup/jrbh_prod.dump.3 /home/patrik/Dropbox/backup/jrbh_prod.dump.4"
-  command "cp /home/patrik/Dropbox/backup/jrbh_prod.dump.2 /home/patrik/Dropbox/backup/jrbh_prod.dump.3"
-  command "cp /home/patrik/Dropbox/backup/jrbh_prod.dump.1 /home/patrik/Dropbox/backup/jrbh_prod.dump.2"
-  command "cp /home/patrik/Dropbox/backup/jrbh_prod.dump /home/patrik/Dropbox/backup/jrbh_prod.dump.1"
-  command "/usr/bin/pg_dump jrbh_prod > /home/patrik/Dropbox/backup/jrbh_prod.dump"
+every 1.day, :at => '2.30pm' do
+  command "/home/patrik/www/jrbh-worklog/current/script/worklog-backup.sh"
 end
