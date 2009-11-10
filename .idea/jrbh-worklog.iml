@@ -12,16 +12,27 @@
   <component name="GemRequirementsHolder" version="2">
     <requirement>
       <requirement>
+        <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" url="&quot;http://gems.github.com&quot;" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="pg" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
-      <source from="config/database.yml" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="chronic" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
     </requirement>
     <requirement>
       <requirement>
@@ -32,45 +43,28 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="rubyforge" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="hoe" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="json_pure" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="whenever" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
-      <source manual="true" />
+      <source from="config/environment.rb" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="pg" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
+      <source manual="true" />
       <source from="config/database.yml" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="chronic" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="authlogic" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
     </requirement>
     <requirement>
       <requirement>
@@ -86,7 +80,31 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="json_pure" version="0" bound="GREATER_OR_EQUAL" />
+        <dependency name="rake" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="rubyforge" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/database.yml" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="whenever" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
     </requirement>
@@ -95,24 +113,6 @@
         <dependency name="will_paginate" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="hoe" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="rake" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
     </requirement>
   </component>
   <component name="NewModuleRootManager">
