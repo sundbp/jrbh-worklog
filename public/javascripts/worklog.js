@@ -213,7 +213,8 @@ $(document).ready(function() {
      * form for editing based on the calendar event being edited
      */
     function setupStartAndEndTimeFields($startTimeField, $endTimeField, calEvent, timeslotTimes) {
-
+        $startTimeField.html('');
+        $endTimeField.html('');        
         for (var i = 0; i < timeslotTimes.length; i++) {
             var startTime = timeslotTimes[i].start;
             var endTime = timeslotTimes[i].end;
@@ -230,6 +231,9 @@ $(document).ready(function() {
 
         }
         $endTimeOptions = $endTimeField.find("option");
+        if($endTimeOptions.length > timeslotTimes.length) {
+            alert("too many options for end field! tell Patrik, he wants to debug this.");
+        }
         $startTimeField.trigger("change");
     }
 
