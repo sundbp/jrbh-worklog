@@ -112,10 +112,12 @@ $(document).ready(function() {
         eventDrop : function(calEvent, $event) { handleSave(calEvent, "drop"); },
         eventResize : function(calEvent, $event) { handleSave( calEvent, "resize"); },
         eventMouseover : function(calEvent, $event) {
-            $event.qtip("show");
+            if(jQuery.data($event, "qtip"))
+                $event.qtip("show");
         },
         eventMouseout : function(calEvent, $event) {
-            $event.qtip("hide");
+            if(jQuery.data($event, "qtip"))
+                $event.qtip("hide");
         },
         noEvents : function() {
         },
