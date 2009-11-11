@@ -43,6 +43,7 @@ $(document).ready(function() {
 
             $dialogContent.dialog({
                 modal: true,
+                width: 400,
                 title: "New work period",
                 close: function() {
                     $dialogContent.dialog("destroy");
@@ -73,6 +74,7 @@ $(document).ready(function() {
 
             $dialogContent.dialog({
                 modal: true,
+                width: 400,
                 title: "Edit work period",
                 close: function() {
                     $dialogContent.dialog("destroy");
