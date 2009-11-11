@@ -11,7 +11,8 @@
         = option_groups_from_collection_for_select(task_groups_options, :options, :group_name, :id, :name )
     %p
       = label_tag :comment
-      = text_area_tag :comment, "", :size => "22x5"
+      %br
+      = text_area_tag :comment, "", :size => "28x5"
     %p
       = label_tag :date
       = text_field_tag :date, "", :disabled => true, :class => "date-holder"
