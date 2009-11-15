@@ -1,0 +1,27 @@
+%h3
+  Dump data by company (in CSV format)
+
+- form_for :csv_generator, @csv_generator, :url => {:action => :show} do |f|
+  = f.hidden_field :company_or_task
+  %p
+    = f.label "Start of time period:"
+    = f.date_select :start_date
+    %br
+    = f.label "End of time period:"
+    = f.date_select :end_date
+  %p
+    Users to include:
+    %br
+    - User.find(:all, :order => "alias").each do |user|
+      = check_box_tag "csv_generator[users][]", user.id, @csv_generator.users.include?(user.id)
+      = user.alias
+      %br
+  %p
+    Companies to include:
+    %br
+    - Company.find(:all, :order => "name").each do |company|
+      = check_box_tag "csv_generator[companies][]", company.id, @csv_generator.users.include?(company.id)
+      = company.name
+      %br
+  %p
+    = f.submit "Get work period data"

@@ -1,0 +1,30 @@
+%h3
+  Dump data by worklog task (in CSV format)
+
+- form_for :csv_generator, @csv_generator, :url => {:action => :show} do |f|
+  = f.hidden_field :company_or_task
+  %p
+    = f.label "Start of time period:"
+    = f.date_select :start_date
+    %br
+    = f.label "End of time period:"
+    = f.date_select :end_date
+  %p
+    Users to include:
+    %br
+    - User.find(:all, :order => "alias").each do |user|
+      = check_box_tag "csv_generator[users][]", user.id, @csv_generator.users.include?(user.id)
+      = user.alias
+      %br
+  %p
+    Worklog tasks to include:
+    %br
+    - Company.find(:all, :order => "name").each do |company|
+      = company.name
+      %br
+      - WorklogTask.find(:all, :conditions => {:company_id => company.id}, :order => "name").each do |task|
+        = check_box_tag "csv_generator[worklog_tasks][]", task.id, @csv_generator.worklog_tasks.include?(task.id)
+        = task.name
+        %br
+  %p
+    = f.submit "Get work period data"
