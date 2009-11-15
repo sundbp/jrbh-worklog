@@ -26,6 +26,8 @@ Rails::Initializer.run do |config|
   config.gem "ruby-net-ldap", :lib => "net/ldap"
   config.gem 'chriseppstein-compass', :lib => 'compass', :source =>"http://gems.github.com"
   config.gem "rack"
+  config.gem "fastercsv"
+  
   #config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
   
   # Only load the plugins named here, in the order given (default is alphabetical).

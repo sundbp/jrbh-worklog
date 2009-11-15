@@ -1,13 +1,13 @@
 class WorklogController < ApplicationController
   before_filter :require_user
 
-  layout "worklog"
+  layout "worklog-edit"
 
   helper_method :available_users, :available_users_exists?
   helper_method :available_worklog_tasks, :available_worklog_tasks_exists?
 
   def edit
-    render :action => "edit", :layout => "worklog-edit"
+    render :action => "edit"
   end
 
   private

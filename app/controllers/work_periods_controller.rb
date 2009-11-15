@@ -119,7 +119,10 @@ class WorkPeriodsController < ApplicationController
     end
   end
 
-  private
+  def csv_by_company
+  end
+
+private
 
   def custom_json(data)
     if data.respond_to?('collect' )

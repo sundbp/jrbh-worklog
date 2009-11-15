@@ -36,6 +36,12 @@
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="fastercsv" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="config/environment.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="haml" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
@@ -64,6 +70,11 @@
         <dependency name="pg" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="postgres" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
       <source from="config/database.yml" />
     </requirement>
     <requirement>
@@ -138,6 +149,10 @@
     <orderEntry type="library" name="[gem] hoe (v2.3.3, /opt/local/lib/ruby/gems/1.8/gems/hoe-2.3.3)" level="application" />
     <orderEntry type="library" name="[gem] json_pure (v1.1.9, /opt/local/lib/ruby/gems/1.8/gems/json_pure-1.1.9)" level="application" />
     <orderEntry type="library" name="[gem] rubyforge (v2.0.3, /opt/local/lib/ruby/gems/1.8/gems/rubyforge-2.0.3)" level="application" />
+    <orderEntry type="library" name="[gem] whenever (v0.4.0, /opt/local/lib/ruby/gems/1.8/gems/whenever-0.4.0)" level="application" />
+    <orderEntry type="library" name="[gem] chronic (v0.2.3, /opt/local/lib/ruby/gems/1.8/gems/chronic-0.2.3)" level="application" />
+    <orderEntry type="library" name="[gem] postgres (v0.7.9.2008.01.28, /opt/local/lib/ruby/gems/1.8/gems/postgres-0.7.9.2008.01.28)" level="application" />
+    <orderEntry type="library" name="[gem] fastercsv (v1.5.0, /opt/local/lib/ruby/gems/1.8/gems/fastercsv-1.5.0)" level="application" />
   </component>
 </module>
 

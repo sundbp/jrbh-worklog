@@ -2,14 +2,13 @@
 !!!
 %html{ :'xml:lang' => "en", :lang => "en" }
   %head
-    %title= "JRBH - #{controller.class.to_s}"
+    %title= "JRBH - #{controller.big_header}"
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
     %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
     = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'jquery.weekcalendar.css', :media => 'screen, projection'
 
     = javascript_include_tag :defaults
     = javascript_include_tag 'jquery.weekcalendar.js'
@@ -21,7 +20,7 @@
           %h1 JRBH
         #title
           %center
-            %h2= controller.class.to_s.capitalize.match(/(.*)controller/)[1]
+            %h2= controller.big_header
 
         %hr
         #flash

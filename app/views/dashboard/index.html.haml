@@ -6,8 +6,8 @@
   %p.heading Worlog v3.0
   %ul
     %li= link_to 'Edit worklog', :controller => :worklog, :action => :edit
-    %li= link_to 'My weekly summary', :controller => :worklog, :action => :xxx
-    %li= link_to 'My monthly summary', :controller => :worklog, :action => :xxx
+    %li= link_to 'Dump data by company', :controller => :csv_generator, :action => :by_company_form
+    %li= link_to 'Dump data by task', :controller => :csv_generator, :action => :by_task_form
 
 #other-app
   %p.heading Other application
