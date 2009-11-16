@@ -13,9 +13,14 @@
     Users to include:
     %br
     - User.find(:all, :order => "alias").each do |user|
-      = check_box_tag "csv_generator[users][]", user.id, @csv_generator.users.include?(user.id)
+      = check_box_tag "csv_generator[users][]", user.id, @csv_generator.users.include?(user.id), :class => "user_check_box"
       = user.alias
       %br
+    %a{:href => "javascript:void(0)", :onclick => '$(".user_check_box").each(function(i,box){box.checked = true})'}
+      Select all users
+    |
+    %a{:href => "javascript:void(0)", :onclick => '$(".user_check_box").each(function(i,box){box.checked = false})'}
+      Select no users
   %p
     Worklog tasks to include:
     %br
@@ -23,8 +28,13 @@
       = company.name
       %br
       - WorklogTask.find(:all, :conditions => {:company_id => company.id}, :order => "name").each do |task|
-        = check_box_tag "csv_generator[worklog_tasks][]", task.id, @csv_generator.worklog_tasks.include?(task.id)
+        = check_box_tag "csv_generator[worklog_tasks][]", task.id, @csv_generator.worklog_tasks.include?(task.id), :class => "task_check_box"
         = task.name
         %br
+    %a{:href => "javascript:void(0)", :onclick => '$(".task_check_box").each(function(i,box){box.checked = true})'}
+      Select all tasks
+    |
+    %a{:href => "javascript:void(0)", :onclick => '$(".task_check_box").each(function(i,box){box.checked = false})'}
+      Select no tasks
   %p
     = f.submit "Get work period data"
