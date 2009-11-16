@@ -1,0 +1,49 @@
+!!! XML
+!!!
+%html{ :'xml:lang' => "en", :lang => "en" }
+  %head
+    %title= "JRBH - #{controller.big_header}"
+    %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %link{ :rel => "shortcut icon", :href => "/favicon.ico" }
+    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
+    /[if lt IE 8]
+      = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+
+    = javascript_include_tag 'jquery.js'
+    = javascript_include_tag 'jquery.qtip-1.0.0-rc3.min.js'
+    = javascript_include_tag 'jquery-ui.min.js'
+    = javascript_include_tag 'jrails.js'
+    = javascript_include_tag 'application.js'
+    
+  %body#csv-generator.bp-general-with-sidebar
+    .container
+      #header
+        #logo
+          %h1 JRBH
+        #title
+          %center
+            %h2= controller.big_header
+
+        %hr
+        #flash
+          - unless flash.empty?
+            = content_tag :div, flash[:notice],  :class => "notice"  if flash[:notice]
+            = content_tag :div, flash[:warning], :class => "warning" if flash[:warning]
+            = content_tag :div, flash[:error],   :class => "error"   if flash[:error]
+            %hr
+          :javascript
+            #{visual_effect :highlight, "flash"}
+
+      #main
+        #sidebar
+          = render :partial => 'sidebar'
+        #content
+          = yield
+
+      #footer
+        %hr
+        #copyright
+          %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
+        #produced-with
+          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."

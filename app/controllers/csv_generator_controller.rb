@@ -1,4 +1,6 @@
 class CsvGeneratorController < ApplicationController
+  layout "csv_generator"
+  
   def by_company_form
     @csv_generator = CsvGenerator.new
     @csv_generator.company_or_task = "company"

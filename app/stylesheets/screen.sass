@@ -26,7 +26,7 @@ body.bp-general-with-sidebar
     .heading
       font-size: 1.2em
       margin-bottom: 0.3em
-  
+
 body#dashboard
   h2
     margin-bottom: 0.1em
@@ -74,3 +74,13 @@ body#admin-panel
     +farbtastic
   #worklog-tasks
     +farbtastic
+
+body#csv-generator
+  #content
+    #user-selection
+      +column(9)
+    #company-selecction
+      +column(9, true)
+    #task-selection
+      +column(9, true)
+      
