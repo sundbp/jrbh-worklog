@@ -20,9 +20,11 @@ class CsvGeneratorController < ApplicationController
 
     start_date = Date.new(params[:csv_generator][:"start_date(1i)"].to_i,params[:csv_generator][:"start_date(2i)"].to_i,params[:csv_generator][:"start_date(3i)"].to_i)
     end_date = Date.new(params[:csv_generator][:"end_date(1i)"].to_i,params[:csv_generator][:"end_date(2i)"].to_i,params[:csv_generator][:"end_date(3i)"].to_i) + 1
+    company_or_task = nil
 
     conditions = case params[:csv_generator][:company_or_task]
       when "company"
+        company_or_task = :company
         ["work_periods.user_id IN (?) and companies.id IN (?) and work_periods.start >= ? and work_periods.end <= ?",
          params[:csv_generator][:users],
          params[:csv_generator][:companies],
@@ -30,6 +32,7 @@ class CsvGeneratorController < ApplicationController
          end_date
         ]
       when "task"
+        company_or_task = :task
         ["work_periods.user_id IN (?) and work_periods.worklog_task_id IN (?) and work_periods.start >= ? and work_periods.end <= ?",
          params[:csv_generator][:users],
          params[:csv_generator][:worklog_tasks],
@@ -45,9 +48,17 @@ class CsvGeneratorController < ApplicationController
                           :order => "work_periods.user_id, companies.id, work_periods.worklog_task_id, work_periods.start")
     
     csv_string = FasterCSV.generate do |csv|
-      csv << ["user", "company", "start", "end", "duration_in_hours"]
+      if company_or_task == :company
+        csv << ["user", "company", "start", "end", "duration_in_hours"]
+      else
+        csv << ["user", "company", "worklog_task", "start", "end", "duration_in_hours"]
+      end
       wps.each do |wp|
-        csv << [wp.user.alias, wp.company.name, wp.start, wp.end, (wp.end - wp.start).to_f/1.hour.to_f]
+        if company_or_task == :company
+          csv << [wp.user.alias, wp.company.name, wp.start, wp.end, (wp.end - wp.start).to_f/1.hour.to_f]
+        else
+          csv << [wp.user.alias, wp.company.name, wp.worklog_task.name, wp.start, wp.end, (wp.end - wp.start).to_f/1.hour.to_f]
+        end
       end
     end
     send_data csv_string, :type => "text/csv", :filename => "worklog_data.csv", :disposition => 'attachment'
