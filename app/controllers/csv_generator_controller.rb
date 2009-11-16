@@ -1,4 +1,6 @@
 class CsvGeneratorController < ApplicationController
+  before_filter :require_user
+
   layout "csv_generator"
   
   def by_company_form
