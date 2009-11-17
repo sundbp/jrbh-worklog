@@ -4,7 +4,7 @@
   
 #event_edit_container
   - field_set_tag do
-    = hidden_field_tag :user_id, current_user.id
+    = hidden_field_tag :user_id, @worklog.user.id
     %p
       = label_tag :worklog_task_id, "Task"
       %select{:name => 'worklog_task[id]', :id => 'worklog_task_id'}

@@ -7,6 +7,11 @@ class WorklogController < ApplicationController
   helper_method :available_worklog_tasks, :available_worklog_tasks_exists?
 
   def edit
+    if params.has_key? "id"
+      @worklog = Worklog.new(params["id"])
+    else
+      @worklog = Worklog.new(current_user.alias)
+    end
     render :action => "edit"
   end
 

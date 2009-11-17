@@ -24,18 +24,6 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="chriseppstein-compass" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="chronic" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
         <dependency name="fastercsv" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
@@ -44,32 +32,13 @@
       <requirement>
         <dependency name="haml" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
-      <source manual="true" />
       <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="hoe" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="json_pure" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
     </requirement>
     <requirement>
       <requirement>
         <dependency name="mocha" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="pg" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
     </requirement>
     <requirement>
       <requirement>
@@ -91,33 +60,15 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="rake" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
         <dependency name="ruby-net-ldap" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/environment.rb" />
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="rubyforge" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
-    </requirement>
-    <requirement>
-      <requirement>
         <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
       </requirement>
       <source from="config/database.yml" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="whenever" version="0" bound="GREATER_OR_EQUAL" />
-      </requirement>
-      <source manual="true" />
     </requirement>
     <requirement>
       <requirement>
@@ -142,15 +93,9 @@
     <orderEntry type="library" name="[gem] rails (v2.3.4, /opt/local/lib/ruby/gems/1.8/gems/rails-2.3.4)" level="application" />
     <orderEntry type="library" name="[gem] authlogic (v2.1.2, /Users/patrik/.gem/ruby/1.8/gems/authlogic-2.1.2)" level="application" />
     <orderEntry type="library" name="[gem] ruby-net-ldap (v0.0.4, /opt/local/lib/ruby/gems/1.8/gems/ruby-net-ldap-0.0.4)" level="application" />
-    <orderEntry type="library" name="[gem] pg (v0.8.0, /opt/local/lib/ruby/gems/1.8/gems/pg-0.8.0)" level="application" />
     <orderEntry type="library" name="[gem] chriseppstein-compass (v0.8.17, /opt/local/lib/ruby/gems/1.8/gems/chriseppstein-compass-0.8.17)" level="application" />
     <orderEntry type="library" name="[gem] haml (v2.2.6, /opt/local/lib/ruby/gems/1.8/gems/haml-2.2.6)" level="application" />
     <orderEntry type="library" name="[gem] rack (v1.0.0, /opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0)" level="application" />
-    <orderEntry type="library" name="[gem] hoe (v2.3.3, /opt/local/lib/ruby/gems/1.8/gems/hoe-2.3.3)" level="application" />
-    <orderEntry type="library" name="[gem] json_pure (v1.1.9, /opt/local/lib/ruby/gems/1.8/gems/json_pure-1.1.9)" level="application" />
-    <orderEntry type="library" name="[gem] rubyforge (v2.0.3, /opt/local/lib/ruby/gems/1.8/gems/rubyforge-2.0.3)" level="application" />
-    <orderEntry type="library" name="[gem] whenever (v0.4.0, /opt/local/lib/ruby/gems/1.8/gems/whenever-0.4.0)" level="application" />
-    <orderEntry type="library" name="[gem] chronic (v0.2.3, /opt/local/lib/ruby/gems/1.8/gems/chronic-0.2.3)" level="application" />
     <orderEntry type="library" name="[gem] postgres (v0.7.9.2008.01.28, /opt/local/lib/ruby/gems/1.8/gems/postgres-0.7.9.2008.01.28)" level="application" />
     <orderEntry type="library" name="[gem] fastercsv (v1.5.0, /opt/local/lib/ruby/gems/1.8/gems/fastercsv-1.5.0)" level="application" />
   </component>

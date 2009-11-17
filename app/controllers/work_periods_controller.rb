@@ -56,9 +56,17 @@ class WorkPeriodsController < ApplicationController
   def index
     if request.xhr?
       # TODO:add some filtering here.
+      user_id = current_user.id
+      if params.has_key? "user_id"
+        if params["user_id"].to_i != current_user.id and not current_user.admin
+          raise "Non-admin users are not allowed to view other users data!"
+        else
+          user_id = params["user_id"].to_i
+        end
+      end
       @work_periods = WorkPeriod.find(:all,
                                       :conditions => ["user_id = ? and start > ? and start < ?",
-                                                      current_user.id,
+                                                      user_id,
                                                       Time.parse(params["start"]),
                                                       Time.parse(params["end"]) ])
     else

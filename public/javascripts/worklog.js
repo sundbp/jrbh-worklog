@@ -6,7 +6,7 @@ $(document).ready(function() {
     var $calendar = $('#calendar');
     $calendar.weekCalendar({
         timeslotsPerHour : 2,
-        allowCalEventOverlap : true,
+        allowCalEventOverlap : false,
         overlapEventsSeparate: true,
         firstDayOfWeek : 6,
         businessHours :{start: 8, end: 19, limitDisplay: false },
@@ -124,7 +124,10 @@ $(document).ready(function() {
         noEvents : function() {
         },
         data : function(start, end, callback) {
+            var $dialogContent = $("#event_edit_container");
+            var user_id = $dialogContent.find("input[name='user_id']").val()
             $.getJSON("/work_periods/", {
+                user_id: user_id,
                 start: start,
                 end : end
             }, function(result) {
