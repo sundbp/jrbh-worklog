@@ -9,8 +9,19 @@
     %br
     = f.text_field :alias
   %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  %p
+    = f.label :email
+    %br
+    = f.text_field :email
+  %p
     = f.label 'Has admin rights'
     = f.check_box :admin
+  %p
+    = f.label 'Is an active employee'
+    = f.check_box :active_employee
   %p
     = f.submit "Submit"
     // TODO:see if we can add a validation that the username exists in LDAP

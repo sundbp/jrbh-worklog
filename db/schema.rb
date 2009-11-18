@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091012165042) do
+ActiveRecord::Schema.define(:version => 20091118123740) do
 
   create_table "companies", :force => true do |t|
     t.string   "name",                              :null => false
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(:version => 20091012165042) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login",             :null => false
-    t.string   "alias",             :null => false
+    t.string   "login",                               :null => false
+    t.string   "alias",                               :null => false
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -30,7 +30,10 @@ ActiveRecord::Schema.define(:version => 20091012165042) do
     t.datetime "current_login_at"
     t.string   "last_login_ip"
     t.string   "current_login_ip"
-    t.boolean  "admin",             :null => false
+    t.boolean  "admin",                               :null => false
+    t.string   "name"
+    t.string   "email"
+    t.boolean  "active_employee",   :default => true, :null => false
   end
 
   create_table "work_periods", :force => true do |t|

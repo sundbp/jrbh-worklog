@@ -8,8 +8,20 @@
       %strong Alias:
       =h @user.alias
     %li
+      %strong Name:
+      =h @user.name
+    %li
+      %strong Email:
+      =h @user.email
+    %li
       %strong Admin rights:
       -if @user.admin
+        'Yes'
+      -else
+        'No'
+    %li
+      %strong Is an active employee:
+      -if @user.active_employee
         'Yes'
       -else
         'No'
