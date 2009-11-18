@@ -29,3 +29,11 @@ namespace :deploy do
     run "cd #{release_path} && whenever --update-crontab #{application}"
   end
 end
+
+namespace :deploy do
+  desc "Update the configuration .yml files"
+  task :update_yml, :roles => :db do
+    upload "config/database.yml", "config/database.yml"
+    upload "config/app_config.yml", "config/app_config.yml"
+  end
+end

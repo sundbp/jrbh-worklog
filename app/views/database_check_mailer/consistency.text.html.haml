@@ -1,0 +1,34 @@
+%html
+  %head
+  %body
+    %h1 Output from database consistency check
+
+    %p
+      In general all these errors should never happen since validations and otherwise should stop them from ever
+      getting into the database. If they do happen get Patrik to have a look at it.
+
+    - unless @overlaps.size == 0
+      %h3 Overlapping period errors:
+      = render :partial => "overlap", :collection => @overlaps
+
+    - unless @short_periods.size == 0
+      %h3 Periods that are too short:
+      = render :partial => "period", :collection => @short_periods
+
+    - unless @long_periods.size == 0
+      %h3 Periods that are too long:
+      = render :partial => "period", :collection => @long_periods
+
+    - unless @no_user.size == 0
+      %h3 Periods that do not have a valid user:
+      = render :partial => "period", :collection => @no_user
+
+    - unless @no_task.size == 0
+      %h3 Periods that do not have a valid worklog task:
+      (this may be because the task was deleted in some weird way)
+      = render :partial => "period", :collection => @no_user
+
+    - unless @no_company.size == 0
+      %h3 Periods that do not have a valid company:
+      (this may be because the company was deleted in some weird way)
+      = render :partial => "period", :collection => @no_user

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091118123740) do
+ActiveRecord::Schema.define(:version => 20091118125140) do
 
   create_table "companies", :force => true do |t|
     t.string   "name",                              :null => false
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20091118123740) do
     t.datetime "updated_at"
     t.string   "comment"
   end
+
+  add_index "work_periods", ["user_id", "start", "end"], :name => "index_work_periods_on_user_id_and_start_and_end", :unique => true
 
   create_table "worklog_tasks", :force => true do |t|
     t.string   "name",                              :null => false
