@@ -6,8 +6,8 @@ $(document).ready(function() {
     var $calendar = $('#calendar');
     $calendar.weekCalendar({
         timeslotsPerHour : 2,
-        allowCalEventOverlap : false,
-        overlapEventsSeparate: false,
+        allowCalEventOverlap : true,
+        overlapEventsSeparate: true,
         firstDayOfWeek : 6,
         businessHours :{start: 8, end: 19, limitDisplay: false },
         daysToShow : 7,
@@ -209,7 +209,7 @@ $(document).ready(function() {
                 $dialogContent.dialog("close");
             },
             error: function(req, testStatus, errorThrown) {
-                alert("Data could not be added properly - get Patrik to investiagte!");
+                alert("Data could not be added properly.\nAre you adding data that overlaps with existing data?\nIf not, get Patrik to investiagte!");
                 $dialogContent.dialog("close");
             }
         });
