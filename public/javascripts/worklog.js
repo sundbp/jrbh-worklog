@@ -7,7 +7,7 @@ $(document).ready(function() {
     $calendar.weekCalendar({
         timeslotsPerHour : 2,
         allowCalEventOverlap : false,
-        overlapEventsSeparate: true,
+        overlapEventsSeparate: false,
         firstDayOfWeek : 6,
         businessHours :{start: 8, end: 19, limitDisplay: false },
         daysToShow : 7,
