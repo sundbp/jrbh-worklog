@@ -35,7 +35,7 @@ after "deploy:symlink", "deploy:update_yml_files"
 namespace :deploy do
   desc "Update the configuration .yml files"
   task :update_yml_files, :roles => :db do
-    top.upload "config/database.yml", File.join(deploy_to, "current", "config", "database.yml") 
-    top.upload "config/app_config.yml", File.join(deploy_to, "current", "config", "app_config.yml") 
+    top.upload "config/database.yml", File.join(release_path, "config", "database.yml") 
+    top.upload "config/app_config.yml", File.join(release_path, "config", "app_config.yml") 
   end
 end
