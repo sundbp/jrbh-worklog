@@ -30,10 +30,12 @@ namespace :deploy do
   end
 end
 
+
+after "deploy:symlink", "deploy:update_yml_files"
 namespace :deploy do
   desc "Update the configuration .yml files"
-  task :update_yml, :roles => :db do
-    upload "config/database.yml", "config/database.yml"
-    upload "config/app_config.yml", "config/app_config.yml"
+  task :update_yml_files, :roles => :db do
+    top.upload "config/database.yml", File.join(deploy_to, "current", "config", "database.yml") 
+    top.upload "config/app_config.yml", File.join(deploy_to, "current", "config", "app_config.yml") 
   end
 end
