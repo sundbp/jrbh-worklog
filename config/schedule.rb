@@ -17,3 +17,9 @@ end
 every :monday, :at => '7.00am' do
   runner "DatabaseCheckMailer.run_gap_check"
 end
+
+every 1.week, :at => '19pm' do
+  runner "WorkPeriodsFlattener.flatten_work_periods"
+end
+
+
