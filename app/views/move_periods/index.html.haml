@@ -8,10 +8,12 @@
   %p
     = label_tag :worklog_task_from, "Move ALL recorded periods from this worklog task:"
     %br
-    = select_tag(:worklog_task_from, options_from_collection_for_select(WorklogTask.find(:all), :id, :name))
+    %select{:name => 'worklog_task_from', :id => 'worklog_task_from'}
+      = option_groups_from_collection_for_select(task_groups_options(false), :options, :group_name, :id, :name )
   %p
     = label_tag :worklog_task_to, "To this worklog task:"
     %br
-    = select_tag(:worklog_task_to, options_from_collection_for_select(WorklogTask.find(:all), :id, :name))
+    %select{:name => 'worklog_task_to', :id => 'worklog_task_to'}
+      = option_groups_from_collection_for_select(task_groups_options(false), :options, :group_name, :id, :name )
   %p
     = submit_tag "Move periods"

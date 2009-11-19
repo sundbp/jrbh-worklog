@@ -14,31 +14,4 @@ module WorklogHelper
     result.sort
   end
 
-  class WorklogTaskGroup
-    attr_reader :group_name, :options
-    def initialize(name)
-      @group_name = name
-      @options = []
-    end
-    def <<(option)
-      @options << option
-    end
-
-    def <=>(other)
-      return @group_name <=> other.group_name
-    end
-  end
-
-  WorklogTaskGroupOption = Struct.new(:id, :name)
-
-  def task_groups_options
-    result = Hash.new
-    worklog_tasks = WorklogTask.visible_in_user_menus
-    worklog_tasks.each do |t|
-      result[t.company.name] = WorklogTaskGroup.new(t.company.name) unless result.has_key? t.company.name
-      result[t.company.name] << WorklogTaskGroupOption.new(t.id, t.name)
-    end
-
-    result.values.sort
-  end
 end

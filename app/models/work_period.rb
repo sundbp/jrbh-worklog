@@ -23,7 +23,14 @@ class WorkPeriod < ActiveRecord::Base
       :conditions => ['users.alias = ?', user_alias]
     }
   }
-  
+
+  named_scope :worklog_task, lambda { |name|
+    {
+      :joins => "as work_periods inner join worklog_tasks on worklog_tasks.id = work_periods.worklog_task_id",
+      :conditions => ['worklog_tasks.name = ?', name]
+    }
+  }
+
   def company
     worklog_task.company
   end
