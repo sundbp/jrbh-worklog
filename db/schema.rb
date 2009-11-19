@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091118125140) do
+ActiveRecord::Schema.define(:version => 20091119111302) do
 
   create_table "companies", :force => true do |t|
     t.string   "name",                              :null => false
@@ -49,11 +49,12 @@ ActiveRecord::Schema.define(:version => 20091118125140) do
   add_index "work_periods", ["user_id", "start", "end"], :name => "index_work_periods_on_user_id_and_start_and_end", :unique => true
 
   create_table "worklog_tasks", :force => true do |t|
-    t.string   "name",                              :null => false
-    t.integer  "company_id",                        :null => false
+    t.string   "name",                                         :null => false
+    t.integer  "company_id",                                   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "color",      :default => "#68a1e5", :null => false
+    t.string   "color",                 :default => "#68a1e5", :null => false
+    t.boolean  "visible_in_user_menus", :default => true,      :null => false
   end
 
 end

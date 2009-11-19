@@ -13,6 +13,12 @@
         = text_field_tag :worklog_task_color, @worklog_task.color, :disabled => true
         #colorpicker
         = farbtastic_create('colorpicker', 'worklog_task_color', false)
+      %li
+        %strong Visible in user menus:
+        -if @worklog_task.visible_in_user_menus
+          'Yes'
+        -else
+          'No'
 
   %ul
     %li= link_to 'Edit', edit_worklog_task_path(@worklog_task)
