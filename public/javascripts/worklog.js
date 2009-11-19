@@ -1,6 +1,8 @@
 // javascript to setup a jquery-weekcalendar widget
 
 $(document).ready(function() {
+    //var $urlBase = "/";
+    var $urlBase = "/worklog/";
 
     // setup calendar
     var $calendar = $('#calendar');
@@ -87,7 +89,7 @@ $(document).ready(function() {
                         $.ajax({
                             dataType: "json",
                             type: "POST",
-                            url: '/work_periods/destroy',
+                            url: $urlBase + 'work_periods/destroy',
                             data: {id : calEvent.id },
                             success: function(result) {
                                 $calendar.weekCalendar("removeEvent", result.id);
@@ -126,7 +128,7 @@ $(document).ready(function() {
         data : function(start, end, callback) {
             var $dialogContent = $("#event_edit_container");
             var user_id = $dialogContent.find("input[name='user_id']").val()
-            $.getJSON("/work_periods/", {
+            $.getJSON($urlBase + "work_periods/", {
                 user_id: user_id,
                 start: start,
                 end : end
@@ -187,9 +189,9 @@ $(document).ready(function() {
 
         var url;
         if(caller == "create") {
-            url = '/work_periods/create';
+            url = $urlBase + 'work_periods/create';
         } else {
-            url = '/work_periods/update';
+            url = $urlBase + 'work_periods/update';
             postData["id"] = calEvent.id;
         }
 
