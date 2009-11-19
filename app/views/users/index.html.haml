@@ -1,5 +1,6 @@
 %h2=h "Users available in the database (#{@active_users.size} active, #{@all_users.size} in total)"
 - if !@users.empty?
+  = will_paginate(@users)
   .users
     = render :partial => "user", :collection => @users
   = will_paginate(@users)
