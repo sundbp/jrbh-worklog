@@ -1,0 +1,17 @@
+%h3 Move periods from one task to another
+
+%p
+  Warning: this operation can not be undone - once periods have been moved there is no way to distinguish
+  them form other periods for the new worklog task.
+
+- form_tag :action =>'move_periods' do
+  %p
+    = label_tag :worklog_task_from, "Move ALL recorded periods from this worklog task:"
+    %br
+    = select_tag(:worklog_task_from, options_from_collection_for_select(WorklogTask.find(:all), :id, :name))
+  %p
+    = label_tag :worklog_task_to, "To this worklog task:"
+    %br
+    = select_tag(:worklog_task_to, options_from_collection_for_select(WorklogTask.find(:all), :id, :name))
+  %p
+    = submit_tag "Move periods"

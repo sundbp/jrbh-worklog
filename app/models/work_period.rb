@@ -17,7 +17,7 @@ private
       else
         wp = WorkPeriod.find(:first, :conditions => ['user_id=? and not (start > ? or work_periods.end < ?)',
                                                      user.id, attributes['end']-1.second, start+1.second])
-        unless wp.nil?
+        unless wp.nil? or wp.id == id
           errors.add_to_base("work period overlaps with existing entry!")
         end
       end
