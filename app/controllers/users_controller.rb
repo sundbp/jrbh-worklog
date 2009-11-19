@@ -36,6 +36,8 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(:page => params[:page], :per_page => USERS_PER_PAGE, :order => 'alias ASC')
+    @all_users = User.find(:all)
+    @active_users = User.active_employees
     respond_to do |format|
       format.html
       format.xml  { render :xml => @users }

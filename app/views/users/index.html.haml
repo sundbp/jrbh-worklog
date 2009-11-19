@@ -1,4 +1,4 @@
-%h2 Users available in the database
+%h2=h "Users available in the database (#{@active_users.size} active, #{@all_users.size} in total)"
 - if !@users.empty?
   .users
     = render :partial => "user", :collection => @users
