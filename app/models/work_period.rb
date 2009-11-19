@@ -4,6 +4,19 @@ class WorkPeriod < ActiveRecord::Base
 
   validate :correct_period?
 
+  named_scope :between, lambda { |start_t, end_t|
+    {
+      :conditions => ['start >= ? and work_periods.end <= ?', start_t, end_t]
+    }
+  }
+
+  named_scope :user, lambda { |user_alias|
+    {
+      :joins => "as work_periods inner join users on users.id = work_periods.user_id",
+      :conditions => ['users.alias = ?', user_alias]
+    }
+  }
+  
   def company
     worklog_task.company
   end
