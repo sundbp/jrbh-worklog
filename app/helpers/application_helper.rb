@@ -51,4 +51,37 @@ module ApplicationHelper
     output << "></div>\n"
     return output
   end
+
+  class WorklogTaskGroup
+    attr_reader :group_name, :options
+    def initialize(name)
+      @group_name = name
+      @options = []
+    end
+    def <<(option)
+      @options << option
+    end
+
+    def <=>(other)
+      return @group_name <=> other.group_name
+    end
+  end
+
+  WorklogTaskGroupOption = Struct.new(:id, :name)
+
+  def task_groups_options(only_visible = true)
+    result = Hash.new
+    worklog_tasks = if only_visible
+      WorklogTask.visible_in_user_menus
+    else
+      WorklogTask.find(:all)
+    end
+    worklog_tasks.each do |t|
+      result[t.company.name] = WorklogTaskGroup.new(t.company.name) unless result.has_key? t.company.name
+      result[t.company.name] << WorklogTaskGroupOption.new(t.id, t.name)
+    end
+
+    result.values.sort
+  end
+
 end
