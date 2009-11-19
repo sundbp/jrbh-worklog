@@ -12,17 +12,9 @@ class DatabaseCheckMailer < ActionMailer::Base
     # find all pairwise overlaps
     overlaps = []
     User.find(:all).each do |user|
-      wps = WorkPeriod.find(:all, :conditions => ["user_id = ?", user.id])
-      (0..wps.size-1).each do |i|
-        next if i == wps.size-1
-        (i+1..wps.size-1).each do |j|
-          wp1 = wps[i]
-          wp2 = wps[j]
-          next if wp1 == wp2
-          if overlaps?(wp1,wp2)
-            overlaps << [wp1, wp2]
-          end
-        end
+      wps = WorkPeriod.user(user.alias)
+      (0..wps.size-2).each do |i|
+        overlaps << [wps[i], wps[i+1]] if overlaps?(wps[i], wps[i+1])
       end
     end
 
@@ -52,7 +44,30 @@ class DatabaseCheckMailer < ActionMailer::Base
   end
 
   def self.run_nagging_check
+    User.active_employees.each do |user|
+      latest_wp = user.work_periods.first
+      c_time = Time.now
+      if c_time - latest_wp.end > APP_CONFIG['num_days_to_start_nag'].days
+        DatabaseCheckMailer.deliver_nagging(user, latest_wp, c_time)
+      end
+    end
+  end
 
+  def self.run_gap_check
+    User.active_employees.each do |user|
+      wps = WorkPeriod.user(user.alias).last_days(APP_CONFIG['num_days_to_check_gaps']).reverse
+      gaps = []
+      (0..wps.size-2).each do |i|
+          wp1 = wps[i]
+          wp2 = wps[i+1]
+          if (wp1.end.wday == wp2.start.wday) and (wp2.start - wp1.end >= APP_CONFIG['num_hours_is_gap'].hours)
+            gaps << [wp1, wp2]
+          end
+      end
+      if gaps.size != 0
+        DatabaseCheckMailer.deliver_gap_warning(user, gaps)
+      end
+    end
   end
 
   def consistency(overlaps, short_periods, long_periods, no_user, no_task, no_company, sent_at = Time.now)
@@ -69,12 +84,35 @@ class DatabaseCheckMailer < ActionMailer::Base
                :no_company => no_company
   end
 
-  def nagging(sent_at = Time.now)
-    subject    'DatabaseCheckMailer#nagging'
-    recipients ''
-    from       ''
+  def nagging(user, latest_wp, sent_at = Time.now)
+    email = if user.email.nil?
+      APP_CONFIG['email_failover_address']
+    else
+      user.email
+    end
+    subject    'Worklog - Nag nag nag!'
+    recipients email
+    from       APP_CONFIG['worklog_email_from']
     sent_on    sent_at
     
-    body       :greeting => 'Hi,'
+    body       :user => user,
+               :latest_wp => latest_wp,
+               :c_time => sent_on
   end
+
+  def gap_warning(user, gaps, sent_at = Time.now)
+    email = if user.email.nil?
+      APP_CONFIG['email_failover_address']
+    else
+      user.email
+    end
+    subject    'Worklog - Suspicious gap found'
+    recipients email
+    from       APP_CONFIG['worklog_email_from']
+    sent_on    sent_at
+
+    body       :user => user,
+               :gaps => gaps
+  end
+
 end

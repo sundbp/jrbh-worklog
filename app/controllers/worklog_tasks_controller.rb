@@ -37,9 +37,7 @@ class WorklogTasksController < ApplicationController
   end
 
   def index
-    @worklog_tasks = WorklogTask.paginate(:page => params[:page], :per_page => WORKLOG_TASKS_PER_PAGE,
-                                          :joins => "as worklog_tasks inner join companies as com on worklog_tasks.company_id = com.id",
-                                          :order => 'com.name, worklog_tasks.name')
+    @worklog_tasks = WorklogTask.paginate(:page => params[:page], :per_page => WORKLOG_TASKS_PER_PAGE)
     respond_to do |format|
       format.html
       format.xml  { render :xml => @worklog_tasks }

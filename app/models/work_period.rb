@@ -4,9 +4,16 @@ class WorkPeriod < ActiveRecord::Base
 
   validate :correct_period?
 
+  default_scope :order => "start DESC"
+  
   named_scope :between, lambda { |start_t, end_t|
     {
       :conditions => ['start >= ? and work_periods.end <= ?', start_t, end_t]
+    }
+  }
+  named_scope :last_days, lambda { |num_days|
+    {
+      :conditions => ['? - start <= ?', Time.now, "#{num_days} days"]
     }
   }
 

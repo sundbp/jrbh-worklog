@@ -1,0 +1,18 @@
+%html
+  %head
+  %body
+    %h1 The Worklog has found a suspicious gap it'd like you to have a look at
+
+    %p
+      =h "When checking the data of the last #{APP_CONFIG['num_days_to_check_gap']} days of user #{@user.alias} "
+      =h "we found some intraday gaps that were #{APP_CONFIG['num_hours_is_gap']} hours or longer."
+
+    %p
+      The Worklog would like you to check the following to see you haven't forgotten anything':
+
+    = render :partial => "gap", :collection => @gaps
+
+    %p
+      Yours truly,
+      %br
+      The Worklog

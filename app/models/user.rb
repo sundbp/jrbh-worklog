@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :work_periods
 
+  named_scope :active_employees, :conditions => {:active_employee => true}
+  
   acts_as_authentic do |config|
     config.validate_password_field false
   end

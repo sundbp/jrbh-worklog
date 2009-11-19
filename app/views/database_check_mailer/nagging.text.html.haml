@@ -1,3 +1,28 @@
-DatabaseCheckMailer#nagging
+%html
+  %head
+  %body
+    %h1 You've been naughty and haven't filled out your worklog in a while!
 
-Find me in app/views/database_check_mailer/nagging.erb
+    %p
+      =h "This check for your user with the initials #{@user.alias} was run at: #{@c_time}"
+
+    %p
+      =h "The last period you've entered into the worklog ended: #{@latest_wp.end}"
+
+    %p
+      To give you some perspective on how long ago that is I can tell you that it is:
+      %br
+      - seconds = @c_time - @latest_wp.end
+      %ul
+        %li=h "#{(seconds / 1.day).round(1)} days ago, or"
+        %li=h "#{(seconds / 1.hour).round(1)} hours ago, or"
+        %li=h "#{(seconds / 1.minute).round} minutes ago, or a full"
+        %li=h "#{seconds.round} seconds ago!"
+
+    %p
+      The Worklog watches your every move and there's no escape - you may as well fill it in right away
+      to avoid further hassle tomorrow.
+
+    %p
+      Time to get busy - chop chop!
+

@@ -1,0 +1,3 @@
+%strong=h "Gap found between the following two periods (gap is #{((gap[1].start-gap[0].end)/1.hour).round(1)} hours):"
+= render :partial => "period", :collection => [gap[0]]
+= render :partial => "period", :collection => [gap[1]]
