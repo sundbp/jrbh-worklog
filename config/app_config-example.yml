@@ -1,0 +1,43 @@
+development:
+  smtp_settings:
+    :address        : smtp.gmail.com
+    :port           : 587
+    :domain         : gmail.com
+    :authentication : :plain
+    :user_name      : name@gmail.com
+    :password       : secret
+    :enable_starttls_auto : true
+
+  worklog_email_from: name@email.com
+  worklog_email_to:
+    - name@email.com
+    - name@email.com
+    - name@email.com
+
+  email_failover_address: name@email.com 
+  num_days_to_start_nag: 7
+  num_days_to_check_gaps: 21
+  num_hours_is_gap: 2
+
+test:
+
+production:
+  smtp_settings:
+    :address        : smtp.gmail.com
+    :port           : 587
+    :domain         : gmail.com
+    :authentication : :plain
+    :user_name      : name@gmail.com
+    :password       : secret
+    :enable_starttls_auto : true
+
+  worklog_email_from: name@email.com
+  worklog_email_to:
+    - name@email.com
+    - name@email.com
+    - name@email.com
+
+  email_failover_address: name@email.com 
+  num_days_to_start_nag: 7
+  num_days_to_check_gaps: 21
+  num_hours_is_gap: 2
