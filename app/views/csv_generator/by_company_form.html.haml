@@ -11,7 +11,7 @@
     = f.date_select :end_date
   #user-selection
     %p
-      Users to include:
+      %strong Users to include:
       %br
       - User.find(:all, :order => "alias").each do |user|
         = check_box_tag "csv_generator[users][]", user.id, @csv_generator.users.include?(user.id), :class => "user_check_box"
@@ -23,10 +23,10 @@
       %a{:href => "javascript:void(0)", :onclick => '$(".user_check_box").each(function(i,box){box.checked = false})'}
         Select no users
     %p
-      = f.submit "Get work period data"
+      = f.submit "Get data"
   #company-selection
     %p
-      Companies to include:
+      %strong Companies to include:
       %br
       - Company.find(:all, :order => "name").each do |company|
         = check_box_tag "csv_generator[companies][]", company.id, @csv_generator.companies.include?(company.id), :class => "company_check_box"
