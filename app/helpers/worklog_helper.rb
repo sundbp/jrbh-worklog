@@ -33,7 +33,7 @@ module WorklogHelper
 
   def task_groups_options
     result = Hash.new
-    worklog_tasks = WorklogTask.by_company.by_name.visible_in_user_menus
+    worklog_tasks = WorklogTask.by_company.visible_in_user_menus
     worklog_tasks.each do |t|
       result[t.company.name] = WorklogTaskGroup.new(t.company.name) unless result.has_key? t.company.name
       result[t.company.name] << WorklogTaskGroupOption.new(t.id, t.name)
