@@ -1,7 +1,8 @@
 class DatabaseCheckMailer < ActionMailer::Base
 
   MIN_PERIOD_LENGTH = 30.minutes
-  MAX_PERIOD_LENGTH = 10.hours
+  MAX_PERIOD_LENGTH = 15.hours
+  UNUSUALLY_LONG_PERIOD_LENGTH = 10.hours
 
   def self.overlaps?(wp1, wp2)
     not (wp1["start"] > (wp2["end"]-1.second) or wp1["end"] < (wp2["start"]+1.second))
@@ -73,6 +74,16 @@ class DatabaseCheckMailer < ActionMailer::Base
     end
   end
 
+  def self.run_unusually_long_periods_check
+    User.active_employees.each do |user|
+      wps = WorkPeriod.user(user.alias).last_days(APP_CONFIG['num_days_to_check_gaps']).reverse
+      unusually_long = wps.select {|wp| wp.duration > UNUSUALLY_LONG_PERIOD_LENGTH }
+      if  unusually_long.size != 0
+        DatabaseCheckMailer.deliver_unusually_long_period_warning(user, unusually_long)
+      end
+    end
+  end
+
   def consistency(overlaps, short_periods, long_periods, no_user, no_task, no_company, sent_at = Time.now)
     subject    'Worklog - Database consistency check failed'
     recipients APP_CONFIG['worklog_email_to']
@@ -116,6 +127,21 @@ class DatabaseCheckMailer < ActionMailer::Base
 
     body       :user => user,
                :gaps => gaps
+  end
+
+  def unusually_long_period_warning(user, unusually_long, sent_at = Time.now)
+    email = if user.email.nil?
+      APP_CONFIG['email_failover_address']
+    else
+      user.email
+    end
+    subject    'Worklog - Suspiciously long period(s) found'
+    recipients email
+    from       APP_CONFIG['worklog_email_from']
+    sent_on    sent_at
+
+    body       :user => user,
+               :unusually_long => unusually_long
   end
 
 end

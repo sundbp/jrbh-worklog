@@ -1,0 +1,18 @@
+%html
+  %head
+  %body
+    %h1 The Worklog has found some unusually long periods it'd like you to have a look at
+
+    %p
+      =h "When checking the data of the last #{APP_CONFIG['num_days_to_check_gaps']} days of user #{@user.alias} "
+      =h "we found some periods that are unusually long. Please have a look and check they're as intended."
+
+    %p
+      The Worklog would like you to check the following to see you haven't mis-entered anything:
+
+    = render :partial => "period", :collection => @unusually_long
+
+    %p
+      Yours truly,
+      %br
+      The Worklog

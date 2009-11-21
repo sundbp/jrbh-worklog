@@ -2,5 +2,6 @@
   - user_alias = period.user.nil? ? "" : period.user.alias
   - task_name = period.worklog_task.nil? ? "" : period.worklog_task.name
   - company_name = period.company.nil? ? "" : period.company.name
+  - duration = (period.end.nil? or period.start.nil?) ? "N/A" : "#{period.duration/1.hour} hours"
   %pre
-    =h "Id: #{period.id} - User: #{user_alias} (ID=#{period.user_id}) - Worklog task: #{task_name} (ID: #{period.worklog_task.id}) - Company: #{company_name} - Start: #{period.start} - End: #{period.end}\n"
+    =h "Id: #{period.id} - User: #{user_alias} (ID=#{period.user_id}) - Worklog task: #{task_name} (ID: #{period.worklog_task.id}) - Company: #{company_name} - Duration: #{duration} Start: #{period.start} - End: #{period.end}\n"
