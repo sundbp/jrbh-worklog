@@ -35,6 +35,10 @@ class WorkPeriod < ActiveRecord::Base
     worklog_task.company
   end
 
+  def duration
+    attributes['end']-start
+  end
+
 private
     def correct_period?
       if start >= attributes['end']

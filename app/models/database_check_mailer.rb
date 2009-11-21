@@ -22,9 +22,9 @@ class DatabaseCheckMailer < ActionMailer::Base
     short_periods = []
     long_periods = []
     WorkPeriod.find(:all).each do |wp|
-      if wp.end - wp.start <= MIN_PERIOD_LENGTH 
+      if wp.duration < MIN_PERIOD_LENGTH
         short_periods << wp
-      elsif wp.end - wp.start >= MAX_PERIOD_LENGTH
+      elsif wp.duration >= MAX_PERIOD_LENGTH
         long_periods << wp
       end
     end
@@ -60,7 +60,10 @@ class DatabaseCheckMailer < ActionMailer::Base
       (0..wps.size-2).each do |i|
           wp1 = wps[i]
           wp2 = wps[i+1]
-          if (wp1.end.wday == wp2.start.wday) and (wp2.start - wp1.end >= APP_CONFIG['num_hours_is_gap'].hours)
+          if (wp1.end.wday == wp2.start.wday) and
+                  (wp2.start - wp1.end >= APP_CONFIG['num_hours_is_gap'].hours) and
+                  wp2.start.hour <= APP_CONFIG['gap_cutoff_hour']
+            
             gaps << [wp1, wp2]
           end
       end
