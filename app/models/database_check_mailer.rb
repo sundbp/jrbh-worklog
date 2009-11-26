@@ -89,6 +89,7 @@ class DatabaseCheckMailer < ActionMailer::Base
     recipients APP_CONFIG['worklog_email_to']
     from       APP_CONFIG['worklog_email_from']
     sent_on    sent_at
+    content_type 'text/html'
     
     body       :overlaps => overlaps,
                :short_periods => short_periods,
@@ -108,7 +109,7 @@ class DatabaseCheckMailer < ActionMailer::Base
     recipients email
     from       APP_CONFIG['worklog_email_from']
     sent_on    sent_at
-    
+    content_type 'text/html'
     body       :user => user,
                :latest_wp => latest_wp,
                :c_time => sent_on
@@ -124,7 +125,8 @@ class DatabaseCheckMailer < ActionMailer::Base
     recipients email
     from       APP_CONFIG['worklog_email_from']
     sent_on    sent_at
-
+    content_type 'text/html'
+    
     body       :user => user,
                :gaps => gaps
   end
@@ -139,7 +141,7 @@ class DatabaseCheckMailer < ActionMailer::Base
     recipients email
     from       APP_CONFIG['worklog_email_from']
     sent_on    sent_at
-
+    content_type 'text/html'
     body       :user => user,
                :unusually_long => unusually_long
   end
