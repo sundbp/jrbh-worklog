@@ -1,7 +1,7 @@
 module WorklogHelper
   def color_legend_info
-    companies = Company.find(:all, :order => 'name ASC')
-    worklog_tasks = WorklogTask.find(:all, :order => 'name ASC')
+    companies = Company.order('name ASC').all
+    worklog_tasks = WorklogTask.order('name ASC').all
 
     result = Hash.new
     companies.each {|c| result[ c.name ] = Hash[:color => c.color]}

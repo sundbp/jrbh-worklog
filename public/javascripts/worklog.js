@@ -1,8 +1,8 @@
 // javascript to setup a jquery-weekcalendar widget
 
 $(document).ready(function() {
-    //var $urlBase = "/";
-    var $urlBase = "/worklog/";
+    var $urlBase = "/";
+    //var $urlBase = "/worklog/";
 
     // setup calendar
     var $calendar = $('#calendar');
@@ -31,9 +31,31 @@ $(document).ready(function() {
                 });
             }
             // add tooltip
+            var tooltip_conf = {
+              content: {
+                text: calEvent.comment
+              },
+              position : {
+                target: 'mouse',
+                adjust: {
+                  mouse: false,
+                  x: 20
+                }
+              },
+              style: {
+                classes: 'ui-tooltip-worklog'
+              },
+              show: {
+                delay: 500,
+                solo: true
+              },
+              hide: {
+                event: 'click mouseleave'
+              }
+            };
             if(calEvent.comment != null && calEvent.comment != "\n" && calEvent.comment != "") {
-                $event.find(".wc-time").qtip({ content: calEvent.comment, style: {name: 'cream'}, solo: true, delay: 250 });
-                $event.find(".wc-title").qtip({ content: calEvent.comment, style: {name: 'cream'}, solo: true, delay: 250 });
+              $event.find(".wc-time").qtip(tooltip_conf);
+              $event.find(".wc-title").qtip(tooltip_conf);
             }
         },
         eventNew : function(calEvent, $event) {
@@ -45,7 +67,7 @@ $(document).ready(function() {
 
             $dialogContent.dialog({
                 modal: true,
-                width: 400,
+                width: 460,
                 title: "New work period",
                 close: function() {
                     $dialogContent.dialog("destroy");
@@ -70,13 +92,13 @@ $(document).ready(function() {
             resetForm($dialogContent);
             var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
             var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-            var worklogTaskIdField = $dialogContent.find("select[id='worklog_task_id']").val(calEvent.title);
+            var worklogTaskIdField = $dialogContent.find("select[id='worklog_task_id']").val(calEvent.worklog_task_id);
 
             $dialogContent.find("textarea[id='comment']").val(calEvent.comment);
 
             $dialogContent.dialog({
                 modal: true,
-                width: 400,
+                width: 460,
                 title: "Edit work period",
                 close: function() {
                     $dialogContent.dialog("destroy");
@@ -128,10 +150,12 @@ $(document).ready(function() {
         data : function(start, end, callback) {
             var $dialogContent = $("#event_edit_container");
             var user_id = $dialogContent.find("input[name='user_id']").val()
+            var start_string = start.toISOString();
+            var end_string   = end.toISOString();
             $.getJSON($urlBase + "work_periods/", {
                 user_id: user_id,
-                start: start,
-                end : end
+                start: start_string,
+                end : end_string
             }, function(result) {
                 // update color legend
                 $("#legend-content").find(".legend").each(function() {
@@ -179,11 +203,14 @@ $(document).ready(function() {
             calEvent.comment = commentField.val();
         }
 
+        var start_string = calEvent.start.toISOString();
+        var end_string = calEvent.end.toISOString();
+        
         var postData = {
             user_id : calEvent.user_id,
             worklog_task_id : calEvent.worklog_task_id,
-            start : calEvent.start,
-            end : calEvent.end,
+            start : start_string,
+            end : end_string,
             comment : calEvent.comment
         };
 

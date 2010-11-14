@@ -1,6 +1,6 @@
 class WorkPeriodsFlattener
   def self.flatten_work_periods
-    User.find(:all).each do |user|
+    User.all.each do |user|
       periods = WorkPeriod.user(user.alias).reverse
       prev = nil
       cumm = []

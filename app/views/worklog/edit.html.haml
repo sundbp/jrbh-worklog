@@ -3,7 +3,7 @@
   = render :partial => 'color_legend',  :locals => {:color_legend_info => color_legend_info}
   
 #event_edit_container
-  - field_set_tag do
+  = field_set_tag do
     = hidden_field_tag :user_id, @worklog.user.id
     %p
       = label_tag :worklog_task_id, "Task"
@@ -12,13 +12,13 @@
     %p
       = label_tag :comment
       %br
-      = text_area_tag :comment, "", :size => "28x5"
+      = text_area_tag :comment, "", :size => "43x5"
     %p
       = label_tag :date
       = text_field_tag :date, "", :disabled => true, :class => "date-holder"
     %p
       = label_tag :start
-      = select_tag :start, []
+      = select_tag [:start, []].join.html_safe
     %p
       = label_tag :end
-      = select_tag :end, []
+      = select_tag [:end, []].join.html_safe

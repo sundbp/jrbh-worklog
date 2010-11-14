@@ -1,4 +1,3 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def farbtastic_create (colorpicker, color_field, editable=false)
     output = sprintf("<script type='text/javascript'>\n\t$('#%s').farbtastic('#%s');\n", colorpicker, color_field )
@@ -74,7 +73,7 @@ module ApplicationHelper
     worklog_tasks = if only_visible
       WorklogTask.visible_in_user_menus
     else
-      WorklogTask.find(:all)
+      WorklogTask.all
     end
     worklog_tasks.each do |t|
       result[t.company.name] = WorklogTaskGroup.new(t.company.name) unless result.has_key? t.company.name
@@ -83,5 +82,6 @@ module ApplicationHelper
 
     result.values.sort
   end
+
 
 end

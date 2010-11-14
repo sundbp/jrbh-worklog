@@ -1,6 +1,6 @@
 %h2= "Company \"#{@company.name}\""
 #companies
-  - content_tag_for :div, @company do
+  =content_tag_for :div, @company do
     %ul
       %li
         %strong Name:
@@ -9,7 +9,7 @@
         %strong Color:
         = text_field_tag :company_color, @company.color, :disabled => true
         #colorpicker
-        = farbtastic_create('colorpicker', 'company_color', false)
+        = farbtastic_create('colorpicker', 'company_color', false).html_safe
 
   %ul
     %li= link_to 'Edit', edit_company_path(@company)

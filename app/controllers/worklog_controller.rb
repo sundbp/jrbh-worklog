@@ -18,7 +18,7 @@ class WorklogController < ApplicationController
   private
 
   def available_users
-    return User.find(:all).collect {|c| [ c.alias, c.id ] }
+    return User.all.collect {|c| [ c.alias, c.id ] }
   end
 
   def available_users_exists?
@@ -26,7 +26,7 @@ class WorklogController < ApplicationController
   end
 
   def available_worklog_tasks
-    return WorklogTask.find(:all).collect {|c| [ c.name, c.id ] }
+    return WorklogTask.all.collect {|c| [ c.name, c.id ] }
   end
 
   def available_worklog_tasks_exists?

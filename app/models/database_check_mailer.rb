@@ -12,7 +12,7 @@ class DatabaseCheckMailer < ActionMailer::Base
 
     # find all pairwise overlaps
     overlaps = []
-    User.find(:all).each do |user|
+    User.all.each do |user|
       wps = WorkPeriod.user(user.alias)
       (0..wps.size-2).each do |i|
         overlaps << [wps[i], wps[i+1]] if overlaps?(wps[i], wps[i+1])
@@ -22,7 +22,7 @@ class DatabaseCheckMailer < ActionMailer::Base
     # find all periods that are too short or too long
     short_periods = []
     long_periods = []
-    WorkPeriod.find(:all).each do |wp|
+    WorkPeriod.all.each do |wp|
       if wp.duration < MIN_PERIOD_LENGTH
         short_periods << wp
       elsif wp.duration >= MAX_PERIOD_LENGTH
@@ -34,14 +34,14 @@ class DatabaseCheckMailer < ActionMailer::Base
     no_user = []
     no_task = []
     no_company = []
-    WorkPeriod.find(:all).each do |wp|
+    WorkPeriod.all.each do |wp|
       no_user << wp if wp.user.nil?
       no_task << wp if wp.worklog_task.nil?
       no_company << wp if wp.company.nil?
     end
 
     send_email = [overlaps, short_periods, long_periods, no_user, no_task, no_company].inject(0) {|sum, x| sum + x.size}
-    DatabaseCheckMailer.deliver_consistency(overlaps, short_periods, long_periods, no_user, no_task, no_company) if send_email != 0
+    DatabaseCheckMailer.consistency(overlaps, short_periods, long_periods, no_user, no_task, no_company).deliver if send_email != 0
   end
 
   def self.run_nagging_check
@@ -49,7 +49,7 @@ class DatabaseCheckMailer < ActionMailer::Base
       latest_wp = user.work_periods.first
       c_time = Time.now
       if c_time - latest_wp.end > APP_CONFIG['num_days_to_start_nag'].days
-        DatabaseCheckMailer.deliver_nagging(user, latest_wp, c_time)
+        DatabaseCheckMailer.nagging(user, latest_wp, c_time).deliver
       end
     end
   end
@@ -69,7 +69,7 @@ class DatabaseCheckMailer < ActionMailer::Base
           end
       end
       if gaps.size != 0
-        DatabaseCheckMailer.deliver_gap_warning(user, gaps)
+        DatabaseCheckMailer.gap_warning(user, gaps).deliver
       end
     end
   end
@@ -79,24 +79,20 @@ class DatabaseCheckMailer < ActionMailer::Base
       wps = WorkPeriod.user(user.alias).last_days(APP_CONFIG['num_days_to_check_gaps']).reverse
       unusually_long = wps.select {|wp| wp.duration > UNUSUALLY_LONG_PERIOD_LENGTH }
       if  unusually_long.size != 0
-        DatabaseCheckMailer.deliver_unusually_long_period_warning(user, unusually_long)
+        DatabaseCheckMailer.unusually_long_period_warning(user, unusually_long).deliver
       end
     end
   end
 
   def consistency(overlaps, short_periods, long_periods, no_user, no_task, no_company, sent_at = Time.now)
-    subject    'Worklog - Database consistency check failed'
-    recipients APP_CONFIG['worklog_email_to']
-    from       APP_CONFIG['worklog_email_from']
-    sent_on    sent_at
-    content_type 'text/html'
+    @overlaps = overlaps
+    @short_periods = short_periods
+    @long_periods = long_periods
+    @no_user = no_user
+    @no_company = no_company
     
-    body       :overlaps => overlaps,
-               :short_periods => short_periods,
-               :long_periods => long_periods,
-               :no_user => no_user,
-               :no_task => no_task,
-               :no_company => no_company
+    mail(:to => APP_CONFIG['worklog_email_to'], :from => APP_CONFIG['worklog_email_from'],
+         :subject => 'Worklog - Database consistency check failed', :sent_on => sent_at)
   end
 
   def nagging(user, latest_wp, sent_at = Time.now)
@@ -105,14 +101,13 @@ class DatabaseCheckMailer < ActionMailer::Base
     else
       user.email
     end
-    subject    'Worklog - Nag nag nag!'
-    recipients email
-    from       APP_CONFIG['worklog_email_from']
-    sent_on    sent_at
-    content_type 'text/html'
-    body       :user => user,
-               :latest_wp => latest_wp,
-               :c_time => sent_on
+
+    @user = user
+    @latest_wp = latest_wp
+    @c_time = sent_on
+    
+    mail(:to => email, :from => APP_CONFIG['worklog_email_from'],
+         :subject => 'Worklog - Nag nag nag!', :sent_on => sent_at)        
   end
 
   def gap_warning(user, gaps, sent_at = Time.now)
@@ -121,14 +116,12 @@ class DatabaseCheckMailer < ActionMailer::Base
     else
       user.email
     end
-    subject    'Worklog - Suspicious gap found'
-    recipients email
-    from       APP_CONFIG['worklog_email_from']
-    sent_on    sent_at
-    content_type 'text/html'
+
+    @user = user
+    @gaps = gaps
     
-    body       :user => user,
-               :gaps => gaps
+    mail(:to => email, :from => APP_CONFIG['worklog_email_from'],
+         :subject => 'Worklog - Suspicious gap found!', :sent_on => sent_at)        
   end
 
   def unusually_long_period_warning(user, unusually_long, sent_at = Time.now)
@@ -137,13 +130,12 @@ class DatabaseCheckMailer < ActionMailer::Base
     else
       user.email
     end
-    subject    'Worklog - Suspiciously long period(s) found'
-    recipients email
-    from       APP_CONFIG['worklog_email_from']
-    sent_on    sent_at
-    content_type 'text/html'
-    body       :user => user,
-               :unusually_long => unusually_long
+
+    @user = user
+    @unusually_long = unusually_long
+    
+    mail(:to => email, :from => APP_CONFIG['worklog_email_from'],
+         :subject => 'Worklog - Suspiciously long period(s) found!', :sent_on => sent_at)        
   end
 
 end

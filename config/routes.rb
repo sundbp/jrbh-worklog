@@ -1,17 +1,12 @@
-ActionController::Routing::Routes.draw do |map|
-  map.root :controller => 'dashboard'
-  map.resource :user_session
-  map.login 'login', :controller => 'user_sessions', :action => 'new'
-  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
-
-  map.resources :users
-  map.resources :worklog_tasks
-  map.resources :companies
-  map.resources :work_periods
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+JrbhWorklog::Application.routes.draw do
+  resource :user_session
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'logout' => 'user_sessions#destroy', :as => :logout
+  resources :users
+  resources :worklog_tasks
+  resources :companies
+  resources :work_periods
+  match 'dashboard' => 'dashboard#index'
+  root :to => 'dashboard#index'
+  match '/:controller(/:action(/:id))'
 end

@@ -1,0 +1,80 @@
+@import "partials/jrbh";
+@import "partials/jquery-ui";
+@import "partials/jquery-weekcalendar";
+@import "partials/farbtastic";
+
+//html
+//  +showgrid
+
+body.bp-general {
+  @include bp_general;
+  #login-pad-left {
+    @include column(9);
+    hr {
+      @include colspacer; } }
+  #login-box {
+    @include column(6); }
+  #login-pad-right {
+    @include column(9, true);
+    hr {
+      @include colspacer; } } }
+
+body.bp-general-with-sidebar {
+  @include bp_general_with_sidebar;
+  #sidebar {
+    .heading {
+      font-size: 1.2em;
+      margin-bottom: 0.3em; } } }
+
+body#dashboard {
+  h2 {
+    margin-bottom: 0.1em; }
+  h4 {
+    margin-bottom: 0.2em; }
+  .heading {
+    font-size: 1.2em;
+    margin-bottom: 0.3em; }
+  a {
+    @include hover-link; }
+  ul {
+    @include pretty-bullets(unquote("blue_arrow.gif"), 5px, 7px); }
+  $num_app_columns: 2;
+  $num_app_pads: 3;
+  $app_column_width: 6;
+  $app_column_pad: round(($blueprint_grid_columns - $num_app_columns * $app_column_width) / $num_app_pads);
+  $app_extra: $blueprint_grid_columns - $num_app_columns * $app_column_width - $num_app_pads * $app_column_pad;
+  #worklog {
+    @include prepend($app_column_pad + 1);
+    @include column($app_column_width); }
+  #other-app {
+    @include prepend($app_column_pad + 0);
+    @include column($app_column_width, true); }
+  $num_admin_columns: 3;
+  $num_admin_pads: 4;
+  $admin_column_width: 6;
+  $admin_column_pad: round(($blueprint_grid_columns - $num_admin_columns * $admin_column_width) / $num_admin_pads);
+  $admin_extra: $blueprint_grid_columns - $num_admin_columns * $admin_column_width - $num_admin_pads * $admin_column_pad;
+  #users {
+    @include prepend($admin_column_pad + 0);
+    @include column($admin_column_width); }
+  #companies {
+    @include prepend($admin_column_pad);
+    @include column($admin_column_width); }
+  #worklog-tasks {
+    @include prepend($admin_column_pad);
+    @include column($admin_column_width, true); } }
+
+body#admin-panel {
+  #companies {
+    @include farbtastic; }
+  #worklog-tasks {
+    @include farbtastic; } }
+
+body#csv-generator {
+  #content {
+    #user-selection {
+      @include column(9); }
+    #company-selecction {
+      @include column(9, true); }
+    #task-selection {
+      @include column(9, true); } } }

@@ -13,7 +13,7 @@
     %p
       %strong Users to include:
       %br
-      - User.find(:all, :order => "alias").each do |user|
+      - @users.each do |user|
         = check_box_tag "csv_generator[users][]", user.id, @csv_generator.users.include?(user.id), :class => "user_check_box"
         = user.alias
         %br
@@ -28,10 +28,10 @@
     %p
       %strong Worklog tasks to include:
       %br
-      - Company.find(:all, :order => "name").each do |company|
+      - @companies.each do |company|
         %strong= company.name
         %br
-        - WorklogTask.find(:all, :conditions => {:company_id => company.id}, :order => "name").each do |task|
+        - @worklog_tasks_by_company[company.name].each do |task|
           = check_box_tag "csv_generator[worklog_tasks][]", task.id, @csv_generator.worklog_tasks.include?(task.id), :class => "task_check_box"
           = task.name
           %br

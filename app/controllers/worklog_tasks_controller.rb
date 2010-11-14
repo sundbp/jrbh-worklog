@@ -49,7 +49,7 @@ class WorklogTasksController < ApplicationController
 
   def new
     @worklog_task = WorklogTask.new
-    c = Company.find(:first)
+    c = Company.first
     @worklog_task.company_id = c.id
     @worklog_task.color = c.color
     respond_to do |format|
@@ -86,7 +86,7 @@ class WorklogTasksController < ApplicationController
   private
 
   def available_companies
-    return Company.find(:all, :order => 'name ASC').map {|c| [ c.name, c.id ] }
+    return Company.order('name ASC').all.map {|c| [ c.name, c.id ] }
   end
 
   def available_companies_exists?

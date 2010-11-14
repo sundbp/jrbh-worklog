@@ -1,6 +1,6 @@
 %h2= "Worklog task \"#{@worklog_task.name}\""
 #worklog-tasks
-  - content_tag_for :div, @worklog_task do
+  =content_tag_for :div, @worklog_task do
     %ul
       %li
         %strong Name:
@@ -12,7 +12,7 @@
         %strong Color:
         = text_field_tag :worklog_task_color, @worklog_task.color, :disabled => true
         #colorpicker
-        = farbtastic_create('colorpicker', 'worklog_task_color', false)
+        = farbtastic_create('colorpicker', 'worklog_task_color', false).html_safe
       %li
         %strong Visible in user menus:
         -if @worklog_task.visible_in_user_menus

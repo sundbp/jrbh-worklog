@@ -6,11 +6,20 @@ class CsvGeneratorController < ApplicationController
   def by_company_form
     @csv_generator = CsvGenerator.new
     @csv_generator.company_or_task = "company"
+    @users = User.order("alias")
+    @companies = Company.order("name")
   end
 
   def by_task_form
     @csv_generator = CsvGenerator.new
     @csv_generator.company_or_task = "task"
+    @users = User.order("alias")
+    @companies = Company.order("name")
+    @worklog_tasks_by_company = WorklogTask.order("name").inject(Hash.new) do |result, task|
+      result[task.company.name] ||= []
+      result[task.company.name] << task
+      result
+    end
   end
   
   def show
@@ -50,11 +59,15 @@ class CsvGeneratorController < ApplicationController
         else
           raise "company or task is neither company or task!"
       end
-      wps = WorkPeriod.find(:all,
-                            :joins => "as work_periods inner join worklog_tasks on work_periods.worklog_task_id = worklog_tasks.id inner join companies on worklog_tasks.company_id = companies.id",
-                            :conditions => conditions,
-                            :order => "work_periods.user_id, companies.id, work_periods.worklog_task_id, work_periods.start")
+      #wps = WorkPeriod.find(:all,
+      #                      :joins => "as work_periods inner join worklog_tasks on work_periods.worklog_task_id = worklog_tasks.id inner join companies on worklog_tasks.company_id = companies.id",
+      #                      :conditions => conditions,
+      #                      :order => "work_periods.user_id, companies.id, work_periods.worklog_task_id, work_periods.start")
 
+      wps = WorkPeriod.joins(:worklog_task) & WorkPeriod.joins(:user), WorklogTask.joins(:company)
+      wps = wps & WorkPeriod.where(conditions[0], conditions[1], conditions[2], conditions[3], conditions[4])
+      wps = wps & WorkPeriod.order("user.id, company.id, worklog_task.id, start")
+      
       csv_string = FasterCSV.generate do |csv|
         if company_or_task == :company
           csv << ["user", "company", "start", "end", "duration_in_hours"]

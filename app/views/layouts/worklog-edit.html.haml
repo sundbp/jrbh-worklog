@@ -9,13 +9,14 @@
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
-
-    = javascript_include_tag 'jquery.js'
-    = javascript_include_tag 'jquery.qtip-1.0.0-rc3.min.js'
+    = stylesheet_link_tag 'jquery.qtip.css', :media => 'screen, projecttion'
+    
+    = javascript_include_tag 'jquery.min.js'
+    = javascript_include_tag 'jquery.qtip.js'
     = javascript_include_tag 'jquery-ui.min.js'
     = javascript_include_tag 'jquery.weekcalendar.js'
-    = javascript_include_tag 'jrails.js'
-
+    //= javascript_include_tag 'jrails.js'
+    = javascript_include_tag 'rails.js'
     = javascript_include_tag 'worklog.js'
 
   %body#worklog
@@ -32,7 +33,7 @@
           #user-info
             - unless current_user.blank?
               %ul
-                %li= "Logged in user: #{link_to current_user.alias, :controller => :users, :action => :show, :id => current_user.id}"
+                %li= "Logged in user: #{link_to current_user.alias, :controller => :users, :action => :show, :id => current_user.id}".html_safe
                 %li= "|"
                 %li= link_to 'Logout', :controller => :logout
         %hr
@@ -45,4 +46,5 @@
         #copyright
           &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
         #produced-with
-          = "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."
+          - produced_string = "Produced using #{link_to('RubyOnRails', 'http://rubyonrails.org')}, #{link_to('Compass', 'http://compass-style.org/')}, and #{link_to('jQuery', 'http://jquery.com')}"
+          = produced_string.html_safe

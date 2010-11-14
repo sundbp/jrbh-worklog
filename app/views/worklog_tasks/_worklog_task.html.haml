@@ -1,4 +1,4 @@
-- content_tag_for :div, worklog_task do
+=content_tag_for :div, worklog_task do
   %ul
     %li
       %strong Name:
@@ -10,8 +10,8 @@
     %li
       %strong Color:
       = text_field_tag color_id(worklog_task), worklog_task.color, :disabled => true
-      = colorpicker_div( :id => colorpicker_id(worklog_task), :class => "colorpicker")
-      = farbtastic_create(colorpicker_id(worklog_task), color_id(worklog_task), false)
+      = colorpicker_div( :id => colorpicker_id(worklog_task), :class => "colorpicker").html_safe
+      = farbtastic_create(colorpicker_id(worklog_task), color_id(worklog_task), false).html_safe
 
     %li
       %strong Visible in user menus:

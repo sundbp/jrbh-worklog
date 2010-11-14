@@ -33,5 +33,6 @@
         #copyright
           %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
         #produced-with
-          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."
+          - produced_string = "Produced using #{link_to('RubyOnRails', 'http://rubyonrails.org')}, #{link_to('Compass', 'http://compass-style.org/')}, and #{link_to('jQuery', 'http://jquery.com')}"
+          %p= produced_string.html_safe
       

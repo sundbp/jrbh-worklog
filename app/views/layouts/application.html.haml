@@ -10,10 +10,11 @@
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
 
-    = javascript_include_tag 'jquery.js'
-    = javascript_include_tag 'jquery.qtip-1.0.0-rc3.min.js'
+    = javascript_include_tag 'jquery.min.js'
+    = javascript_include_tag 'jquery.qtip.js'
     = javascript_include_tag 'jquery-ui.min.js'
-    = javascript_include_tag 'jrails.js'
+    //= javascript_include_tag 'jrails.js'
+    = javascript_include_tag 'rails.js'
     = javascript_include_tag 'application.js'
     
   %body.bp-general-with-sidebar
@@ -46,4 +47,5 @@
         #copyright
           %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
         #produced-with
-          %p= "Produced using #{link_to 'RubyOnRails', 'http://rubyonrails.org'}, #{link_to 'Compass', 'http://compass-style.org/'} and #{link_to 'jQuery', 'http://jquery.com'}."
+          - produced_string = "Produced using #{link_to('RubyOnRails', 'http://rubyonrails.org')}, #{link_to('Compass', 'http://compass-style.org/')}, and #{link_to('jQuery', 'http://jquery.com')}"
+          %p= produced_string.html_safe

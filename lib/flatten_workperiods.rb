@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-users = User.find(:all)
+users = User.all
 
 users.each do |u|
   periods = u.work_periods.sort {|a,b| a.start <=> b.start}

@@ -7,4 +7,5 @@ public/stylesheets/compiled/*.css
 log/*.log
 config/database.yml
 config/app_config.yml
-
+.bundle
+.redcar/

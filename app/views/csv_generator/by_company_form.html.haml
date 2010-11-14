@@ -13,7 +13,7 @@
     %p
       %strong Users to include:
       %br
-      - User.find(:all, :order => "alias").each do |user|
+      - @users.each do |user|
         = check_box_tag "csv_generator[users][]", user.id, @csv_generator.users.include?(user.id), :class => "user_check_box"
         = user.alias
         %br
@@ -28,7 +28,7 @@
     %p
       %strong Companies to include:
       %br
-      - Company.find(:all, :order => "name").each do |company|
+      - @companies.each do |company|
         = check_box_tag "csv_generator[companies][]", company.id, @csv_generator.companies.include?(company.id), :class => "company_check_box"
         = company.name
         %br
