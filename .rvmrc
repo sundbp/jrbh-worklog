@@ -1,2 +1,6 @@
 #rvm jruby-1.5.5@worklog
-rvm 1.9.2@worklog
+if [[ -s "$HOME/.rvm/environments/ruby-1.9.2-p0@worklog" ]] ; then
+  . "$HOME/.rvm/environments/ruby-1.9.2-p0@worklog"
+else
+  rvm --create use  "ruby-1.9.2-p0@worklog"
+fi
