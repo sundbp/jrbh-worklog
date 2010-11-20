@@ -30,7 +30,8 @@ after "deploy:update_code", "deploy:update_shared_symlinks"
 require "bundler/capistrano"
 after "bundle:install", "deploy:migrate"
 
-after "deploy:symlink", "deploy:update_yml_files"
+before "deploy:update_yml_files", "deploy:create_shared_dirs"
+before "deploy:update_shared_symlinks", "deploy:update_yml_files"
 
 namespace :deploy do
   task :start do ; end
@@ -39,19 +40,26 @@ namespace :deploy do
     run "touch #{File.join(current_path, "tmp/restart.txt")}"
   end
 
+  desc "Update the configuration .yml files"
+  task :update_yml_files, :roles => :db do
+    top.upload "config/database.yml", File.join(deploy_to, "shared", "config", "database.yml") 
+    top.upload "config/app_config.yml", File.join(deploy_to, "shared", "config", "app_config.yml") 
+  end
+
+  desc "Make sure shared dirs exists"
+  task :create_shared_dirs, :roles => :db do
+    run "mkdir -p #{File.join(deploy_to, "shared", "log")}"
+    run "mkdir -p #{File.join(deploy_to, "shared", "config")}"
+  end
+
   task :update_shared_symlinks do
-    %w(config/database.yml).each do |path|
+    %w(config/database.yml config/app_config.yml).each do |path|
       run "rm -rf #{File.join(release_path, path)}"
       run "ln -s #{File.join(deploy_to, "shared", path)} #{File.join(release_path, path)}"
     end
-  end
-  
-  desc "Update the configuration .yml files"
-  task :update_yml_files, :roles => :db do
-    top.upload "config/database.yml", File.join(release_path, "config", "database.yml") 
-    top.upload "config/app_config.yml", File.join(release_path, "config", "app_config.yml") 
-  end
+  end 
 end
+
 
 # 
 # set :user,        "patrik"
