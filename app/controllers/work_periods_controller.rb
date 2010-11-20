@@ -54,7 +54,6 @@ class WorkPeriodsController < ApplicationController
   end
 
   def index
-    p params
     if request.xhr?
       # TODO:add some filtering here.
       user_id = current_user.id
