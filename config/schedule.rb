@@ -2,8 +2,12 @@
 
 #set :output, "/home/patrik/www/jrbh-worklog/current/log/cron_log.log"
 
-every 1.day, :at => '2.30pm' do
-  command "/home/patrik/www/jrbh-worklog/current/script/worklog-backup.sh"
+every 1.day, :at => '2.30am' do
+  runner "DatabaseBackup.daily_backup"
+end
+
+every 1.month, :at => '2.35am' do
+  runner "DatabaseBackup.monthly_backup"
 end
 
 every 1.day, :at => '11.00am' do
@@ -22,5 +26,3 @@ end
 every 1.week, :at => '19pm' do
   runner "WorkPeriodsFlattener.flatten_work_periods"
 end
-
-
