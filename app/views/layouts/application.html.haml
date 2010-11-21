@@ -16,7 +16,8 @@
     //= javascript_include_tag 'jrails.js'
     = javascript_include_tag 'rails.js'
     = javascript_include_tag 'application.js'
-    
+    = csrf_meta_tag
+
   %body.bp-general-with-sidebar
     .container
       #header
@@ -34,7 +35,7 @@
             = content_tag :div, flash[:error],   :class => "error"   if flash[:error]
             %hr
           :javascript
-            #{visual_effect :highlight, "flash"}
+            $("#flash").effect("highlight");
 
       #main
         #sidebar

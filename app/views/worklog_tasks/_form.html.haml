@@ -1,3 +1,15 @@
+//= javascript_include_tag 'edit_worklog_task.js'
+:javascript
+  $(document).ready(function() {
+    $("#worklog_task_company_id").change(function() {
+      $.post("#{url_for(:action => 'company_color')}",
+        { company_id : $("#worklog_task_company_id").val() },
+        function(data) {
+          $("#task-color").html(data);
+      });
+    });
+  });
+
 = form_for(worklog_task) do |f|
   = f.error_messages
   %p
@@ -15,7 +27,6 @@
       = f.text_field :color
       #colorpicker
       = farbtastic_create('colorpicker', 'worklog_task_color', true).html_safe
-    = observe_field :worklog_task_company_id, :frequency => 0, :update => 'task-color', :url => {:action => 'company_color', :only_path => false}, :with => "'company_id=' + encodeURIComponent(value)"
   %p
     = f.label :visible_in_user_menus
     %br

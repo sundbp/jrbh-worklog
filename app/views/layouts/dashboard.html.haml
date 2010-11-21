@@ -9,6 +9,10 @@
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+    = javascript_include_tag 'jquery.min.js'
+    = javascript_include_tag 'jquery-ui.min.js'
+    = javascript_include_tag 'rails.js'
+    = csrf_meta_tag
 
   %body#dashboard.bp-general
     .container
@@ -23,7 +27,7 @@
             = content_tag :div, flash[:error],   :class => "error"   if flash[:error]
             %hr
           :javascript
-            #{visual_effect :highlight, "flash"}
+            $("#flash").effect("highlight");
 
       #main
         = yield

@@ -12,11 +12,11 @@
 
     = javascript_include_tag 'jquery.min.js'
     = javascript_include_tag 'jquery-ui.min.js'
-    //= javascript_include_tag 'jrails.js'
     = javascript_include_tag 'farbtastic.js'
     = javascript_include_tag 'rails.js'
 
     = javascript_include_tag 'admin-panel.js'
+    = csrf_meta_tag
 
   %body#admin-panel.bp-general-with-sidebar
     .container
@@ -34,7 +34,7 @@
             = content_tag :div, flash[:error],   :class => "error"   if flash[:error]
             %hr
           :javascript
-            #{visual_effect :highlight, "flash"}
+            $("#flash").effect("highlight");
 
       #main
         #sidebar
