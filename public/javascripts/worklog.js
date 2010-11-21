@@ -1,8 +1,8 @@
 // javascript to setup a jquery-weekcalendar widget
 
 $(document).ready(function() {
-    var $urlBase = "/production/worklog/";
-    //var $urlBase = "/worklog/";
+    // NOTE: we rely on $urlBase being set outside of this setup
+    // introduced this to be able to more easily run staging, dev and prod at the same time
 
     // setup calendar
     var $calendar = $('#calendar');
