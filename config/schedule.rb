@@ -6,7 +6,7 @@ every 1.day, :at => '2.30am' do
   runner "DatabaseBackup.daily_backup"
 end
 
-every 1.month, :at => '2.35am' do
+every 1.month, :at => 'start of the month at 2.35am' do
   runner "DatabaseBackup.monthly_backup"
 end
 
