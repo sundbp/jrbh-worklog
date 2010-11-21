@@ -21,12 +21,12 @@ gem 'net-ldap',       '~> 0.1.1'
 gem 'compass',        '~> 0.10.6'
 gem 'jquery-rails',   '~> 0.2.5'
 gem 'authlogic',      :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
+gem 'whenever'
 
 group :development do
   gem 'awesome_print'
   gem 'capistrano'
   gem 'capistrano-ext'
-  gem 'whenever'
   gem 'warbler', '1.3.0.beta1' if defined?(JRUBY_VERSION)
 end
 
