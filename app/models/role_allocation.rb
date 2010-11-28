@@ -8,7 +8,11 @@ class RoleAllocation < ActiveRecord::Base
   validates_presence_of :start_date, :role, :user_id, :worklog_task_id
   validate :positive_date_range?
   validate :no_overlapping_periods_for_same_user?
-  
+
+  def self.available_roles
+    ["Director", "Project Manager", "Senior Consultant", "Consultant", "Analyst"]
+  end
+
   def positive_date_range?
     if self.start_date > self.adjusted_end_date
       errors.add(:base, "End date must be >= start date!")

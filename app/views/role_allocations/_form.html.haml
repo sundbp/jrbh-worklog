@@ -20,6 +20,6 @@
   %p
     = f.label :role
     %br
-    = f.select :role, available_roles
+    = f.select :role, RoleAllocation.available_roles
   %p
     = f.submit "Submit"

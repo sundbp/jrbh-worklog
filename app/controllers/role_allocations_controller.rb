@@ -4,8 +4,8 @@ class RoleAllocationsController < ApplicationController
 
   layout "admin_panel"
 
-  helper_method :available_users, :available_roles
-  
+  helper_method :available_users
+
   def create
     @role_allocation = RoleAllocation.new(params[:role_allocation])
     respond_to do |format|
@@ -90,10 +90,6 @@ class RoleAllocationsController < ApplicationController
 
   
   private
-  
-  def available_roles
-    ["Director", "Project Manager", "Senior Consultant", "Consultant", "Analyst"]
-  end
   
   def available_users
     User.order("alias").map { |u| [ u.alias, u.id] }
