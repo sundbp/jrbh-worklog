@@ -4,17 +4,19 @@
 
 #worklog
   %p.heading Worklog v4.0
-  %ul
-    %li= link_to 'Edit worklog', :controller => :worklog, :action => :edit
-    %li= link_to 'Dump data by company', :controller => :csv_generator, :action => :by_company_form
-    %li= link_to 'Dump data by task', :controller => :csv_generator, :action => :by_task_form
+  = link_to 'Edit worklog', :controller => :worklog, :action => :edit
+  %br
+  = link_to 'Dump data by company', :controller => :csv_generator, :action => :by_company_form
+  %br
+  = link_to 'Dump data by task', :controller => :csv_generator, :action => :by_task_form
 
-#other-app
-  %p.heading Other application
-  %ul
-    %li= link_to 'Function 1', root_path
-    %li= link_to 'Function 2', root_path
-    %li= link_to 'Function 3', root_path
+#reports
+  %p.heading Reports
+  = link_to 'Report 1', root_path
+  %br
+  = link_to 'Report 2', root_path
+  %br
+  = link_to 'Report 3', root_path
 
 -# Admin panel if we have an admin logged in
 -if current_user.admin

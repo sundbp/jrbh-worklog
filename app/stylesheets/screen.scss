@@ -49,10 +49,13 @@ body#dashboard {
   $app_extra: $blueprint_grid_columns - $num_app_columns * $app_column_width - $num_app_pads * $app_column_pad;
   #worklog {
     @include prepend($app_column_pad + 1);
-    @include column($app_column_width); }
-  #other-app {
+    @include column($app_column_width); 
+  }
+  #reports {
     @include prepend($app_column_pad + 0);
-    @include column($app_column_width, true); }
+    @include column($app_column_width, true); 
+    padding-bottom: 1em;
+  }
   $num_admin_columns: 3;
   $num_admin_pads: 4;
   $admin_column_width: 6;
