@@ -1,0 +1,4 @@
+%h3= "Add new timeplan entry for task '#{@timeplan.worklog_task.name}' for company '#{@timeplan.worklog_task.company.name}'"
+#timeplans
+  = render :partial => "form", :locals => {:timeplan => @timeplan}
+  

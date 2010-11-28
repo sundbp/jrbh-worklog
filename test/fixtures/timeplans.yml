@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  start_date: 2010-11-28
+  end_date: 2010-11-28
+  allocation_type: MyString
+  time_allocation: 1
+
+two:
+  start_date: 2010-11-28
+  end_date: 2010-11-28
+  allocation_type: MyString
+  time_allocation: 1

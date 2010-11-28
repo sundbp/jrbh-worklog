@@ -7,9 +7,6 @@
 $blueprint_liquid_container_width: 99%;
 $blueprint_liquid_container_min_width: 950px;
 
-//html
-//  +showgrid
-
 body#worklog {
   @include standard-mixins;
   @include blueprint-liquid-grid;

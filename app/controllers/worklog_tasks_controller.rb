@@ -86,11 +86,11 @@ class WorklogTasksController < ApplicationController
   private
 
   def available_companies
-    return Company.order('name ASC').all.map {|c| [ c.name, c.id ] }
+    Company.order('name ASC').all.map {|c| [ c.name, c.id ] }
   end
 
   def available_companies_exists?
-    return !available_companies.blank?
+    !available_companies.blank?
   end
 
   def find_worklog_task

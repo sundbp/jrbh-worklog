@@ -6,6 +6,10 @@
 //html
 //  +showgrid
 
+body {
+  @include jquery-ui-styles;
+}
+
 body.bp-general {
   @include bp_general;
   #login-pad-left {
@@ -62,7 +66,10 @@ body#dashboard {
     @include column($admin_column_width); }
   #worklog-tasks {
     @include prepend($admin_column_pad);
-    @include column($admin_column_width, true); } }
+    @include column($admin_column_width, true); }
+  #timeplans {
+    @include prepend($admin_column_pad + 0);
+    @include column($admin_column_width); } }
 
 body#admin-panel {
   #companies {

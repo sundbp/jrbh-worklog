@@ -23,17 +23,21 @@
     %h3 Administrator Panel
   #users
     %p.heading Users
-    %ul
-      %li= link_to 'Show/Edit/Delete users', :controller => :users
-      %li= link_to 'Add user', :controller => :users, :action => :new
+    = link_to 'Show/Edit/Delete', :controller => :users
+    %br
+    = link_to 'Add user', :controller => :users, :action => :new
   #companies
     %p.heading Companies
-    %ul
-      %li= link_to 'Show/Edit/Delete companies', :controller => :companies
-      %li= link_to 'Add company', :controller => :companies, :action => :new
+    = link_to 'Show/Edit/Delete', :controller => :companies
+    %br
+    = link_to 'Add company', :controller => :companies, :action => :new
   #worklog-tasks
     %p.heading Worklog Tasks
-    %ul
-      %li= link_to 'Show/Edit/Delete tasks', :controller => :worklog_tasks
-      %li= link_to 'Add task', :controller => :worklog_tasks, :action => :new
-      %li= link_to 'Move periods between tasks', :controller => :move_periods, :action => :index      
+    = link_to 'Show/Edit/Delete', :controller => :worklog_tasks
+    %br
+    = link_to 'Add worklog task', :controller => :worklog_tasks, :action => :new
+    %br
+    = link_to 'Move periods between tasks', :controller => :move_periods, :action => :index
+  #timeplans
+    %p.heading Timeplans
+    = link_to "Show/Edit/Delete", :controller => :timeplans

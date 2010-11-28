@@ -1,4 +1,5 @@
 JrbhWorklog::Application.routes.draw do
+  resources :timeplans
   resource :user_session
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :work_periods
+  has_many :timeplans
 
   scope :active_employees, :conditions => {:active_employee => true}
   

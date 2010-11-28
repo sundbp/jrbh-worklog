@@ -1,6 +1,7 @@
 class WorklogTask < ActiveRecord::Base
   belongs_to :company
   has_many :work_periods, :dependent => :destroy
+  has_many :timeplans
 
   scope :visible_in_user_menus, where(:visible_in_user_menus => true)
   scope :by_name, order("name")

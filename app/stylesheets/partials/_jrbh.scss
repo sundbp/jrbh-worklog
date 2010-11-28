@@ -89,7 +89,9 @@
         a {
           @include hover-link; }
         ul {
-          @include pretty-bullets(unquote("blue_arrow.gif"), 5px, 7px); } } }
+          @include pretty-bullets(unquote("blue_arrow.gif"), 5px, 7px); } }
+        p {
+          padding-top: 1em; } }
     #content {
       $content_columns: 18;
       // true means it's the last column in the row

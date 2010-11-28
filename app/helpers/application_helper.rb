@@ -79,7 +79,6 @@ module ApplicationHelper
       result[t.company.name] = WorklogTaskGroup.new(t.company.name) unless result.has_key? t.company.name
       result[t.company.name] << WorklogTaskGroupOption.new(t.id, t.name)
     end
-
     result.values.sort
   end
 

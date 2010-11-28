@@ -1,0 +1,32 @@
+= form_for(timeplan) do |f|
+  = f.error_messages
+  = f.hidden_field :worklog_task_id
+  %p
+    = f.label :user_id
+    %br
+    = f.select :user_id, available_users
+  %p
+    = f.label :start_date
+    %br
+    = f.text_field :start_date
+  %p
+    Ongoing?
+    %br
+    = f.check_box :ongoing
+  %p
+    = f.label :end_date
+    %br
+    - if timeplan.end_date.nil?
+      = f.text_field :end_date
+    - else
+      = f.text_field :end_date
+  %p
+    = f.label :allocation_type
+    %br
+    = f.select :allocation_type, available_allocation_types
+  %p
+    Time allocation (in days)
+    %br
+    = f.text_field :time_allocation
+  %p
+    = f.submit "Submit"
