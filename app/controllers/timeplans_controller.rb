@@ -39,7 +39,7 @@ class TimeplansController < ApplicationController
   end
 
   def index
-    @companies = Company.all
+    @companies = Company.order("name").all
     if params[:worklog_task]
       @worklog_task = WorklogTask.find(params[:worklog_task][:id])
       @selected_name = @worklog_task.name
