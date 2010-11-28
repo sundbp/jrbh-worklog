@@ -1,6 +1,4 @@
 == Welcome to JRBH Worklog
 
-This is an internal project to take care of loggin (and at some stage planning)
-how time is spent.
-
-It uses Rails, Compass and jQuery with the excellent weekCalendar add-on.
+This is an internal project to take care of planning, logging and analyzing
+how time is spent at JRBH.
