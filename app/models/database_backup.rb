@@ -66,6 +66,7 @@ class DatabaseBackup
     Dir.glob(File.join(DAILY_BACKUP_DIR, "*.backup")) do |filename|
       FileUtils.rm_f filename if File.new(filename).mtime <= cutoff
     end
+    true
   end
 
   def snapshot_prod_to_staging(backup_name = generate_daily_backup_filename)
