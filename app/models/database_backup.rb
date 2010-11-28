@@ -36,9 +36,9 @@ class DatabaseBackup
     success = dump_db(PROD_DB, generate_daily_backup_filename)
     raise "Failed to create today's DB backup!" unless success
     success = remove_daily_backups_older_than(1.week.ago(@now))
-    rails "Failed to remove old daily backups!" unless success
+    raise "Failed to remove old daily backups!" unless success
     success = snapshot_prod_to_staging()
-    rails "Failed to snapshot prod db to staging!" unless success
+    raise "Failed to snapshot prod db to staging!" unless success
     success
   end
   
