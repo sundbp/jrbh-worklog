@@ -1,0 +1,4 @@
+%h3= "Add new role allocation for task '#{@role_allocation.worklog_task.name}' for company '#{@role_allocation.worklog_task.company.name}'"
+#role_allocations
+  = render :partial => "form", :locals => {:role_allocation => @role_allocation}
+  

@@ -1,0 +1,25 @@
+= form_for(role_allocation) do |f|
+  = f.error_messages
+  = f.hidden_field :worklog_task_id
+  %p
+    = f.label :user_id
+    %br
+    = f.select :user_id, available_users
+  %p
+    = f.label :start_date
+    %br
+    = f.text_field :start_date
+  %p
+    Ongoing?
+    %br
+    = f.check_box :ongoing
+  %p
+    = f.label :end_date
+    %br
+    = f.text_field :end_date
+  %p
+    = f.label :role
+    %br
+    = f.select :role, available_roles
+  %p
+    = f.submit "Submit"

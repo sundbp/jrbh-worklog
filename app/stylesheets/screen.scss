@@ -59,7 +59,7 @@ body#dashboard {
   $admin_column_pad: round(($blueprint_grid_columns - $num_admin_columns * $admin_column_width) / $num_admin_pads);
   $admin_extra: $blueprint_grid_columns - $num_admin_columns * $admin_column_width - $num_admin_pads * $admin_column_pad;
   #users {
-    @include prepend($admin_column_pad + 0);
+    @include prepend($admin_column_pad);
     @include column($admin_column_width); 
   }
   #companies {
@@ -71,12 +71,22 @@ body#dashboard {
     @include column($admin_column_width, true); 
   }
   #timeplans {
-    @include prepend($admin_column_pad + 0);
-    @include column($admin_column_width); 
+    @include prepend($admin_column_pad);
+    @include column($admin_column_width);
+    padding-top: 1em;
+    padding-bottom: 1em;
   }
   #billinginfos {
     @include prepend($admin_column_pad);
     @include column($admin_column_width); 
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  #role_allocations {
+    @include prepend($admin_column_pad);
+    @include column($admin_column_width, true); 
+    padding-top: 1em;
+    padding-bottom: 1em;
   }
 }
 

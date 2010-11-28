@@ -8,11 +8,11 @@ class BillingInfosController < ApplicationController
     @billing_info = BillingInfo.new(params[:billing_info])
     respond_to do |format|
       if @billing_info.save
-        flash[:notice] = 'BillingInfo was successfully created.'
+        flash[:notice] = 'Billing info was successfully created.'
         format.html { redirect_to :action => :index, "worklog_task[id]" => @billing_info.worklog_task.id }
         format.xml  { render :xml => @billing_info, :status => :created, :location => @billing_info }
       else
-        flash[:error] = 'BillingInfo did not validate properly!'
+        flash[:error] = 'Billing info did not validate properly!'
         format.html { render :action => "new" }
         format.xml  { render :xml => @billing_info.errors, :status => :unprocessable_entity }
       end
@@ -23,11 +23,11 @@ class BillingInfosController < ApplicationController
     worklog_task_id = @billing_info.worklog_task.id
     respond_to do |format|
       if @billing_info.destroy
-        flash[:notice] = 'BillingInfo was successfully destroyed.'        
+        flash[:notice] = 'Billing info was successfully destroyed.'        
         format.html { redirect_to :action => :index, "worklog_task[id]" => @billing_info.worklog_task.id }
         format.xml  { head :ok }
       else
-        flash[:error] = 'BillingInfo could not be destroyed.'
+        flash[:error] = 'Billing info could not be destroyed.'
         format.html { redirect_to @billing_info }
         format.xml  { head :unprocessable_entity }
       end
@@ -75,11 +75,11 @@ class BillingInfosController < ApplicationController
   def update
     respond_to do |format|
       if @billing_info.update_attributes(params[:billing_info])
-        flash[:notice] = 'BillingInfo was successfully updated.'
+        flash[:notice] = 'Billing info was successfully updated.'
         format.html { redirect_to :action => :index, "worklog_task[id]" => @billing_info.worklog_task.id }
         format.xml  { head :ok }
       else
-        flash[:error] = 'BillingInfo did not validate properly!'
+        flash[:error] = 'Billing info did not validate properly!'
         format.html { render :action => "edit" }
         format.xml  { render :xml => @billing_info.errors, :status => :unprocessable_entity }
       end

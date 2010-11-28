@@ -3,6 +3,7 @@ class WorklogTask < ActiveRecord::Base
   has_many :work_periods, :dependent => :destroy
   has_many :timeplans
   has_many :billing_infos
+  has_many :role_allocations
   
   scope :visible_in_user_menus, where(:visible_in_user_menus => true)
   scope :by_name, order("name")

@@ -1,6 +1,6 @@
 JrbhWorklog::Application.routes.draw do
+  resources :role_allocations
   resources :billing_infos
-
   resources :timeplans
   resource :user_session
   match 'login' => 'user_sessions#new', :as => :login

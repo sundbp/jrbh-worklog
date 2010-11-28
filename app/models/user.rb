@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   has_many :work_periods
   has_many :timeplans
-
+  has_many :role_allocations
+  
   scope :active_employees, :conditions => {:active_employee => true}
   
   acts_as_authentic do |config|
