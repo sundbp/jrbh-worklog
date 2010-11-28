@@ -1,0 +1,25 @@
+= form_tag(billing_infos_path, :method => :get) do
+  = grouped_collection_select(:worklog_task, :id, @companies, :worklog_tasks, :name, :id, :name, :selected => @selected_name, :include_blank => true)
+  = submit_tag "Go"
+%hr
+- unless @worklog_task.nil?
+  %h4
+    = "Billing info for task '#{@worklog_task.name}' for company '#{@worklog_task.company.name}'"
+  %table
+    %thead
+      %tr
+        %th Start Date
+        %th End Date
+        %th Invoice Amount
+        %th Edit
+        %th Delete
+    %tbody
+      - @billing_infos.each do |billing|
+        %tr
+          %td= billing.start_date
+          %td= billing.end_date
+          %td= billing.invoice_amount
+          %td= link_to "Edit", edit_billing_info_path(billing)
+          %td= link_to "Delete", billing, :method => :delete, :confirm => "Are you sure?"
+  = button_to "Add entry", { :action => :new, :worklog_task_id => @worklog_task.id }
+          

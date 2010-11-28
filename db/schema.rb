@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101128204843) do
+ActiveRecord::Schema.define(:version => 20101128212219) do
+
+  create_table "billing_infos", :force => true do |t|
+    t.date     "start_date",      :null => false
+    t.date     "end_date",        :null => false
+    t.float    "invoice_amount",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "worklog_task_id", :null => false
+  end
 
   create_table "companies", :force => true do |t|
     t.string   "name",                              :null => false

@@ -5,7 +5,7 @@ class Timeplan < ActiveRecord::Base
   scope :for_worklog_task, lambda {|task| where("worklog_task_id = ?", task.id) }
   scope :for_user, lambda {|user| where("user_id = ?", user.id)}
   
-  validates_presence_of :start_date, :allocation_type, :user_id
+  validates_presence_of :start_date, :allocation_type, :user_id, :worklog_task_id
   validates_numericality_of :time_allocation, :greather_than => 0
   validate :positive_date_range?
   validate :no_overlapping_periods_for_same_user?

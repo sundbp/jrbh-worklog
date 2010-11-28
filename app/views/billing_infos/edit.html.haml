@@ -1,0 +1,4 @@
+%h3= "Edit billing info for task '#{@billing_info.worklog_task.name}' for company '#{@billing_info.worklog_task.company.name}'"
+#billinginfos
+  = render :partial => "form", :locals => {:billing_info => @billing_info}
+  

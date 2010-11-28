@@ -7,8 +7,6 @@ class TimeplansController < ApplicationController
   helper_method :available_users, :available_allocation_types
   
   def create
-    p "-------------------------------------"
-    p params
     @timeplan = Timeplan.new(params[:timeplan])
     respond_to do |format|
       if @timeplan.save

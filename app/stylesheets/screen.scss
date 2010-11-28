@@ -60,16 +60,25 @@ body#dashboard {
   $admin_extra: $blueprint_grid_columns - $num_admin_columns * $admin_column_width - $num_admin_pads * $admin_column_pad;
   #users {
     @include prepend($admin_column_pad + 0);
-    @include column($admin_column_width); }
+    @include column($admin_column_width); 
+  }
   #companies {
     @include prepend($admin_column_pad);
-    @include column($admin_column_width); }
+    @include column($admin_column_width); 
+  }
   #worklog-tasks {
     @include prepend($admin_column_pad);
-    @include column($admin_column_width, true); }
+    @include column($admin_column_width, true); 
+  }
   #timeplans {
     @include prepend($admin_column_pad + 0);
-    @include column($admin_column_width); } }
+    @include column($admin_column_width); 
+  }
+  #billinginfos {
+    @include prepend($admin_column_pad);
+    @include column($admin_column_width); 
+  }
+}
 
 body#admin-panel {
   #companies {

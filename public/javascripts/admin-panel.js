@@ -26,5 +26,14 @@ $(function() {
     $("#timeplan_end_date").change(function() {
       $("#timeplan_ongoing").attr("checked", false);
     });
-  }  
+  } 
+  
+  if ($("#billing_info_start_date").length > 0) {
+    $("#billing_info_start_date").datepicker({dateFormat: 'yy-mm-dd'});
+  }
+  
+  if ($("#billing_info_end_date").length > 0) {
+    $("#billing_info_end_date").datepicker({dateFormat: 'yy-mm-dd'});
+  }
+
 });

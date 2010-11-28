@@ -16,10 +16,7 @@
   %p
     = f.label :end_date
     %br
-    - if timeplan.end_date.nil?
-      = f.text_field :end_date
-    - else
-      = f.text_field :end_date
+    = f.text_field :end_date
   %p
     = f.label :allocation_type
     %br

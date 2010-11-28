@@ -1,0 +1,18 @@
+= form_for(billing_info) do |f|
+  = f.error_messages
+  = f.hidden_field :worklog_task_id
+  %p
+    = f.label :start_date
+    %br
+    = f.text_field :start_date
+  %p
+    = f.label :end_date
+    %br
+    = f.text_field :end_date
+  %p
+    = f.label :invoice_amount
+    %br
+    = f.text_field :invoice_amount
+    GBP
+  %p
+    = f.submit "Submit"
