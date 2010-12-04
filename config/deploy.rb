@@ -29,6 +29,7 @@ role :db,  "bob.jrbh.local", :primary => true
 after "deploy:update_code", "deploy:update_shared_symlinks"
 require "bundler/capistrano"
 after "bundle:install", "deploy:migrate"
+after "deploy:migrate", "deploy:trust_rvmrc"
 
 before "deploy:update_yml_files", "deploy:create_shared_dirs"
 before "deploy:update_shared_symlinks", "deploy:update_yml_files"
@@ -57,7 +58,11 @@ namespace :deploy do
       run "rm -rf #{File.join(release_path, path)}"
       run "ln -s #{File.join(deploy_to, "shared", path)} #{File.join(release_path, path)}"
     end
-  end 
+  end
+  
+  task :trust_rvmrc do
+    run "rvm rvmrc trust #{release_path}"
+  end
 end
 
 
