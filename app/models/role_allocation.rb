@@ -6,7 +6,7 @@ class RoleAllocation < ActiveRecord::Base
   scope :for_worklog_task, lambda {|task| where("worklog_task_id = ?", task.id) }
   scope :for_user, lambda {|user| where("user_id = ?", user.id)}
   
-  validates_presence_of :start_date, :role, :user_id, :worklog_task_id, :role_id
+  validates_presence_of :start_date, :user_id, :worklog_task_id, :role_id
   validate :positive_date_range?
   validate :no_overlapping_periods_for_same_user?
 

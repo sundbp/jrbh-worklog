@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  start_date: 2010-12-05
+  end_date: 2010-12-05
+  rate: 1.5
+
+two:
+  start_date: 2010-12-05
+  end_date: 2010-12-05
+  rate: 1.5

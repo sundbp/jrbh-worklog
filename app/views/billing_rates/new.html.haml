@@ -1,0 +1,4 @@
+%h3= "Add new billing rate for task '#{@billing_rate.worklog_task.name}' for company '#{@billing_rate.worklog_task.company.name}'"
+#billing_rates
+  = render :partial => "form", :locals => {:billing_rate => @billing_rate}
+  

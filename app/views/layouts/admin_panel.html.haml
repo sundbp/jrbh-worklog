@@ -72,6 +72,10 @@
             = link_to 'Add role', :controller => :roles, :action => :new
             %p.heading Role Allocations
             = link_to 'Add/Edit/Delete', :controller => :role_allocations
+            %p.heading Rates Cards
+            = link_to 'Add/Edit/Delete', :controller => :billing_rates
+            %br
+            = link_to 'Standard rate card', billing_rates_path(:worklog_task => Hash[:id => WorklogTask.standard_rate_card.id])
 
         #content
           = yield

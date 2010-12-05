@@ -1,0 +1,2 @@
+module BillingRatesHelper
+end

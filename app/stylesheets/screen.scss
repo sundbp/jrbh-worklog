@@ -97,6 +97,12 @@ body#dashboard {
     padding-top: 1em;
     padding-bottom: 1em;
   }
+  #billing_rates {
+    @include prepend($admin_column_pad);
+    @include column($admin_column_width); 
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
 }
 
 body#admin-panel {

@@ -1,0 +1,25 @@
+= form_for(billing_rate) do |f|
+  = f.error_messages
+  = f.hidden_field :worklog_task_id
+  %p
+    = f.label :role_id
+    %br
+    = f.select :role_id, available_roles
+  %p
+    = f.label :start_date
+    %br
+    = f.text_field :start_date
+  %p
+    Ongoing?
+    %br
+    = f.check_box :ongoing
+  %p
+    = f.label :end_date
+    %br
+    = f.text_field :end_date
+  %p
+    = f.label :rate, "Day rate (GBP)"
+    %br
+    = f.text_field :rate
+  %p
+    = f.submit "Submit"

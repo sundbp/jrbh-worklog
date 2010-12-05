@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101205193239) do
+ActiveRecord::Schema.define(:version => 20101205193941) do
 
   create_table "billing_infos", :force => true do |t|
     t.date     "start_date",      :null => false
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(:version => 20101205193239) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "worklog_task_id", :null => false
+  end
+
+  create_table "billing_rates", :force => true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.float    "rate"
+    t.integer  "worklog_task_id", :null => false
+    t.integer  "role_id",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "companies", :force => true do |t|

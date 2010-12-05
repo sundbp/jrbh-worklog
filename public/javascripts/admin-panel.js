@@ -63,5 +63,33 @@ $(function() {
       $("#role_allocation_ongoing").attr("checked", false);
     });
   } 
+
+  if($("#billing_rate_ongoing").length > 0) {
+    if($("#billing_rate_ongoing").attr("checked")) {
+      $("#billing_rate_end_date").attr("disabled", true);
+    }
+    else {
+      $("#billing_rate_end_date").removeAttr("disabled");
+    }
+    $("#billing_rate_ongoing").change(function() {
+      if($("#billing_rate_ongoing").attr("checked")) {
+        $("#billing_rate_end_date").attr("disabled", true);
+      }
+      else {
+        $("#billing_rate_end_date").removeAttr("disabled");
+      }
+    });
+  }
+
+  if ($("#billing_rate_start_date").length > 0) {
+    $("#billing_rate_start_date").datepicker({dateFormat: 'yy-mm-dd'});
+  }
+  
+  if ($("#billing_rate_end_date").length > 0) {
+    $("#billing_rate_end_date").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#billing_rate_end_date").change(function() {
+      $("#billing_rate_ongoing").attr("checked", false);
+    });
+  } 
   
 });
