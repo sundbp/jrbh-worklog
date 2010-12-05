@@ -20,7 +20,7 @@
           %td= role_allocation.start_date
           %td= role_allocation.end_date.nil? ? "Ongoing" : role_allocation.end_date
           %td= role_allocation.user.alias
-          %td= role_allocation.role
+          %td= role_allocation.role.name
           %td= link_to "Edit", edit_role_allocation_path(role_allocation)
           %td= link_to "Delete", role_allocation, :method => :delete, :confirm => "Are you sure?"
   = button_to "Add entry", { :action => :new, :worklog_task_id => @worklog_task.id }

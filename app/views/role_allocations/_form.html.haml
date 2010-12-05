@@ -18,8 +18,8 @@
     %br
     = f.text_field :end_date
   %p
-    = f.label :role
+    = f.label :role_id
     %br
-    = f.select :role, RoleAllocation.available_roles
+    = f.select :role_id, Role.order("name ASC").map {|r| [r.name, r.id]}
   %p
     = f.submit "Submit"

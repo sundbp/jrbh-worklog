@@ -1,17 +1,14 @@
 class RoleAllocation < ActiveRecord::Base
   belongs_to :worklog_task
   belongs_to :user
+  belongs_to :role
   
   scope :for_worklog_task, lambda {|task| where("worklog_task_id = ?", task.id) }
   scope :for_user, lambda {|user| where("user_id = ?", user.id)}
   
-  validates_presence_of :start_date, :role, :user_id, :worklog_task_id
+  validates_presence_of :start_date, :role, :user_id, :worklog_task_id, :role_id
   validate :positive_date_range?
   validate :no_overlapping_periods_for_same_user?
-
-  def self.available_roles
-    ["Director", "Project Manager", "Senior Consultant", "Consultant", "Analyst"]
-  end
 
   def positive_date_range?
     if self.start_date > self.adjusted_end_date
