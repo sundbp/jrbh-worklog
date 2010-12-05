@@ -26,9 +26,9 @@
     - unless @no_task.size == 0
       %h3 Periods that do not have a valid worklog task:
       (this may be because the task was deleted in some weird way)
-      = render :partial => "period", :collection => @no_user
+      = render :partial => "period", :collection => @no_task
 
     - unless @no_company.size == 0
       %h3 Periods that do not have a valid company:
       (this may be because the company was deleted in some weird way)
-      = render :partial => "period", :collection => @no_user
+      = render :partial => "period", :collection => @no_company

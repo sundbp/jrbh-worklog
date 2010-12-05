@@ -15,11 +15,11 @@ class WorkPeriod < ActiveRecord::Base
   }
 
   scope :user, lambda { |user_alias|
-    joins(:user).where('user.alias = ?', user_alias)
+    joins(:user).where('users.alias = ?', user_alias)
   }
 
   scope :worklog_task, lambda { |name|
-    joins(:worklog_task).where('worklog_task.name = ?', name)
+    joins(:worklog_task).where('worklog_tasks.name = ?', name)
   }
 
   def company

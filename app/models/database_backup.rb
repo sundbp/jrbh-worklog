@@ -73,11 +73,11 @@ class DatabaseBackup
   def snapshot_prod_to_staging(backup_name = generate_daily_backup_filename)
     success = system("/usr/bin/dropdb #{STAGING_DB} && /usr/bin/createdb #{STAGING_DB}")
     raise "Could not create a fresh staging db!" unless success
-    success = system("/usr/bin/psql #{STAGING_DB} < #{backup_name}")
+    success = system("/usr/bin/psql #{STAGING_DB} < #{backup_name} > /dev/null 2>&1")
     railse "Failed to setup staging db from backup (#{backup_name})" unless success
     success = system("/usr/bin/dropdb #{DEV_DB} && /usr/bin/createdb #{DEV_DB}")
     raise "Could not create a fresh dev db!" unless success
-    success = system("/usr/bin/psql #{DEV_DB} < #{backup_name}")
+    success = system("/usr/bin/psql #{DEV_DB} < #{backup_name} > /dev/null 2>&1")
     railse "Failed to setup dev db from backup (#{backup_name})" unless success
     success
   end
