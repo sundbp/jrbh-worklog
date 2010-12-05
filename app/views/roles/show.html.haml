@@ -1,0 +1,12 @@
+%h2= "Role \"#{@role.name}\""
+=content_tag_for :div, @role do
+  %ul
+    %li
+      %strong Name:
+      =h @role.name
+    %li
+      %strong Description:
+      =h @role.description
+%ul
+  %li= link_to 'Edit', edit_role_path(@role)
+  %li= link_to 'Back', roles_path

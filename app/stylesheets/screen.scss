@@ -85,9 +85,15 @@ body#dashboard {
     padding-top: 1em;
     padding-bottom: 1em;
   }
-  #role_allocations {
+  #roles {
     @include prepend($admin_column_pad);
     @include column($admin_column_width, true); 
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  #role_allocations {
+    @include prepend($admin_column_pad);
+    @include column($admin_column_width); 
     padding-top: 1em;
     padding-bottom: 1em;
   }

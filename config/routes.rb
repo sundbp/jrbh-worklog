@@ -1,4 +1,6 @@
 JrbhWorklog::Application.routes.draw do
+  resources :roles
+
   resources :role_allocations
   resources :billing_infos
   resources :timeplans

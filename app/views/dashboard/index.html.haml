@@ -46,6 +46,11 @@
   #billinginfos
     %p.heading Billing Info
     = link_to "Add/Edit/Delete", :controller => :billing_infos
+  #roles
+    %p.heading Roles
+    = link_to "Show/Edit/Delete", :controller => :roles
+    %br
+    = link_to 'Add role', :controller => :roles, :action => :new
   #role_allocations
     %p.heading Role Allocations
     = link_to "Add/Edit/Delete", :controller => :role_allocations

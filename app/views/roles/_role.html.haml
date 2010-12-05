@@ -1,0 +1,12 @@
+=content_tag_for :div, role do
+  %ul
+    %li
+      %strong Name:
+      =h role.name
+    %li
+      %strong Description:
+      =h role.description
+
+    = link_to 'Show', role
+    = link_to 'Edit', edit_role_path(role)
+    = link_to 'Destroy', role, :confirm => 'Are you sure?', :method => :delete

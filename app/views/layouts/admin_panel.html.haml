@@ -66,6 +66,10 @@
             = link_to 'Add/Edit/Delete', :controller => :timeplans
             %p.heading Billing Info
             = link_to 'Add/Edit/Delete', :controller => :billing_infos
+            %p.heading Roles
+            = link_to 'Show/Edit/Delete', :controller => :roles
+            %br
+            = link_to 'Add role', :controller => :roles, :action => :new
             %p.heading Role Allocations
             = link_to 'Add/Edit/Delete', :controller => :role_allocations
 

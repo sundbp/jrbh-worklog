@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101128215132) do
+ActiveRecord::Schema.define(:version => 20101205190021) do
 
   create_table "billing_infos", :force => true do |t|
     t.date     "start_date",      :null => false
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(:version => 20101128215132) do
     t.string   "role",            :null => false
     t.integer  "worklog_task_id", :null => false
     t.integer  "user_id",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name",        :null => false
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,8 @@
+%h2=h "Roles available in the database (#{@num_roles} in total)"
+- if !@roles.empty?
+  = will_paginate(@roles)
+  .users
+    = render :partial => "role", :collection => @roles
+  = will_paginate(@roles)
+- else
+  %p There are no roles to show yet.
