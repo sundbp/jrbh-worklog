@@ -22,10 +22,11 @@ class DatabaseCheckMailer < ActionMailer::Base
     # find all periods that are too short or too long
     short_periods = []
     long_periods = []
+    now = Time.now
     WorkPeriod.all.each do |wp|
-      if wp.duration < MIN_PERIOD_LENGTH
+      if wp.duration < MIN_PERIOD_LENGTH and now - wp.start - APP_CONFIG['num_days_to_check_consistency'].days < 0
         short_periods << wp
-      elsif wp.duration >= MAX_PERIOD_LENGTH
+      elsif wp.duration >= MAX_PERIOD_LENGTH and now - wp.start - APP_CONFIG['num_days_to_check_consistency'].days < 0
         long_periods << wp
       end
     end
