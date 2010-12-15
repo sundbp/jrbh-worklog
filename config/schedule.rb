@@ -1,6 +1,6 @@
 # Use this file to easily define all of your cron jobs.
 
-set :output, "cron_log.log"
+set :output, "log/cron_log.log"
 
 every 1.day, :at => '2.30am' do
   runner 'DatabaseBackup.daily_backup'
