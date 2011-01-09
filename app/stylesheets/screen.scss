@@ -119,3 +119,14 @@ body#csv-generator {
       @include column(9, true); }
     #task-selection {
       @include column(9, true); } } }
+
+body#reportlayout {
+  #period_start {
+    float: left;
+    padding-bottom: 1em;
+  }
+  #period_end {
+    float: right;
+    padding-bottom: 1em;
+  }
+}

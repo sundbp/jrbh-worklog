@@ -2,7 +2,7 @@
 !!!
 %html{ :'xml:lang' => "en", :lang => "en" }
   %head
-    %title JRBH - Dashboard
+    %title JRBH - Reports
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
     %link{ :rel => "shortcut icon", :href => "/images/favicon.ico", :type => "image/x-icon" }
 
@@ -13,13 +13,15 @@
     = javascript_include_tag 'jquery.min.js'
     = javascript_include_tag 'jquery-ui.min.js'
     = javascript_include_tag 'rails.js'
+    = javascript_include_tag 'reports.js'
     = csrf_meta_tag
 
-  %body#dashboard.bp-general
+  %body#reportlayout.bp-general
     .container
       #header
         %center
           = link_to image_tag("jrbh-logo-white-small.png", :alt => 'JRBH'), root_path
+          -#%h1 JRBH
         %hr
         #flash
           - unless flash.empty?
@@ -38,6 +40,5 @@
         #copyright
           %p &copy; JRBH 2009.  Number Three, 59 Jermyn Street, London, SW1Y 6LX
         #produced-with
-          - produced_string = "Produced using #{link_to('RubyOnRails', 'http://rubyonrails.org')}, #{link_to('Compass', 'http://compass-style.org/')}, and #{link_to('jQuery', 'http://jquery.com')}"
-          %p= produced_string.html_safe
+          = "Report generation time: #{Time.now}" 
       

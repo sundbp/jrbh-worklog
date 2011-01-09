@@ -4,8 +4,6 @@ class WorkPeriod < ActiveRecord::Base
 
   validate :correct_period?
 
-  default_scope order("start DESC")
-  
   scope :between, lambda { |start_t, end_t|
     where('start >= ? and work_periods.end <= ?', start_t, end_t)
   }
@@ -20,6 +18,14 @@ class WorkPeriod < ActiveRecord::Base
 
   scope :worklog_task, lambda { |name|
     joins(:worklog_task).where('worklog_tasks.name = ?', name)
+  }
+
+  scope :distinct_worklog_task_ids, lambda {
+    group(:worklog_task_id).select(:worklog_task_id) 
+  }
+  
+  scope :distinct_user_ids, lambda {
+    group(:user_id).select(:user_id) 
   }
 
   def company

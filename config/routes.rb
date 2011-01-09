@@ -1,8 +1,9 @@
 JrbhWorklog::Application.routes.draw do
+  get "reports/utilization_summary"
+  get "reports/individual_summary"
+  get "reports/company_summary"
   resources :billing_rates
-
   resources :roles
-
   resources :role_allocations
   resources :billing_infos
   resources :timeplans

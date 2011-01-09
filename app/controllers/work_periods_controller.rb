@@ -64,16 +64,11 @@ class WorkPeriodsController < ApplicationController
           user_id = params["user_id"].to_i
         end
       end
-      #@work_periods = WorkPeriod.find(:all,
-      #                                :conditions => ["user_id = ? and start > ? and start < ?",
-      #                                                user_id,
-      #                                                Time.parse(params["start"]),
-      #                                                Time.parse(params["end"]) ])
       @work_periods = WorkPeriod.where("user_id = ? and start > ? and start < ?",
         user_id,
         Time.parse(params["start"]),
         Time.parse(params["end"])
-      )
+      ).order("start DESC")
     else
       @work_periods = WorkPeriod.paginate(:page => params[:page], :per_page => WORK_PERIODS_PER_PAGE)
     end

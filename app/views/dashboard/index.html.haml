@@ -12,11 +12,11 @@
 
 #reports
   %p.heading Reports
-  = link_to 'Report 1', root_path
+  = link_to 'Utilization summary', :controller => :reports, :action => :utilization_summary
   %br
-  = link_to 'Report 2', root_path
+  = link_to 'Company summary', :controller => :reports, :action => :company_summary
   %br
-  = link_to 'Report 3', root_path
+  = link_to 'Individual summary', :controller => :reports, :action => :individual_summary
 
 -# Admin panel if we have an admin logged in
 -if current_user.admin
