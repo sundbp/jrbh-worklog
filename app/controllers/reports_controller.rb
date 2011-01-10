@@ -74,6 +74,8 @@ class ReportsController < ApplicationController
         
         generate_data_for_utilization_tables()
         
+        generate_role_allocations()
+        
         @generate_output = true
       rescue DataGenerationError => e
         flash.now[:error] = e.to_s
@@ -103,6 +105,9 @@ class ReportsController < ApplicationController
     :logged_over_planned_pcnt,
     :value_at_project_rate_card,
     :value_at_standard_rate_card)
+  end
+  
+  class RoleAllocationEntry < Struct.new(:start_date, :end_date, :role)
   end
   
   def generate_data_for_utilization_tables()
@@ -284,6 +289,21 @@ class ReportsController < ApplicationController
       raise DataGenerationError.new("No roles defined at time #{d}, company '#{task.company.name}', task '#{task.name}' for user #{user.alias}. Please add!")
     end
     role_query.first.role
+  end
+  
+  def generate_role_allocations()
+    @role_allocations = Hash.new
+    @worklog_tasks.each do |task|
+      RoleAllocation.for_worklog_task(task).each do |role_alloc|
+        next unless role_alloc.overlaps_with(@start_date, @end_date)
+        
+        overlap_start_date = @start_date >= role_alloc.start_date ? @start_date : role_alloc.start_date
+        overlap_end_date = @end_date <= role_alloc.adjusted_end_date ? @end_date : role_alloc.adjusted_end_date
+        
+        @role_allocations[role_alloc.user] ||= []
+        @role_allocations[role_alloc.user] << RoleAllocationEntry.new(overlap_start_date, overlap_end_date, role_alloc.role)
+      end
+    end
   end
   
 end

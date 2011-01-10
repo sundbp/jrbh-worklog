@@ -28,9 +28,7 @@ class RoleAllocation < ActiveRecord::Base
     role_allocations = RoleAllocation.for_user(self.user).for_worklog_task(self.worklog_task).order("start_date")
     role_allocations.each do |role_allocation|
       next if role_allocation.id == self.id
-      is_before = self.start_date < role_allocation.start_date and self.adjusted_end_date < role_allocation.start_date
-      is_after  = self.start_date > role_allocation.adjusted_end_date and self.adjusted_end_date > role_allocation.adjusted_end_date
-      if not (is_before or is_after)
+      if overlaps_with(role_allocation.start_date, role_allocation.adjusted_end_date)
         errors.add(:base, "Role allocation is overlapping with already existing timerole_allocation for user! (start_date: #{role_allocation.start_date}, end_date: #{role_allocation.adjusted_end_date})")
       end
     end
@@ -48,4 +46,10 @@ class RoleAllocation < ActiveRecord::Base
     self.end_date = nil if flag
   end
 
+  def overlaps_with(range_start, range_end)
+    is_before = (self.start_date < range_start.to_date and self.adjusted_end_date < range_start.to_date)
+    is_after  = (self.start_date > range_end.to_date and self.adjusted_end_date > range_end.to_date)
+    not (is_before or is_after)
+  end
+  
 end
