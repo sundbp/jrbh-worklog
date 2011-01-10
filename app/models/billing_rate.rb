@@ -4,6 +4,10 @@ class BillingRate < ActiveRecord::Base
   
   scope :for_worklog_task, lambda {|task| where("worklog_task_id = ?", task.id) }
   scope :for_role, lambda {|role| where("role_id = ?", role.id) }
+
+  scope :start_date, lambda {|d|
+    where('start_date <= ?', d).order("start_date DESC")
+  }
   
   validates_presence_of :start_date, :role_id, :worklog_task_id
   validates_numericality_of :rate, :greather_than => 0

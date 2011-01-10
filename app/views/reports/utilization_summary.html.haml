@@ -26,7 +26,6 @@
             %br
       %p
         = submit_tag "Update"
-
 - else
   %center
     %h2
@@ -46,6 +45,7 @@
     - @worklog_tasks.each do |task|
       %li= "#{task.company.name} - #{task.name}"
   %hr
+  %h3 By user
   %table
     %thead
       %tr
@@ -57,15 +57,82 @@
       %tr
         %td Total hours logged
         - @user_stats.each do |user, stats|
-          %td= stats.total_hours.round(1)
+          %td= stats.hours_logged.round(1)
         %td= @total_hours_logged.round(1)
+      %tr
+        %td Total hours planned (in period)
+        - @user_stats.each do |user, stats|
+          %td= stats.hours_planned.round(1)
+        %td= @total_hours_planned.round(1)
       %tr
         %td Total days logged
         - @user_stats.each do |user, stats|
-          %td= stats.total_days.round(1)
+          %td= stats.days_logged.round(1)
         %td= @total_days_logged.round(1)
       %tr
         %td Total days planned (in period)
         - @user_stats.each do |user, stats|
-          %td= stats.total_days_planned.round(1)
+          %td= stats.days_planned.round(1)
         %td= @total_days_planned.round(1)
+      %tr
+        %td Logged / Planned (in period)
+        - @user_stats.each do |user, stats|
+          %td= stats.logged_over_planned_pcnt
+        %td= @total_logged_over_planned_pcnt
+      %tr
+        %td Value at project rates (in period)
+        - @user_stats.each do |user, stats|
+          %td= stats.value_at_project_rate_card.round(0).to_i
+        %td= @total_value_at_project_rate_card.round(0).to_i
+      %tr
+        %td Value at standard rates (in period)
+        - @user_stats.each do |user, stats|
+          %td= stats.value_at_standard_rate_card.round(0).to_i
+        %td= @total_value_at_standard_rate_card.round(0).to_i
+
+  %hr
+  
+  %h3 By role
+  %table
+    %thead
+      %tr
+        %th
+        - @roles.each do |r|
+          %th= r.name
+        %th Total
+    %tbody
+      %tr
+        %td Total hours logged
+        - @role_stats.each do |role, stats|
+          %td= stats.hours_logged.round(1)
+        %td= @total_hours_logged.round(1)
+      %tr
+        %td Total hours planned (in period)
+        - @role_stats.each do |role, stats|
+          %td= stats.hours_planned.round(1)
+        %td= @total_hours_planned.round(1)
+      %tr
+        %td Total days logged
+        - @role_stats.each do |role, stats|
+          %td= stats.days_logged.round(1)
+        %td= @total_days_logged.round(1)
+      %tr
+        %td Total days planned (in period)
+        - @role_stats.each do |role, stats|
+          %td= stats.days_planned.round(1)
+        %td= @total_days_planned.round(1)
+      %tr
+        %td Logged / Planned (in period)
+        - @role_stats.each do |role, stats|
+          %td= stats.logged_over_planned_pcnt
+        %td= @total_logged_over_planned_pcnt
+      %tr
+        %td Value at project rates (in period)
+        - @role_stats.each do |role, stats|
+          %td= stats.value_at_project_rate_card.round(0).to_i
+        %td= @total_value_at_project_rate_card.round(0).to_i
+      %tr
+        %td Value at standard rates (in period)
+        - @role_stats.each do |role, stats|
+          %td= stats.value_at_standard_rate_card.round(0).to_i
+        %td= @total_value_at_standard_rate_card.round(0).to_i

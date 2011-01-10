@@ -35,6 +35,12 @@ class WorkPeriod < ActiveRecord::Base
   def duration
     attributes['end']-start
   end
+  
+  def overlaps_with(range_start, range_end)
+    is_before = (self.start < range_start and self.end < range_start)
+    is_after  = (self.start > range_end and self.end > range_end)
+    not (is_before or is_after)
+  end
 
   private
 

@@ -9,6 +9,10 @@ class RoleAllocation < ActiveRecord::Base
   scope :between, lambda {|start_date, end_date|
     where('start_date >= ? and end_date <= ?', start_date, end_date)
   }
+
+  scope :start_date, lambda {|d|
+    where('start_date <= ?', d).order("start_date DESC")
+  }
   
   validates_presence_of :start_date, :user_id, :worklog_task_id, :role_id
   validate :positive_date_range?

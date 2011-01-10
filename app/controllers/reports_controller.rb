@@ -2,6 +2,9 @@ class ReportsController < ApplicationController
 
   layout "reports"
   
+  HOURS_IN_WORKDAY = 8.0
+  DAYS_IN_MONTH = 30.5
+  
   def utilization_summary
     @time_period_types = ["Year to date", "Quarter to date", "Month to date", "Custom period"]
     @selected_time_period_type = params[:time_period_type]
@@ -54,11 +57,27 @@ class ReportsController < ApplicationController
       end
     end
     
+    @generate_output = false
+    
     if @start_date != nil and @end_date != nil and @num_selected_tasks != 0
-      @generate_output = true
-      generate_output_data()
-    else
-      @generate_output = false
+      begin
+        # make worklog tasks only include the selected tasks
+        @worklog_tasks = @worklog_tasks.select {|task| @selected_worklog_tasks[task.id] }
+        
+        @users = []
+        @worklog_tasks.each do |task|
+          task_users = WorkPeriod.distinct_user_ids.worklog_task(task.name).between(@start_date, @end_date).map {|x| User.find(x.user_id) }
+          @users = @users.concat(task_users)
+        end
+        @users.uniq!
+        @users.sort! {|x,y| x.alias <=> y.alias }
+        
+        generate_data_for_utilization_tables()
+        
+        @generate_output = true
+      rescue DataGenerationError => e
+        flash.now[:error] = e.to_s
+      end
     end
     
     respond_to do |format|
@@ -74,54 +93,101 @@ class ReportsController < ApplicationController
 
   private
   
-  class UserStats < Struct.new(:total_hours, :total_days, :total_days_planned)
+  class DataGenerationError < StandardError
   end
   
-  def generate_output_data()
-    # make worklog tasks only include the selected tasks
-    @worklog_tasks = @worklog_tasks.select {|task| @selected_worklog_tasks[task.id] }
-
-    @users = []
-    @worklog_tasks.each do |task|
-      task_users = WorkPeriod.distinct_user_ids.worklog_task(task.name).between(@start_date, @end_date).map {|x| User.find(x.user_id) }
-      @users = @users.concat(task_users)
-    end
-    @users.uniq!
-    @users.sort! {|x,y| x.alias <=> y.alias }
-    
+  class UtilizationStats < Struct.new(:hours_logged,
+    :days_logged,
+    :hours_planned,
+    :days_planned,
+    :logged_over_planned_pcnt,
+    :value_at_project_rate_card,
+    :value_at_standard_rate_card)
+  end
+  
+  def generate_data_for_utilization_tables()
     @user_stats = Hash.new
+    @role_stats = Hash.new
     
     @total_hours_logged = 0
     @total_days_logged = 0
+    @total_hours_planned = 0
     @total_days_planned = 0
-      
+    @total_value_at_project_rate_card = 0
+    @total_value_at_standard_rate_card = 0
+    
     @users.each do |user|
-      stats = UserStats.new
-
-      total_seconds = calculate_work_time(user)
-      stats.total_hours = total_seconds / 3600.0
-      stats.total_days = stats.total_hours / 24.0
-      @total_hours_logged += stats.total_hours
-      @total_days_logged += stats.total_days
       
-      stats.total_days_planned = calculate_planned_work_time(user)
-      @total_days_planned += stats.total_days_planned
+      calculate_work_time(user)
+      @total_hours_logged += @user_stats[user].hours_logged
+      @total_days_logged += @user_stats[user].days_logged
       
-      @user_stats[user] = stats
+      calculate_planned_work_time(user)
+      @user_stats[user].hours_planned ||= 0
+      @user_stats[user].days_planned ||= 0
+      @total_hours_planned += @user_stats[user].hours_planned
+      @total_days_planned += @user_stats[user].days_planned
+      
+      calculate_value_of_time(user)
+      @user_stats[user].value_at_project_rate_card ||= 0
+      @user_stats[user].value_at_standard_rate_card ||= 0
+      @total_value_at_project_rate_card += @user_stats[user].value_at_project_rate_card
+      @total_value_at_standard_rate_card += @user_stats[user].value_at_standard_rate_card
+      
+      @user_stats[user].logged_over_planned_pcnt = if @user_stats[user].hours_planned == 0
+        "N/A"
+      else
+        ratio = (@user_stats[user].hours_logged.to_f / @user_stats[user].hours_planned.to_f) * 100.0
+        "#{ratio.round(0).to_i} %"
+      end
     end
+    
+    @total_logged_over_planned_pcnt = if @total_hours_planned == 0
+      "N/A"
+    else
+      ratio = (@total_hours_logged.to_f / @total_hours_planned.to_f) * 100.0
+      "#{ratio.round(0).to_i} %"
+    end
+    
+    @role_stats.each do |role, stats|
+      stats.logged_over_planned_pcnt = if stats.hours_planned == 0
+        "N/A"
+      else
+        ratio = (stats.hours_logged.to_f / stats.hours_planned.to_f) * 100.0
+        "#{ratio.round(0).to_i} %"
+      end
+    end
+    
+    @roles = @role_stats.keys
+    
+    true
   end
 
   def calculate_work_time(user)
-    total_seconds = 0    
     @worklog_tasks.each do |task|
       periods = WorkPeriod.user(user.alias).worklog_task(task.name).between(@start_date, @end_date)
-      periods.each {|x| total_seconds += x.duration }
+      periods.each do |x|
+        @user_stats[user] ||= UtilizationStats.new
+        role = role_for_user(user, task, x.start)
+        @role_stats[role] ||= UtilizationStats.new
+
+        @user_stats[user].hours_logged ||= 0
+        @role_stats[role].hours_logged ||= 0
+        @user_stats[user].days_logged ||= 0
+        @role_stats[role].days_logged ||= 0
+
+        value = (x.duration / 1.hour)
+        @user_stats[user].hours_logged += value
+        @role_stats[role].hours_logged += value
+        
+        value = value / HOURS_IN_WORKDAY
+        @user_stats[user].days_logged += value
+        @role_stats[role].days_logged += value
+      end
     end
-    total_seconds
   end
   
   def calculate_planned_work_time(user)
-    total_days = 0
     @worklog_tasks.each do |task|
       timeplans = Timeplan.for_user(user).for_worklog_task(task)
       timeplans.each do |timeplan|
@@ -137,31 +203,87 @@ class ReportsController < ApplicationController
         planned_allocation = case timeplan.allocation_type
         when "Total"
           # proportional to how big overlap is compared to total
-          #p "------------------------------"
-          #p "found a total timeplan for #{user.alias}"
-          #p "overlap is #{overlap_start_date} - #{overlap_end_date}"
-          #p "overlap length is #{overlap_in_days}"
-          #p "total timeplan length is #{timeplan.duration_in_days}"
-          #p "total time allocation: #{timeplan.time_allocation}"
-          #p "% of total: #{overlap_in_days / timeplan.duration_in_days}"
           timeplan.time_allocation * overlap_in_days / timeplan.duration_in_days          
         when "Monthly"
           # proportional to how many months the overlap is
-          #p "------------------------------"
-          #p "found a monthly timeplan for #{user.alias}"
-          #p "overlap is #{overlap_start_date} - #{overlap_end_date}"
-          #p "overlap length is #{overlap_in_days}"
-          #p "monthly time allocation: #{timeplan.time_allocation}"
-          #p "num months: #{overlap_in_days / 30.5}"
-          timeplan.time_allocation * overlap_in_days / 30.5
+          timeplan.time_allocation * overlap_in_days / DAYS_IN_MONTH
         else
           raise "Unknown allocation type found!"
         end
-        #p "overlap length = #{planned_allocation}"
-        total_days += planned_allocation
+
+        role = role_for_user(user, task, overlap_start_date)
+        
+        @user_stats[user] ||= UtilizationStats.new
+        @user_stats[user].days_planned ||= 0
+        @user_stats[user].hours_planned ||= 0
+        
+        @role_stats[role] ||= UtilizationStats.new
+        @role_stats[role].days_planned ||= 0
+        @role_stats[role].hours_planned ||= 0
+        
+        @user_stats[user].days_planned += planned_allocation
+        @user_stats[user].hours_planned += planned_allocation * HOURS_IN_WORKDAY
+
+        @role_stats[role].days_planned += planned_allocation
+        @role_stats[role].hours_planned += planned_allocation * HOURS_IN_WORKDAY
       end
     end
-    total_days
+    true
+  end
+
+  def calculate_value_of_time(user)
+    @worklog_tasks.each do |task|
+      WorkPeriod.user(user.alias).worklog_task(task.name).each do |wp|
+        next unless wp.overlaps_with(@start_date, @end_date)
+        
+        # start of overlap is the later of the two start dates
+        overlap_start = @start_date.to_time >= wp.start ? @start_date.to_time : wp.start
+        # end of overlap is the earlier of the two end dates
+        overlap_end = @end_date.to_time <= wp.end ? @end_date.to_time : wp.end
+        
+        overlap_in_days = ((overlap_end - overlap_start) + 1.0).to_f / HOURS_IN_WORKDAY.hours
+        
+        role = role_for_user(user, task, overlap_start)
+
+        @user_stats[user] ||= UtilizationStats.new
+        @role_stats[role] ||= UtilizationStats.new
+        
+        @user_stats[user].value_at_project_rate_card ||= 0
+        @user_stats[user].value_at_standard_rate_card ||= 0
+        @role_stats[role].value_at_project_rate_card ||= 0
+        @role_stats[role].value_at_standard_rate_card ||= 0
+        
+        # project rate
+        br_query = BillingRate.for_role(role).for_worklog_task(task).start_date(overlap_start)
+        if br_query.size == 0
+          raise DataGenerationError.new("No project billing rate defined at time #{overlap_start},company '#{task.company.name}', task '#{task.name}' for role #{role.name}. Please add!")
+        end
+        project_rate = br_query.first
+        value = project_rate.rate * overlap_in_days
+        @user_stats[user].value_at_project_rate_card += value 
+        @role_stats[role].value_at_project_rate_card += value
+        
+        # standard rate
+        br_query = BillingRate.for_role(role).for_worklog_task(WorklogTask.standard_rate_card).start_date(overlap_start)
+        if br_query.size == 0
+          raise DataGenerationError.new("No standard billing rate defined at time #{overlap_start} for role #{role.name}. Please add!")
+        end
+        standard_rate = br_query.first
+        value = standard_rate.rate * overlap_in_days
+        @user_stats[user].value_at_standard_rate_card += value
+        @role_stats[role].value_at_standard_rate_card += value
+      end
+    end
+    true
+  end
+
+  def role_for_user(user, task, d)
+    # figure out role
+    role_query = RoleAllocation.for_user(user).for_worklog_task(task).start_date(d.to_date)
+    if role_query.size == 0
+      raise DataGenerationError.new("No roles defined at time #{d}, company '#{task.company.name}', task '#{task.name}' for user #{user.alias}. Please add!")
+    end
+    role_query.first.role
   end
   
 end

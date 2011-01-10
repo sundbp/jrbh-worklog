@@ -44,8 +44,8 @@ class Timeplan < ActiveRecord::Base
   end
   
   def overlaps_with(range_start_date, range_end_date)
-    is_before = self.start_date < range_start_date and self.adjusted_end_date < range_start_date
-    is_after  = self.start_date > range_end_date and self.adjusted_end_date > range_end_date
+    is_before = (self.start_date < range_start_date and self.adjusted_end_date < range_start_date)
+    is_after  = (self.start_date > range_end_date and self.adjusted_end_date > range_end_date)
     not (is_before or is_after)
   end
 
