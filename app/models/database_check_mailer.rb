@@ -13,7 +13,7 @@ class DatabaseCheckMailer < ActionMailer::Base
     # find all pairwise overlaps
     overlaps = []
     User.all.each do |user|
-      wps = WorkPeriod.user(user.alias)
+      wps = WorkPeriod.user(user)
       (0..wps.size-2).each do |i|
         overlaps << [wps[i], wps[i+1]] if overlaps?(wps[i], wps[i+1])
       end
@@ -60,7 +60,7 @@ class DatabaseCheckMailer < ActionMailer::Base
 
   def self.run_gap_check
     User.active_employees.each do |user|
-      wps = WorkPeriod.user(user.alias).last_days(APP_CONFIG['num_days_to_check_gaps']).reverse
+      wps = WorkPeriod.user(user).last_days(APP_CONFIG['num_days_to_check_gaps']).reverse
       gaps = []
       (0..wps.size-2).each do |i|
           wp1 = wps[i]
@@ -81,7 +81,7 @@ class DatabaseCheckMailer < ActionMailer::Base
 
   def self.run_unusually_long_periods_check
     User.active_employees.each do |user|
-      wps = WorkPeriod.user(user.alias).last_days(APP_CONFIG['num_days_to_check_gaps']).reverse
+      wps = WorkPeriod.user(user).last_days(APP_CONFIG['num_days_to_check_gaps']).reverse
       unusually_long = wps.select {|wp| wp.duration > UNUSUALLY_LONG_PERIOD_LENGTH }
       if  unusually_long.size != 0
         DatabaseCheckMailer.unusually_long_period_warning(user, unusually_long).deliver

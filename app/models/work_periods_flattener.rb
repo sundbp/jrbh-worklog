@@ -1,7 +1,7 @@
 class WorkPeriodsFlattener
   def self.flatten_work_periods
     User.all.each do |user|
-      periods = WorkPeriod.user(user.alias).reverse
+      periods = WorkPeriod.user(user).reverse
       prev = nil
       cumm = []
       active_chain = false

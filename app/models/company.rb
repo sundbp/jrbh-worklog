@@ -2,11 +2,18 @@ class Company < ActiveRecord::Base
   has_many :worklog_tasks, :dependent => :destroy
   has_many :work_periods, :through => :worklog_tasks
   
-  def self.jrbh_companies
-    [ Company.where(:name => "JRBH").first,
-      Company.where(:name => "JRBH Board Consulting").first,
-      Company.where(:name => "JRBH Brand Commercialisation").first
-    ]
+  scope :internal_companies, lambda {
+    where(:name => Company.internal_company_list)
+  }
+  
+  scope :external_companies, lambda {
+    where("companies.name NOT IN (?)", Company.internal_company_list)
+  }
+  
+  scope :jrbh, where(:name => "JRBH")
+  
+  def self.internal_company_list
+    ["JRBH", "Board IQ", "Revenue IQ"]
   end
   
 end

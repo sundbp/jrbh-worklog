@@ -12,12 +12,12 @@ class WorkPeriod < ActiveRecord::Base
     where('? - start <= ?', Time.now, "#{num_days} days")
   }
 
-  scope :user, lambda { |user_alias|
-    joins(:user).where('users.alias = ?', user_alias)
+  scope :user, lambda { |user|
+    joins(:user).where('users.id = ?', user.id)
   }
 
-  scope :worklog_task, lambda { |name|
-    joins(:worklog_task).where('worklog_tasks.name = ?', name)
+  scope :worklog_task, lambda { |task|
+    joins(:worklog_task).where('worklog_tasks.id = ?', task.id)
   }
 
   scope :distinct_worklog_task_ids, lambda {
@@ -28,6 +28,18 @@ class WorkPeriod < ActiveRecord::Base
     group(:user_id).select(:user_id) 
   }
 
+  scope :for_worklog_tasks, lambda {|tasks|
+    joins(:worklog_task).where("worklog_tasks.id IN (?)", tasks)
+  }
+  
+  scope :for_internal_companies, WorkPeriod.for_worklog_tasks(WorklogTask.internal_tasks)
+  scope :for_internal_companies_work, WorkPeriod.for_worklog_tasks(WorklogTask.internal_tasks_work)
+  scope :for_internal_companies_non_work, WorkPeriod.for_worklog_tasks(WorklogTask.internal_tasks_non_work)
+  scope :holidays, WorkPeriod.for_worklog_tasks(WorklogTask.holidays)
+  scope :sickness, WorkPeriod.for_worklog_tasks(WorklogTask.sickness)
+
+  scope :for_external_companies, WorkPeriod.for_worklog_tasks(WorklogTask.external_tasks)
+    
   def company
     worklog_task.company
   end

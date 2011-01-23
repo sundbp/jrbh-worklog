@@ -1,0 +1,131 @@
+- unless @generate_output
+  = form_tag({:controller => :reports, :action => :user_report}, :method => :post) do
+    %p
+      = label_tag 'Time period'
+      = select_tag :time_period_type, options_for_select(@time_period_types, @selected_time_period_type), :include_blank => true
+    %p
+      = label_tag :start_date
+      %br
+      = text_field_tag :start_date, @start_date
+    %p
+      = label_tag :end_date
+      %br
+      = text_field_tag :end_date, @end_date
+    %p
+      = submit_tag "Update"
+    - if @selected_time_period_type != "" and @start_date != nil and @end_date != nil
+      %hr
+      %p
+        = label_tag 'Users to include'
+        = select_tag :user_type, options_for_select(@user_types, @selected_user_type), :include_blank => true
+      - if @selected_user_type == "Custom selection"
+        %p
+          - @users.each do |user|
+            = check_box_tag "user_#{user.id}", "1", @selected_users[user.id]
+            = "#{user.alias} - #{user.name}"
+            %br
+      %p
+        = submit_tag "Update"
+- else
+  %center
+    %h2
+      User Summary Report
+  %hr
+  #period_start
+    %b
+      Report period start:
+    = @start_date
+  #period_end
+    %b
+      Report period end:
+    = @end_date
+  %hr
+  %h2 Overview table
+  %h3 In hours
+  %table
+    %thead
+      %tr
+        %th
+        - @users.each do |u|
+          %th= u.alias
+        %th Total
+    %tbody
+      %tr
+        %td Client work - planned
+        - @user_report_stats.each do |user, stats|
+          %td= stats.client_hours_planned.round(1)
+        %td= @total_client_hours_planned.round(1)
+      %tr
+        %td Client work - actual
+        - @user_report_stats.each do |user, stats|
+          %td= stats.client_hours_actual.round(1)
+        %td= @total_client_hours_actual.round(1)
+      %tr
+        %td Non-client work
+        - @user_report_stats.each do |user, stats|
+          %td= stats.non_client_hours.round(1)
+        %td= @total_non_client_hours.round(1)
+      %tr
+        %td Total work
+        - @user_report_stats.each do |user, stats|
+          %td= stats.total_work_hours.round(1)
+        %td= @total_work_hours.round(1)
+      %tr
+        %td
+        - @users.each do |user|
+          %td
+        %td
+      %tr
+        %td Holiday
+        - @user_report_stats.each do |user, stats|
+          %td= stats.holiday_hours.round(1)
+        %td= @total_holiday_hours.round(1)
+      %tr
+        %td Sickness
+        - @user_report_stats.each do |user, stats|
+          %td= stats.sickness_hours.round(1)
+        %td= @total_sickness_hours.round(1)
+  %h3= "In days (assuming #{ReportsController::HOURS_IN_WORKDAY} hours/workday)"
+  %table
+    %thead
+      %tr
+        %th
+        - @users.each do |u|
+          %th= u.alias
+        %th Total
+    %tbody
+      %tr
+        %td Client work - planned
+        - @user_report_stats.each do |user, stats|
+          %td= (stats.client_hours_planned / ReportsController::HOURS_IN_WORKDAY).round(1)
+        %td= (@total_client_hours_planned / ReportsController::HOURS_IN_WORKDAY).round(1)
+      %tr
+        %td Client work - actual
+        - @user_report_stats.each do |user, stats|
+          %td= (stats.client_hours_actual / ReportsController::HOURS_IN_WORKDAY).round(1)
+        %td= (@total_client_hours_actual / ReportsController::HOURS_IN_WORKDAY).round(1)
+      %tr
+        %td Non-client work
+        - @user_report_stats.each do |user, stats|
+          %td= (stats.non_client_hours / ReportsController::HOURS_IN_WORKDAY).round(1)
+        %td= (@total_non_client_hours / ReportsController::HOURS_IN_WORKDAY).round(1)
+      %tr
+        %td Total work
+        - @user_report_stats.each do |user, stats|
+          %td= (stats.total_work_hours / ReportsController::HOURS_IN_WORKDAY).round(1)
+        %td= (@total_work_hours / ReportsController::HOURS_IN_WORKDAY).round(1)
+      %tr
+        %td
+        - @users.each do |user|
+          %td
+        %td
+      %tr
+        %td Holiday
+        - @user_report_stats.each do |user, stats|
+          %td= (stats.holiday_hours / ReportsController::HOURS_IN_WORKDAY).round(1)
+        %td= (@total_holiday_hours / ReportsController::HOURS_IN_WORKDAY).round(1)
+      %tr
+        %td Sickness
+        - @user_report_stats.each do |user, stats|
+          %td= (stats.sickness_hours / ReportsController::HOURS_IN_WORKDAY).round(1)
+        %td= (@total_sickness_hours / ReportsController::HOURS_IN_WORKDAY).round(1)

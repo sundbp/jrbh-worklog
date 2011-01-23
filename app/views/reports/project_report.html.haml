@@ -1,5 +1,5 @@
 - unless @generate_output
-  = form_tag({:controller => :reports, :action => :utilization_summary}, :method => :post) do
+  = form_tag({:controller => :reports, :action => :project_report}, :method => :post) do
     %p
       = label_tag 'Time period'
       = select_tag :time_period_type, options_for_select(@time_period_types, @selected_time_period_type), :include_blank => true
@@ -29,7 +29,7 @@
 - else
   %center
     %h2
-      Utilization Summary Report
+      Project Summary Report
   %hr
   #period_start
     %b
@@ -56,37 +56,37 @@
     %tbody
       %tr
         %td Total hours logged
-        - @user_stats.each do |user, stats|
+        - @project_report_user_stats.each do |user, stats|
           %td= stats.hours_logged.round(1)
         %td= @total_hours_logged.round(1)
       %tr
         %td Total hours in plan
-        - @user_stats.each do |user, stats|
+        - @project_report_user_stats.each do |user, stats|
           %td= stats.hours_planned.round(1)
         %td= @total_hours_planned.round(1)
       %tr
         %td Total days logged
-        - @user_stats.each do |user, stats|
+        - @project_report_user_stats.each do |user, stats|
           %td= stats.days_logged.round(1)
         %td= @total_days_logged.round(1)
       %tr
         %td Total days in plan
-        - @user_stats.each do |user, stats|
+        - @project_report_user_stats.each do |user, stats|
           %td= stats.days_planned.round(1)
         %td= @total_days_planned.round(1)
       %tr
         %td Logged vs. Planned
-        - @user_stats.each do |user, stats|
+        - @project_report_user_stats.each do |user, stats|
           %td= stats.logged_over_planned_pcnt
         %td= @total_logged_over_planned_pcnt
       %tr
         %td Value at project rates
-        - @user_stats.each do |user, stats|
+        - @project_report_user_stats.each do |user, stats|
           %td= stats.value_at_project_rate_card.round(0).to_i
         %td= @total_value_at_project_rate_card.round(0).to_i
       %tr
         %td Value at standard rates
-        - @user_stats.each do |user, stats|
+        - @project_report_user_stats.each do |user, stats|
           %td= stats.value_at_standard_rate_card.round(0).to_i
         %td= @total_value_at_standard_rate_card.round(0).to_i
 
@@ -103,37 +103,37 @@
     %tbody
       %tr
         %td Total hours logged
-        - @role_stats.each do |role, stats|
+        - @project_report_role_stats.each do |role, stats|
           %td= stats.hours_logged.round(1)
         %td= @total_hours_logged.round(1)
       %tr
         %td Total hours in plan
-        - @role_stats.each do |role, stats|
+        - @project_report_role_stats.each do |role, stats|
           %td= stats.hours_planned.round(1)
         %td= @total_hours_planned.round(1)
       %tr
         %td Total days logged
-        - @role_stats.each do |role, stats|
+        - @project_report_role_stats.each do |role, stats|
           %td= stats.days_logged.round(1)
         %td= @total_days_logged.round(1)
       %tr
         %td Total days in plan
-        - @role_stats.each do |role, stats|
+        - @project_report_role_stats.each do |role, stats|
           %td= stats.days_planned.round(1)
         %td= @total_days_planned.round(1)
       %tr
         %td Logged vs. Planned
-        - @role_stats.each do |role, stats|
+        - @project_report_role_stats.each do |role, stats|
           %td= stats.logged_over_planned_pcnt
         %td= @total_logged_over_planned_pcnt
       %tr
         %td Value at project rates
-        - @role_stats.each do |role, stats|
+        - @project_report_role_stats.each do |role, stats|
           %td= stats.value_at_project_rate_card.round(0).to_i
         %td= @total_value_at_project_rate_card.round(0).to_i
       %tr
         %td Value at standard rates
-        - @role_stats.each do |role, stats|
+        - @project_report_role_stats.each do |role, stats|
           %td= stats.value_at_standard_rate_card.round(0).to_i
         %td= @total_value_at_standard_rate_card.round(0).to_i
   %hr
@@ -142,4 +142,4 @@
   %ul
     - @role_allocations.each do |user, role_allocations|
       - role_allocations.each do |role_alloc|
-        %li= "#{user.alias} is assigned as '#{role_alloc.role.name}' in period #{role_alloc.start_date} - #{role_alloc.end_date}"
+        %li= "#{user.alias} was assigned as '#{role_alloc.role.name}' in period #{role_alloc.start_date} - #{role_alloc.end_date}"
