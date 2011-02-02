@@ -22,6 +22,7 @@ gem 'compass',        '~> 0.10.6'
 gem 'jquery-rails',   '~> 0.2.5'
 gem 'authlogic',      :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
 gem 'whenever'
+gem "meta_where"
 
 group :development do
   gem 'awesome_print'

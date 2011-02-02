@@ -1,3 +1,5 @@
+require 'csv'
+
 class CsvGeneratorController < ApplicationController
   before_filter :require_user
 
@@ -39,36 +41,24 @@ class CsvGeneratorController < ApplicationController
 
     if success
       company_or_task = nil
-      conditions = case params[:csv_generator][:company_or_task]
+      wps = case params[:csv_generator][:company_or_task]
         when "company"
           company_or_task = :company
-          ["work_periods.user_id IN (?) and companies.id IN (?) and work_periods.start >= ? and work_periods.end <= ?",
-           params[:csv_generator][:users],
-           params[:csv_generator][:companies],
-           start_date,
-           end_date
-          ]
+          WorkPeriod.joins(:worklog_task => :company).
+            where(:user_id => params[:csv_generator][:users]).
+            where(:worklog_task => {:company_id => params[:csv_generator][:companies]}).
+            where(:start.gte => start_date, :end.lte => end_date)
         when "task"
           company_or_task = :task
-          ["work_periods.user_id IN (?) and work_periods.worklog_task_id IN (?) and work_periods.start >= ? and work_periods.end <= ?",
-           params[:csv_generator][:users],
-           params[:csv_generator][:worklog_tasks],
-           start_date,
-           end_date
-          ]
+          WorkPeriod.joins(:worklog_task => :company).
+            where(:user_id => params[:csv_generator][:users]).
+            where(:worklog_task_id => params[:csv_generator][:worklog_tasks]).
+            where(:start.gte => start_date, :end.lte => end_date)
         else
           raise "company or task is neither company or task!"
       end
-      #wps = WorkPeriod.find(:all,
-      #                      :joins => "as work_periods inner join worklog_tasks on work_periods.worklog_task_id = worklog_tasks.id inner join companies on worklog_tasks.company_id = companies.id",
-      #                      :conditions => conditions,
-      #                      :order => "work_periods.user_id, companies.id, work_periods.worklog_task_id, work_periods.start")
-
-      wps = WorkPeriod.joins(:worklog_task) & WorkPeriod.joins(:user), WorklogTask.joins(:company)
-      wps = wps & WorkPeriod.where(conditions[0], conditions[1], conditions[2], conditions[3], conditions[4])
-      wps = wps & WorkPeriod.order("user.id, company.id, worklog_task.id, start")
       
-      csv_string = FasterCSV.generate do |csv|
+      csv_string = CSV.generate do |csv|
         if company_or_task == :company
           csv << ["user", "company", "start", "end", "duration_in_hours"]
         else
