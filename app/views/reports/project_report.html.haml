@@ -45,6 +45,8 @@
     - @worklog_tasks.each do |task|
       %li= "#{task.company.name} - #{task.name}"
   %hr
+  %h3= "Billing info entered for the period: #{@total_billing_amount.round(2)} GBP (pro-rated)"
+  %hr
   %h3 By user
   %table
     %thead

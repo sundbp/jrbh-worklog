@@ -24,6 +24,7 @@ class ReportsController < ApplicationController
         @users.uniq!
         @users.sort! {|x,y| x.alias <=> y.alias }
         
+        generate_billing_info_data()
         generate_data_for_project_tables()
         generate_role_allocations(@worklog_tasks)
         
@@ -88,6 +89,21 @@ class ReportsController < ApplicationController
     :total_work_hours,
     :holiday_hours,
     :sickness_hours)
+  end
+  
+  def generate_billing_info_data()
+    @total_billing_amount = 0.0
+    @worklog_tasks.each do |task|
+      BillingInfo.for_worklog_task(task).overlaps_with(@start_date, @end_date).each do |info|
+        # start of overlap is the later of the two start dates
+        overlap_start_date = @start_date >= info.start_date ? @start_date : info.start_date
+        # end of overlap is the earlier of the two end dates
+        overlap_end_date = @end_date <= info.end_date ? @end_date : info.end_date
+        
+        @total_billing_amount += info.invoice_amount * (overlap_end_date - overlap_start_date) / (info.end_date - info.start_date) 
+      end
+    end
+    true
   end
   
   def generate_data_for_project_tables()
