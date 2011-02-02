@@ -135,6 +135,9 @@ class ReportsController < ApplicationController
     end
     
     @project_report_role_stats.each do |role, stats|
+      # make sure we always have a plan, needed for example by Uncharged Role
+      stats.hours_planned ||= 0
+      stats.days_planned ||= 0
       stats.logged_over_planned_pcnt = if stats.hours_planned == 0
         "N/A"
       else
@@ -240,21 +243,23 @@ class ReportsController < ApplicationController
         
         # project rate
         br_query = BillingRate.for_role(role).for_worklog_task(task).start_date(overlap_start)
-        if br_query.size == 0
-          raise DataGenerationError.new("No project billing rate defined at time #{overlap_start},company '#{task.company.name}', task '#{task.name}' for role #{role.name}. Please add!")
+        project_rate = if br_query.size == 0 and role == Role.uncharged_role
+          0.0
+        else
+          br_query.first.rate
         end
-        project_rate = br_query.first
-        value = project_rate.rate * overlap_in_days
+        value = project_rate * overlap_in_days
         @project_report_user_stats[user].value_at_project_rate_card += value 
         @project_report_role_stats[role].value_at_project_rate_card += value
         
         # standard rate
         br_query = BillingRate.for_role(role).for_worklog_task(WorklogTask.standard_rate_card).start_date(overlap_start)
-        if br_query.size == 0
-          raise DataGenerationError.new("No standard billing rate defined at time #{overlap_start} for role #{role.name}. Please add!")
+        standard_rate = if br_query.size == 0 and role == Role.uncharged_role
+          0.0
+        else
+          br_query.first.rate
         end
-        standard_rate = br_query.first
-        value = standard_rate.rate * overlap_in_days
+        value = standard_rate * overlap_in_days
         @project_report_user_stats[user].value_at_standard_rate_card += value
         @project_report_role_stats[role].value_at_standard_rate_card += value
       end
@@ -266,9 +271,10 @@ class ReportsController < ApplicationController
     # figure out role
     role_query = RoleAllocation.for_user(user).for_worklog_task(task).start_date(d.to_date)
     if role_query.size == 0
-      raise DataGenerationError.new("No roles defined at time #{d}, company '#{task.company.name}', task '#{task.name}' for user #{user.alias}. Please add!")
+      Role.uncharged_role
+    else
+      role_query.first.role
     end
-    role_query.first.role
   end
   
   def generate_role_allocations(tasks)
