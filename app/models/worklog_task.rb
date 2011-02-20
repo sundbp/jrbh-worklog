@@ -32,7 +32,7 @@ class WorklogTask < ActiveRecord::Base
   
   scope :sickness, joins(:company).where(:name => "Sickness").merge(Company.jrbh)
   
-  default_scope joins(:company).order("companies.name").by_name
+  default_scope joins(:company).order("companies.name").by_name.readonly(false)
   
   def self.standard_rate_card
     WorklogTask.joins(:company).where("companies.name = ? AND worklog_tasks.name = ?", "JRBH", "Standard Rate Card").first
