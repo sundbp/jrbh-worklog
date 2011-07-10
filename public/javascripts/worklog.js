@@ -94,7 +94,7 @@ $(document).ready(function() {
             var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
             var worklogTaskIdField = $dialogContent.find("select[id='worklog_task_id']").val(calEvent.worklog_task_id);
 
-            $dialogContent.find("textarea[id='comment']").val(calEvent.comment);
+            $dialogContent.find("textarea[id='comment']").text(calEvent.comment);
 
             $dialogContent.dialog({
                 modal: true,
@@ -176,7 +176,7 @@ $(document).ready(function() {
     });
 
     function resetForm($dialogContent) {
-        $dialogContent.find("textarea[name='comment']").val("");
+        $dialogContent.find("textarea[name='comment']").text("");
     }
 
     function handleEnterPress(e, calEvent, caller) {
