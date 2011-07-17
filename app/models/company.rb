@@ -13,7 +13,7 @@ class Company < ActiveRecord::Base
   scope :jrbh, where(:name => "JRBH")
   
   def self.internal_company_list
-    ["JRBH", "Board IQ", "Revenue IQ"]
+    ["JRBH", "Board IQ", "Revenue IQ", "Strategy IQ"]
   end
   
 end
